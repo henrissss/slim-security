@@ -1066,6 +1066,10 @@
       dateFormat: 'Y-m-d',
       altInput: true,
       altFormat: 'F j, Y',
+      disableMobile: true, // keep flatpickr's own calendar on phones too — the native mobile
+                            // date picker it would otherwise fall back to doesn't know about
+                            // our unavailable/booked dates, so it was letting past & booked
+                            // dates through on mobile.
       disable: unavailableDates,
     });
   }
