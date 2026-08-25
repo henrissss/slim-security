@@ -853,7 +853,7 @@
               </select>
             </div>
           </div>
-          <div class="field" id="preferredDateField">
+          <div class="field" id="preferredDateField" style="display:none;">
             <label for="preferredDate">Install date <span id="dateFieldOptionalTag" style="font-weight:400;color:#8092ab;">(only needed if booking a package)</span></label>
             <input type="text" id="preferredDate" name="preferredDate" placeholder="Select an available date" autocomplete="off">
             <span class="field-hint" id="dateFieldHint">Fully booked dates are greyed out — we currently do one install per day.</span>
@@ -863,10 +863,10 @@
             <textarea id="message" name="message" placeholder="Number of entrances, home type, specific concerns..."></textarea>
           </div>
           <div class="submit-row">
-            <button type="submit" class="btn btn-primary" id="quoteSubmitBtn">Book &amp; Continue to Payment
+            <button type="submit" class="btn btn-primary" id="quoteSubmitBtn">Get My Free Quote
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
-            <span class="form-note">Selecting a package books your install slot and takes payment. Not sure yet? Pick that option to just request a quote.</span>
+            <span class="form-note">No spam, no obligation. We'll call you shortly to confirm details and schedule your install — payment is handled in person.</span>
           </div>
           <div class="form-success" id="formSuccess">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
@@ -1017,6 +1017,11 @@
   const packageSelect = document.getElementById('package');
   const dateInput = document.getElementById('preferredDate');
 
+  // Flip this to true to turn the date-picker + online payment flow back on
+  // (everything for it is still here, just switched off for now while
+  // appointments are booked by phone and payment is taken in person).
+  const PAYMENTS_ENABLED = false;
+
   let stripe = null;
   let cardElement = null;
   let currentClientSecret = null;
@@ -1073,15 +1078,18 @@
       disable: unavailableDates,
     });
   }
-  loadAvailabilityAndInitPicker();
+  if (PAYMENTS_ENABLED) {
+    document.getElementById('preferredDateField').style.display = '';
+    loadAvailabilityAndInitPicker();
 
-  // Only require an install date when the customer is booking a real package.
-  function updateDateRequirement() {
-    const needsDate = packageSelect.value !== 'Not sure yet';
-    document.getElementById('dateFieldOptionalTag').style.display = needsDate ? 'none' : 'inline';
+    // Only require an install date when the customer is booking a real package.
+    function updateDateRequirement() {
+      const needsDate = packageSelect.value !== 'Not sure yet';
+      document.getElementById('dateFieldOptionalTag').style.display = needsDate ? 'none' : 'inline';
+    }
+    packageSelect.addEventListener('change', updateDateRequirement);
+    updateDateRequirement();
   }
-  packageSelect.addEventListener('change', updateDateRequirement);
-  updateDateRequirement();
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -1099,8 +1107,10 @@
       notes: document.getElementById('message').value.trim() || null,
     };
 
-    if (pkg === 'Not sure yet') {
-      // Plain quote request — no date/payment, but it does get saved so you can follow up.
+    if (!PAYMENTS_ENABLED || pkg === 'Not sure yet') {
+      // Online booking/payment is currently switched off (PAYMENTS_ENABLED = false above) —
+      // every submission is treated as a quote request/lead regardless of package chosen,
+      // and saved so you can call the customer back to book + collect payment in person.
       submitBtn.disabled = true;
       try {
         const res = await fetch('/api/leads', {
