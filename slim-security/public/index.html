@@ -10,6 +10,24 @@
 
   gtag('config', 'AW-18412402704');
 </script>
+<!-- Event snippet for Submit lead form conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-18412402704/pHapCLHguugcEJDw28tE',
+      'value': 1.0,
+      'currency': 'USD',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Slim CCTV Security | Cutting-Edge Home Security Cameras in NJ & NY</title>
@@ -1037,18 +1055,11 @@
   let currentAppointmentId = null;
   let currentAmountCents = 0;
 
-  // Google Ads conversion tracking — "Submit lead form" (fires right when a
-  // quote request or booking is successfully saved, since this form submits
-  // via JS and never navigates to a separate "thank you" page).
-  function reportLeadConversion() {
-    if (typeof gtag === 'function') {
-      gtag('event', 'conversion', {
-          'send_to': 'AW-18412402704/pHapCLHguugcEJDw28tE',
-          'value': 1.0,
-          'currency': 'USD'
-      });
-    }
-  }
+  // gtag_report_conversion() itself is defined in <head>, right after the
+  // Google tag, per Google Ads' instructions — called below right when a
+  // quote request or booking is successfully saved (this form submits via
+  // JS and never navigates to a separate "thank you" page, so no redirect
+  // url is passed).
 
   function money(cents) {
     return '$' + (cents / 100).toFixed(2);
@@ -1151,7 +1162,7 @@
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Could not send your request — please try again.');
 
-        reportLeadConversion();
+        gtag_report_conversion();
         success.classList.add('show');
         form.reset();
         if (picker) picker.clear();
@@ -1187,7 +1198,7 @@
       currentAppointmentId = data.appointmentId;
       currentAmountCents = data.amountCents;
 
-      reportLeadConversion();
+      gtag_report_conversion();
 
       document.getElementById('paySummaryPackage').textContent = pkg;
       document.getElementById('paySummaryAmount').textContent = money(currentAmountCents);
