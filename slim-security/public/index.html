@@ -1037,6 +1037,19 @@
   let currentAppointmentId = null;
   let currentAmountCents = 0;
 
+  // Google Ads conversion tracking — "Submit lead form" (fires right when a
+  // quote request or booking is successfully saved, since this form submits
+  // via JS and never navigates to a separate "thank you" page).
+  function reportLeadConversion() {
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', {
+          'send_to': 'AW-18412402704/pHapCLHguugcEJDw28tE',
+          'value': 1.0,
+          'currency': 'USD'
+      });
+    }
+  }
+
   function money(cents) {
     return '$' + (cents / 100).toFixed(2);
   }
@@ -1138,6 +1151,7 @@
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Could not send your request — please try again.');
 
+        reportLeadConversion();
         success.classList.add('show');
         form.reset();
         if (picker) picker.clear();
@@ -1172,6 +1186,8 @@
 
       currentAppointmentId = data.appointmentId;
       currentAmountCents = data.amountCents;
+
+      reportLeadConversion();
 
       document.getElementById('paySummaryPackage').textContent = pkg;
       document.getElementById('paySummaryAmount').textContent = money(currentAmountCents);
