@@ -1412,18 +1412,30 @@ function gtag_report_conversion(url) {
   // (/api/track), no third-party analytics account needed. View the results
   // at /admin/visits.
   (function () {
-    // One id per browser tab. Persists across a reload within the same tab
-    // (sessionStorage) so a refresh doesn't count as a brand-new visitor.
+    // One id per visitor, shared across every tab on this browser — not
+    // per-tab — with a 30-minute inactivity window (same convention as
+    // Google Analytics' "session"). Switching between multiple tabs of the
+    // site, or coming back within 30 minutes, reuses the same id instead of
+    // counting as a new visit; only a genuinely new visitor, or someone
+    // returning after being away 30+ minutes, gets a fresh one.
+    const SESSION_TIMEOUT_MS = 30 * 60 * 1000;
+    function newId() {
+      return 'v_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+    }
     let sessionId;
     try {
-      sessionId = sessionStorage.getItem('ss_session_id');
-      if (!sessionId) {
-        sessionId = 'v_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
-        sessionStorage.setItem('ss_session_id', sessionId);
-      }
+      const stored = JSON.parse(localStorage.getItem('ss_visitor_session') || 'null');
+      const fresh = stored && stored.id && (Date.now() - stored.lastActive) < SESSION_TIMEOUT_MS;
+      sessionId = fresh ? stored.id : newId();
+      localStorage.setItem('ss_visitor_session', JSON.stringify({ id: sessionId, lastActive: Date.now() }));
     } catch (e) {
       // Private browsing / storage blocked — fall back to a per-load id.
-      sessionId = 'v_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+      sessionId = newId();
+    }
+    function touchSession() {
+      try {
+        localStorage.setItem('ss_visitor_session', JSON.stringify({ id: sessionId, lastActive: Date.now() }));
+      } catch (e) { /* ignore */ }
     }
 
     const sectionSeconds = {}; // { sectionId: accumulatedSeconds }
@@ -1481,6 +1493,7 @@ function gtag_report_conversion(url) {
 
     function send(final) {
       flushActiveTime();
+      touchSession();
       const payload = {
         sessionId,
         referrer: document.referrer || null,
