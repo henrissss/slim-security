@@ -188,6 +188,75 @@ app.get('/api/admin/leads', (req, res) => {
   res.json(rows);
 });
 
+// ---------- Visitor tracking (time on page + which sections were viewed) ----------
+// The site sends a beacon periodically (every 15s) and again right when the
+// visitor leaves, each time with the session's running totals. Each beacon
+// just overwrites the same row (INSERT ... ON CONFLICT), so this always
+// reflects the latest known state of that visit — including visits that are
+// still ongoing.
+app.post('/api/track', (req, res) => {
+  const {
+    sessionId, referrer, landingPath, userAgent,
+    screenW, screenH, totalSeconds, sections, clicks, converted,
+  } = req.body || {};
+
+  if (!sessionId) return res.status(400).json({ error: 'Missing sessionId.' });
+
+  db.prepare(`
+    INSERT INTO visits (session_id, referrer, landing_path, user_agent, screen_w, screen_h, total_seconds, sections_json, clicks_json, converted, last_seen_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+    ON CONFLICT(session_id) DO UPDATE SET
+      total_seconds = excluded.total_seconds,
+      sections_json = excluded.sections_json,
+      clicks_json = excluded.clicks_json,
+      converted = MAX(converted, excluded.converted),
+      last_seen_at = datetime('now')
+  `).run(
+    sessionId,
+    referrer || null,
+    landingPath || null,
+    userAgent || null,
+    screenW || null,
+    screenH || null,
+    Math.max(0, Math.round(totalSeconds || 0)),
+    JSON.stringify(sections || {}),
+    JSON.stringify(clicks || {}),
+    converted ? 1 : 0,
+  );
+
+  res.status(204).end();
+});
+
+app.get('/api/admin/visits', (req, res) => {
+  const rows = db.prepare('SELECT * FROM visits ORDER BY last_seen_at DESC').all();
+  const visits = rows.map((r) => ({
+    ...r,
+    sections: JSON.parse(r.sections_json || '{}'),
+    clicks: JSON.parse(r.clicks_json || '{}'),
+  }));
+
+  const totalVisits = visits.length;
+  const avgSeconds = totalVisits
+    ? Math.round(visits.reduce((sum, v) => sum + v.total_seconds, 0) / totalVisits)
+    : 0;
+  const converted = visits.filter((v) => v.converted).length;
+  const sectionTotals = {};
+  const ctaTotals = {};
+  for (const v of visits) {
+    for (const [section, seconds] of Object.entries(v.sections)) {
+      sectionTotals[section] = (sectionTotals[section] || 0) + seconds;
+    }
+    for (const [cta, count] of Object.entries(v.clicks)) {
+      ctaTotals[cta] = (ctaTotals[cta] || 0) + count;
+    }
+  }
+
+  res.json({
+    summary: { totalVisits, avgSeconds, converted, sectionTotals, ctaTotals },
+    visits,
+  });
+});
+
 // ---------- Appointments ----------
 app.post('/api/appointments', (req, res) => {
   const { firstName, lastName, phone, email, zip, package: pkg, preferredDate, notes } = req.body || {};

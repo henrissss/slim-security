@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visitor Analytics — Slim CCTV Security</title>
+<style>
+  :root {
+    --navy-950:#0a0f1c; --navy-800:#121d33; --slate-400:#8fa1bd; --slate-300:#b7c3d9;
+    --cyan-400:#3ddcd6; --blue-500:#3b82f6; --white:#f4f7fb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin:0; background:var(--navy-950); color:var(--white);
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    padding:32px 24px 80px;
+  }
+  h1 { font-size:22px; margin:0 0 4px; }
+  .sub { color:var(--slate-400); font-size:14px; margin:0 0 28px; }
+  .stat-row { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:28px; }
+  .stat {
+    background:var(--navy-800); border-radius:12px; padding:16px 20px; min-width:140px;
+    border:1px solid #1a2942;
+  }
+  .stat .num { font-size:26px; font-weight:800; }
+  .stat .label { font-size:12.5px; color:var(--slate-400); margin-top:2px; }
+  .section-bars { background:var(--navy-800); border-radius:12px; padding:20px; margin-bottom:28px; border:1px solid #1a2942; }
+  .section-bars h2 { font-size:15px; margin:0 0 14px; color:var(--slate-300); }
+  .bar-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; font-size:13px; }
+  .bar-label { width:110px; flex-shrink:0; color:var(--slate-300); }
+  .bar-track { flex:1; background:#1a2942; border-radius:6px; height:10px; overflow:hidden; }
+  .bar-fill { height:100%; background:linear-gradient(90deg, var(--cyan-400), var(--blue-500)); }
+  .bar-val { width:70px; text-align:right; color:var(--slate-400); flex-shrink:0; }
+  table { width:100%; border-collapse:collapse; font-size:13px; background:var(--navy-800); border-radius:12px; overflow:hidden; }
+  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid #1a2942; white-space:nowrap; }
+  th { color:var(--slate-400); font-weight:600; font-size:11.5px; text-transform:uppercase; letter-spacing:0.03em; }
+  tr:last-child td { border-bottom:none; }
+  .badge { display:inline-block; padding:2px 8px; border-radius:100px; font-size:11px; font-weight:700; }
+  .badge.yes { background:rgba(61,220,214,0.15); color:var(--cyan-400); }
+  .badge.no { background:rgba(255,255,255,0.06); color:var(--slate-400); }
+  .empty { color:var(--slate-400); padding:24px; text-align:center; }
+  .table-wrap { overflow-x:auto; }
+  a { color:var(--cyan-400); }
+</style>
+</head>
+<body>
+  <h1>Visitor analytics</h1>
+  <p class="sub">Time on page and which sections visitors viewed. Updates live as visits come in — reload this page to refresh.</p>
+
+  <div class="stat-row" id="statRow"></div>
+
+  <div class="section-bars">
+    <h2>Total time spent per section (all visitors combined)</h2>
+    <div id="sectionBars"></div>
+  </div>
+
+  <div class="section-bars">
+    <h2>Button clicks (all visitors combined)</h2>
+    <div id="ctaBars"></div>
+  </div>
+
+  <div class="table-wrap">
+    <table id="visitsTable">
+      <thead>
+        <tr>
+          <th>Last seen</th>
+          <th>Time on site</th>
+          <th>Converted</th>
+          <th>Buttons clicked</th>
+          <th>Top sections viewed</th>
+          <th>Referrer</th>
+          <th>Screen</th>
+        </tr>
+      </thead>
+      <tbody id="visitsBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    function fmtSeconds(s) {
+      s = Math.round(s);
+      if (s < 60) return s + 's';
+      const m = Math.floor(s / 60), rem = s % 60;
+      return m + 'm ' + rem + 's';
+    }
+    function fmtWhen(iso) {
+      if (!iso) return '—';
+      return new Date(iso.replace(' ', 'T') + 'Z').toLocaleString();
+    }
+    function topSections(sections) {
+      return Object.entries(sections || {})
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3)
+        .map(([id, secs]) => id + ' (' + fmtSeconds(secs) + ')')
+        .join(', ') || '—';
+    }
+    function fmtClicks(clicks) {
+      return Object.entries(clicks || {})
+        .sort((a, b) => b[1] - a[1])
+        .map(([label, count]) => label + (count > 1 ? ' ×' + count : ''))
+        .join(', ') || '—';
+    }
+
+    fetch('/api/admin/visits')
+      .then((r) => r.json())
+      .then(({ summary, visits }) => {
+        document.getElementById('statRow').innerHTML = `
+          <div class="stat"><div class="num">${summary.totalVisits}</div><div class="label">Total visits</div></div>
+          <div class="stat"><div class="num">${fmtSeconds(summary.avgSeconds)}</div><div class="label">Avg. time on site</div></div>
+          <div class="stat"><div class="num">${summary.converted}</div><div class="label">Converted to lead/booking</div></div>
+          <div class="stat"><div class="num">${summary.totalVisits ? Math.round((summary.converted / summary.totalVisits) * 100) : 0}%</div><div class="label">Conversion rate</div></div>
+        `;
+
+        const sectionEntries = Object.entries(summary.sectionTotals || {}).sort((a, b) => b[1] - a[1]);
+        const maxSec = sectionEntries.length ? sectionEntries[0][1] : 1;
+        document.getElementById('sectionBars').innerHTML = sectionEntries.length
+          ? sectionEntries.map(([id, secs]) => `
+              <div class="bar-row">
+                <div class="bar-label">${id}</div>
+                <div class="bar-track"><div class="bar-fill" style="width:${Math.max(4, (secs / maxSec) * 100)}%"></div></div>
+                <div class="bar-val">${fmtSeconds(secs)}</div>
+              </div>
+            `).join('')
+          : '<p class="empty">No section data yet.</p>';
+
+        const ctaEntries = Object.entries(summary.ctaTotals || {}).sort((a, b) => b[1] - a[1]);
+        const maxCta = ctaEntries.length ? ctaEntries[0][1] : 1;
+        document.getElementById('ctaBars').innerHTML = ctaEntries.length
+          ? ctaEntries.map(([label, count]) => `
+              <div class="bar-row">
+                <div class="bar-label" style="width:220px;">${label}</div>
+                <div class="bar-track"><div class="bar-fill" style="width:${Math.max(4, (count / maxCta) * 100)}%"></div></div>
+                <div class="bar-val">${count} click${count === 1 ? '' : 's'}</div>
+              </div>
+            `).join('')
+          : '<p class="empty">No button clicks recorded yet.</p>';
+
+        const body = document.getElementById('visitsBody');
+        if (!visits.length) {
+          body.innerHTML = '<tr><td colspan="7" class="empty">No visits recorded yet — check back after your ad campaign starts sending traffic.</td></tr>';
+          return;
+        }
+        body.innerHTML = visits.map((v) => `
+          <tr>
+            <td>${fmtWhen(v.last_seen_at)}</td>
+            <td>${fmtSeconds(v.total_seconds)}</td>
+            <td>${v.converted ? '<span class="badge yes">Yes</span>' : '<span class="badge no">No</span>'}</td>
+            <td>${fmtClicks(v.clicks)}</td>
+            <td>${topSections(v.sections)}</td>
+            <td>${v.referrer || 'Direct'}</td>
+            <td>${v.screen_w && v.screen_h ? v.screen_w + '×' + v.screen_h : '—'}</td>
+          </tr>
+        `).join('');
+      })
+      .catch(() => {
+        document.getElementById('visitsBody').innerHTML = '<tr><td colspan="7" class="empty">Could not load visits.</td></tr>';
+      });
+  </script>
+</body>
+</html>

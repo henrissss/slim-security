@@ -475,7 +475,7 @@ function gtag_report_conversion(url) {
         <a href="#area">Service Area</a>
         <a href="#faq">FAQ</a>
       </div>
-      <a href="#contact" class="nav-cta">Get a Free Quote</a>
+      <a href="#contact" class="nav-cta" data-track-cta="Nav — Get a Free Quote">Get a Free Quote</a>
       <div class="burger" id="burger"><span></span><span></span><span></span></div>
     </nav>
   </div>
@@ -487,7 +487,7 @@ function gtag_report_conversion(url) {
   <a href="#pricing">Pricing</a>
   <a href="#area">Service Area</a>
   <a href="#faq">FAQ</a>
-  <a href="#contact" class="nav-cta">Get a Free Quote</a>
+  <a href="#contact" class="nav-cta" data-track-cta="Mobile nav — Get a Free Quote">Get a Free Quote</a>
 </div>
 
 <section class="hero" id="top">
@@ -497,10 +497,10 @@ function gtag_report_conversion(url) {
       <h1>See every door, gate, and driveway — from your phone, day or night, <span class="grad">at a fraction of the price.</span></h1>
       <p class="lead">Slim CCTV Security designs, installs, and supports professional-grade home camera systems for New Jersey and New York homeowners — without the inflated big-brand markup.</p>
       <div class="hero-ctas">
-        <a href="#contact" class="btn btn-primary">Get My Free Quote
+        <a href="#contact" class="btn btn-primary" data-track-cta="Hero — Get My Free Quote">Get My Free Quote
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a href="#services" class="btn btn-ghost">See What's Included</a>
+        <a href="#services" class="btn btn-ghost" data-track-cta="Hero — See What's Included">See What's Included</a>
       </div>
       <div class="trust-row">
         <div class="trust-item">
@@ -534,7 +534,7 @@ function gtag_report_conversion(url) {
   </div>
 </section>
 
-<section class="value-section">
+<section class="value-section" id="value">
   <div class="container">
     <div class="section-head center reveal">
       <span class="eyebrow">Why Slim</span>
@@ -689,7 +689,7 @@ function gtag_report_conversion(url) {
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>30-day cloud storage</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Movement alerts, day &amp; night</li>
         </ul>
-        <a href="#contact" class="btn btn-dark">Get This Package</a>
+        <a href="#contact" class="btn btn-dark" data-track-cta="Pricing — Starter — Get This Package">Get This Package</a>
       </div>
       <div class="price-card featured">
         <div class="price-tag">Most Popular</div>
@@ -704,7 +704,7 @@ function gtag_report_conversion(url) {
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>AI search — person &amp; vehicle detection</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Movement alerts, day &amp; night</li>
         </ul>
-        <a href="#contact" class="btn btn-primary">Get This Package</a>
+        <a href="#contact" class="btn btn-primary" data-track-cta="Pricing — Essential — Get This Package">Get This Package</a>
       </div>
       <div class="price-card">
         <h3>Complete</h3>
@@ -717,7 +717,7 @@ function gtag_report_conversion(url) {
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 professional monitoring</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Full smart home integration</li>
         </ul>
-        <a href="#contact" class="btn btn-dark">Get a Quote</a>
+        <a href="#contact" class="btn btn-dark" data-track-cta="Pricing — Complete — Get a Quote">Get a Quote</a>
       </div>
     </div>
   </div>
@@ -757,7 +757,7 @@ function gtag_report_conversion(url) {
   </div>
 </section>
 
-<section class="testi-section">
+<section class="testi-section" id="testimonials">
   <div class="container">
     <div class="section-head center reveal">
       <span class="eyebrow">Customer stories</span>
@@ -1163,6 +1163,7 @@ function gtag_report_conversion(url) {
         if (!res.ok) throw new Error(data.error || 'Could not send your request — please try again.');
 
         gtag_report_conversion();
+        window.dispatchEvent(new Event('ss:lead-submitted'));
         success.classList.add('show');
         form.reset();
         if (picker) picker.clear();
@@ -1403,6 +1404,119 @@ function gtag_report_conversion(url) {
     });
     handler.open();
   });
+</script>
+
+<script>
+  // ===== Visitor engagement tracking (time on page + section views) =====
+  // Self-hosted — sends periodic + on-exit beacons to your own server
+  // (/api/track), no third-party analytics account needed. View the results
+  // at /admin/visits.
+  (function () {
+    // One id per browser tab. Persists across a reload within the same tab
+    // (sessionStorage) so a refresh doesn't count as a brand-new visitor.
+    let sessionId;
+    try {
+      sessionId = sessionStorage.getItem('ss_session_id');
+      if (!sessionId) {
+        sessionId = 'v_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+        sessionStorage.setItem('ss_session_id', sessionId);
+      }
+    } catch (e) {
+      // Private browsing / storage blocked — fall back to a per-load id.
+      sessionId = 'v_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+    }
+
+    const sectionSeconds = {}; // { sectionId: accumulatedSeconds }
+    const visibleSince = {};   // { sectionId: timestamp last became visible }
+    const ctaClicks = {};      // { ctaLabel: clickCount }
+    let totalSeconds = 0;
+    let activeSince = document.visibilityState === 'visible' ? Date.now() : null;
+    let converted = false;
+
+    // Track clicks on every button/link tagged with data-track-cta (the
+    // header/hero/pricing "Get a Quote" / "Get This Package" buttons, etc.).
+    // Delegated on document so it still works if the page changes later.
+    document.addEventListener('click', (e) => {
+      const el = e.target.closest('[data-track-cta]');
+      if (!el) return;
+      const label = el.getAttribute('data-track-cta');
+      ctaClicks[label] = (ctaClicks[label] || 0) + 1;
+      send(false); // report immediately — CTA clicks are worth seeing in real time
+    });
+
+    function flushActiveTime() {
+      if (activeSince != null) {
+        totalSeconds += (Date.now() - activeSince) / 1000;
+        activeSince = document.visibilityState === 'visible' ? Date.now() : null;
+      }
+    }
+
+    // Track which sections are on screen using IntersectionObserver — far
+    // cheaper than a scroll listener and accurate for "did they actually see
+    // this part of the page".
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver((entries) => {
+      const now = Date.now();
+      entries.forEach((entry) => {
+        const id = entry.target.id;
+        if (entry.isIntersecting) {
+          visibleSince[id] = now;
+        } else if (visibleSince[id]) {
+          sectionSeconds[id] = (sectionSeconds[id] || 0) + (now - visibleSince[id]) / 1000;
+          delete visibleSince[id];
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach((s) => observer.observe(s));
+
+    function currentSectionSnapshot() {
+      const now = Date.now();
+      const snapshot = { ...sectionSeconds };
+      for (const id in visibleSince) {
+        snapshot[id] = (snapshot[id] || 0) + (now - visibleSince[id]) / 1000;
+      }
+      Object.keys(snapshot).forEach((k) => { snapshot[k] = Math.round(snapshot[k]); });
+      return snapshot;
+    }
+
+    function send(final) {
+      flushActiveTime();
+      const payload = {
+        sessionId,
+        referrer: document.referrer || null,
+        landingPath: location.pathname,
+        userAgent: navigator.userAgent,
+        screenW: window.screen ? window.screen.width : null,
+        screenH: window.screen ? window.screen.height : null,
+        totalSeconds: Math.round(totalSeconds),
+        sections: currentSectionSnapshot(),
+        clicks: ctaClicks,
+        converted,
+      };
+      const body = JSON.stringify(payload);
+      try {
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon('/api/track', new Blob([body], { type: 'application/json' }));
+        } else {
+          fetch('/api/track', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, keepalive: true });
+        }
+      } catch (e) { /* tracking should never break the page */ }
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      flushActiveTime();
+      if (document.visibilityState === 'hidden') send(false);
+    });
+    window.addEventListener('pagehide', () => send(true));
+
+    // Safety-net heartbeat in case the visitor never triggers the events
+    // above (some mobile browsers are inconsistent about it).
+    setInterval(() => send(false), 15000);
+
+    // Mark this session as converted the moment a lead/booking succeeds, so
+    // it shows up tied to the same visit in /admin/visits.
+    window.addEventListener('ss:lead-submitted', () => { converted = true; send(false); });
+  })();
 </script>
 
 </body>
