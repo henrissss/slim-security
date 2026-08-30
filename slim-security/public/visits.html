@@ -31,8 +31,16 @@
   .bar-track { flex:1; background:#1a2942; border-radius:6px; height:10px; overflow:hidden; }
   .bar-fill { height:100%; background:linear-gradient(90deg, var(--cyan-400), var(--blue-500)); }
   .bar-val { width:70px; text-align:right; color:var(--slate-400); flex-shrink:0; }
+  .ab-table { width:100%; border-collapse:collapse; font-size:13.5px; }
+  .ab-table th, .ab-table td { text-align:left; padding:8px 12px; }
+  .ab-table th { color:var(--slate-400); font-weight:600; font-size:11.5px; text-transform:uppercase; letter-spacing:0.03em; }
+  .ab-table td.num { font-weight:700; }
+  .ab-table tr.winner td.num { color:var(--cyan-400); }
   table { width:100%; border-collapse:collapse; font-size:13px; background:var(--navy-800); border-radius:12px; overflow:hidden; }
-  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid #1a2942; white-space:nowrap; }
+  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid #1a2942; vertical-align:top; }
+  td { white-space:normal; }
+  th { white-space:nowrap; }
+  td.nowrap { white-space:nowrap; }
   th { color:var(--slate-400); font-weight:600; font-size:11.5px; text-transform:uppercase; letter-spacing:0.03em; }
   tr:last-child td { border-bottom:none; }
   .badge { display:inline-block; padding:2px 8px; border-radius:100px; font-size:11px; font-weight:700; }
@@ -50,6 +58,11 @@
   <div class="stat-row" id="statRow"></div>
 
   <div class="section-bars">
+    <h2>Version comparison — which page converts best</h2>
+    <div id="abTable"></div>
+  </div>
+
+  <div class="section-bars">
     <h2>Total time spent per section (all visitors combined)</h2>
     <div id="sectionBars"></div>
   </div>
@@ -63,11 +76,13 @@
     <table id="visitsTable">
       <thead>
         <tr>
+          <th>Visitor</th>
+          <th>Page</th>
           <th>Last seen</th>
           <th>Time on site</th>
           <th>Converted</th>
           <th>Buttons clicked</th>
-          <th>Top sections viewed</th>
+          <th>Time per section</th>
           <th>Referrer</th>
           <th>Screen</th>
         </tr>
@@ -87,10 +102,9 @@
       if (!iso) return '—';
       return new Date(iso.replace(' ', 'T') + 'Z').toLocaleString();
     }
-    function topSections(sections) {
+    function allSections(sections) {
       return Object.entries(sections || {})
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 3)
         .map(([id, secs]) => id + ' (' + fmtSeconds(secs) + ')')
         .join(', ') || '—';
     }
@@ -99,6 +113,12 @@
         .sort((a, b) => b[1] - a[1])
         .map(([label, count]) => label + (count > 1 ? ' ×' + count : ''))
         .join(', ') || '—';
+    }
+    function pageLabel(path) {
+      if (path === '/v2.html' || path === '/v2') return 'Restructured (v2)';
+      if (path === '/v3.html' || path === '/v3') return 'Conversion-focused (v3)';
+      if (path === '/' || path === '/index.html' || !path) return 'Original';
+      return path;
     }
 
     fetch('/api/admin/visits')
@@ -110,6 +130,42 @@
           <div class="stat"><div class="num">${summary.converted}</div><div class="label">Converted to lead/booking</div></div>
           <div class="stat"><div class="num">${summary.totalVisits ? Math.round((summary.converted / summary.totalVisits) * 100) : 0}%</div><div class="label">Conversion rate</div></div>
         `;
+
+        // Group visits by landing page to compare the original site against
+        // the new layout (/v2.html) — same visitor id will never span both,
+        // since it's decided once per session, so these are clean cohorts.
+        const byPage = {};
+        visits.forEach((v) => {
+          const key = pageLabel(v.landing_path);
+          if (!byPage[key]) byPage[key] = { visits: 0, totalSeconds: 0, converted: 0 };
+          byPage[key].visits += 1;
+          byPage[key].totalSeconds += v.total_seconds;
+          byPage[key].converted += v.converted ? 1 : 0;
+        });
+        const pageRows = Object.entries(byPage).map(([label, d]) => ({
+          label,
+          visits: d.visits,
+          avgSeconds: d.visits ? Math.round(d.totalSeconds / d.visits) : 0,
+          converted: d.converted,
+          rate: d.visits ? (d.converted / d.visits) * 100 : 0,
+        }));
+        const bestRate = pageRows.length ? Math.max(...pageRows.map((r) => r.rate)) : 0;
+        document.getElementById('abTable').innerHTML = pageRows.length
+          ? `<table class="ab-table"><thead><tr>
+               <th>Page</th><th>Visits</th><th>Avg. time on site</th><th>Converted</th><th>Conversion rate</th>
+             </tr></thead><tbody>
+               ${pageRows.map((r) => `
+                 <tr class="${r.rate === bestRate && bestRate > 0 ? 'winner' : ''}">
+                   <td>${r.label}</td>
+                   <td class="num">${r.visits}</td>
+                   <td class="num">${fmtSeconds(r.avgSeconds)}</td>
+                   <td class="num">${r.converted}</td>
+                   <td class="num">${r.rate.toFixed(1)}%</td>
+                 </tr>
+               `).join('')}
+             </tbody></table>
+             <p style="color:var(--slate-400);font-size:12px;margin:10px 2px 0;">Needs a meaningful number of visits on each page before the difference is reliable — a handful of visits can swing the rate a lot.</p>`
+          : '<p class="empty">No visits yet on either version.</p>';
 
         const sectionEntries = Object.entries(summary.sectionTotals || {}).sort((a, b) => b[1] - a[1]);
         const maxSec = sectionEntries.length ? sectionEntries[0][1] : 1;
@@ -137,23 +193,25 @@
 
         const body = document.getElementById('visitsBody');
         if (!visits.length) {
-          body.innerHTML = '<tr><td colspan="7" class="empty">No visits recorded yet — check back after your ad campaign starts sending traffic.</td></tr>';
+          body.innerHTML = '<tr><td colspan="9" class="empty">No visits recorded yet — check back after your ad campaign starts sending traffic.</td></tr>';
           return;
         }
         body.innerHTML = visits.map((v) => `
           <tr>
-            <td>${fmtWhen(v.last_seen_at)}</td>
-            <td>${fmtSeconds(v.total_seconds)}</td>
-            <td>${v.converted ? '<span class="badge yes">Yes</span>' : '<span class="badge no">No</span>'}</td>
+            <td class="nowrap" title="${v.session_id}">${v.session_id.slice(0, 10)}…</td>
+            <td class="nowrap">${pageLabel(v.landing_path)}</td>
+            <td class="nowrap">${fmtWhen(v.last_seen_at)}</td>
+            <td class="nowrap">${fmtSeconds(v.total_seconds)}</td>
+            <td class="nowrap">${v.converted ? '<span class="badge yes">Yes</span>' : '<span class="badge no">No</span>'}</td>
             <td>${fmtClicks(v.clicks)}</td>
-            <td>${topSections(v.sections)}</td>
+            <td>${allSections(v.sections)}</td>
             <td>${v.referrer || 'Direct'}</td>
             <td>${v.screen_w && v.screen_h ? v.screen_w + '×' + v.screen_h : '—'}</td>
           </tr>
         `).join('');
       })
       .catch(() => {
-        document.getElementById('visitsBody').innerHTML = '<tr><td colspan="7" class="empty">Could not load visits.</td></tr>';
+        document.getElementById('visitsBody').innerHTML = '<tr><td colspan="9" class="empty">Could not load visits.</td></tr>';
       });
   </script>
 </body>

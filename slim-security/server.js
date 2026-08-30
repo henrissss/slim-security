@@ -170,7 +170,7 @@ app.get('/api/availability', (req, res) => {
 app.post('/api/leads', (req, res) => {
   const { firstName, lastName, phone, email, zip, interestedPackage, notes } = req.body || {};
 
-  if (!firstName || !lastName || !phone || !email || !zip) {
+  if (!firstName || !lastName || !phone || !zip) {
     return res.status(400).json({ error: 'Missing required fields.' });
   }
 
@@ -178,7 +178,7 @@ app.post('/api/leads', (req, res) => {
   db.prepare(`
     INSERT INTO leads (id, first_name, last_name, phone, email, zip, interested_package, notes)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(id, firstName, lastName, phone, email, zip, interestedPackage || null, notes || null);
+  `).run(id, firstName, lastName, phone, email || '', zip, interestedPackage || null, notes || null);
 
   res.json({ leadId: id });
 });
