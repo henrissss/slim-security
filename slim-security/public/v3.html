@@ -643,7 +643,7 @@ function gtag_report_conversion(url) {
             <span class="field-hint" id="dateFieldHint">Fully booked dates are greyed out — we currently do one install per day.</span>
           </div>
           <div class="submit-row">
-            <button type="submit" class="btn btn-primary" id="quoteSubmitBtn" style="width:100%;justify-content:center;">Get My Free Quote — No Obligation
+            <button type="submit" class="btn btn-primary" id="quoteSubmitBtn" style="width:100%;justify-content:center;" data-track-cta="Quote form — Submit">Get My Free Quote — No Obligation
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
             <span class="form-note">No spam. We'll call you shortly to confirm details and schedule your install — payment is handled in person.</span>
@@ -1403,6 +1403,7 @@ function gtag_report_conversion(url) {
 
     const sectionSeconds = {}; // { sectionId: accumulatedSeconds }
     const visibleSince = {};   // { sectionId: timestamp last became visible }
+    let pausedSectionIds = []; // sections that were "visible" when the tab was backgrounded
     const ctaClicks = {};      // { ctaLabel: clickCount }
     let totalSeconds = 0;
     let activeSince = document.visibilityState === 'visible' ? Date.now() : null;
@@ -1426,6 +1427,26 @@ function gtag_report_conversion(url) {
       }
     }
 
+    // While the tab is backgrounded, a section can stay "intersecting" for
+    // as long as the tab sits hidden (no scroll happens to change that) —
+    // without pausing, that whole background stretch would get counted as
+    // dwell time on whatever section was on screen when they tabbed away.
+    // These freeze the running timers on hide and pick them back up on show,
+    // the same way flushActiveTime() pauses totalSeconds.
+    function pauseSectionTimers() {
+      const now = Date.now();
+      pausedSectionIds = Object.keys(visibleSince);
+      for (const id of pausedSectionIds) {
+        sectionSeconds[id] = (sectionSeconds[id] || 0) + (now - visibleSince[id]) / 1000;
+        delete visibleSince[id];
+      }
+    }
+    function resumeSectionTimers() {
+      const now = Date.now();
+      for (const id of pausedSectionIds) visibleSince[id] = now;
+      pausedSectionIds = [];
+    }
+
     // Track which sections are on screen using IntersectionObserver — far
     // cheaper than a scroll listener and accurate for "did they actually see
     // this part of the page".
@@ -1441,7 +1462,7 @@ function gtag_report_conversion(url) {
           delete visibleSince[id];
         }
       });
-    }, { threshold: 0.4 });
+    }, { threshold: 0 });
     sections.forEach((s) => observer.observe(s));
 
     function currentSectionSnapshot() {
@@ -1481,7 +1502,12 @@ function gtag_report_conversion(url) {
 
     document.addEventListener('visibilitychange', () => {
       flushActiveTime();
-      if (document.visibilityState === 'hidden') send(false);
+      if (document.visibilityState === 'hidden') {
+        pauseSectionTimers();
+        send(false);
+      } else {
+        resumeSectionTimers();
+      }
     });
     window.addEventListener('pagehide', () => send(true));
 
