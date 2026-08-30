@@ -49,11 +49,23 @@
   .empty { color:var(--slate-400); padding:24px; text-align:center; }
   .table-wrap { overflow-x:auto; }
   a { color:var(--cyan-400); }
+  .table-toolbar {
+    display:flex; align-items:center; gap:12px; margin-bottom:10px; min-height:34px;
+  }
+  .table-toolbar .count { font-size:13px; color:var(--slate-400); }
+  .btn-delete {
+    background:rgba(239,68,68,0.12); color:#f87171; border:1px solid rgba(239,68,68,0.4);
+    border-radius:8px; padding:7px 14px; font-size:13px; font-weight:700; cursor:pointer;
+  }
+  .btn-delete:hover { background:rgba(239,68,68,0.22); }
+  .btn-delete:disabled { opacity:0.4; cursor:not-allowed; }
+  input[type="checkbox"] { width:15px; height:15px; cursor:pointer; accent-color:var(--cyan-400); }
+  td.checkbox-col, th.checkbox-col { width:36px; }
 </style>
 </head>
 <body>
   <h1>Visitor analytics</h1>
-  <p class="sub">Time on page and which sections visitors viewed. Updates live as visits come in — reload this page to refresh.</p>
+  <p class="sub">Time on page and which sections visitors viewed. Updates live as visits come in — reload this page to refresh. Select any rows below (test visits, your own browsing, etc.) and delete them to keep the data clean.</p>
 
   <div class="stat-row" id="statRow"></div>
 
@@ -72,11 +84,18 @@
     <div id="ctaBars"></div>
   </div>
 
+  <div class="table-toolbar">
+    <button class="btn-delete" id="deleteBtn" disabled>Delete selected</button>
+    <span class="count" id="selectedCount"></span>
+  </div>
+
   <div class="table-wrap">
     <table id="visitsTable">
       <thead>
         <tr>
+          <th class="checkbox-col"><input type="checkbox" id="selectAll"></th>
           <th>Visitor</th>
+          <th>Submitted info</th>
           <th>Page</th>
           <th>Last seen</th>
           <th>Time on site</th>
@@ -108,6 +127,9 @@
         .map(([id, secs]) => id + ' (' + fmtSeconds(secs) + ')')
         .join(', ') || '—';
     }
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
     function fmtClicks(clicks) {
       return Object.entries(clicks || {})
         .sort((a, b) => b[1] - a[1])
@@ -121,7 +143,20 @@
       return path;
     }
 
-    fetch('/api/admin/visits')
+    const selected = new Set();
+
+    function updateToolbar() {
+      const deleteBtn = document.getElementById('deleteBtn');
+      const count = document.getElementById('selectedCount');
+      deleteBtn.disabled = selected.size === 0;
+      count.textContent = selected.size ? `${selected.size} selected` : '';
+    }
+
+    function loadVisits() {
+      selected.clear();
+      updateToolbar();
+      document.getElementById('selectAll').checked = false;
+      return fetch('/api/admin/visits')
       .then((r) => r.json())
       .then(({ summary, visits }) => {
         document.getElementById('statRow').innerHTML = `
@@ -193,26 +228,66 @@
 
         const body = document.getElementById('visitsBody');
         if (!visits.length) {
-          body.innerHTML = '<tr><td colspan="9" class="empty">No visits recorded yet — check back after your ad campaign starts sending traffic.</td></tr>';
+          body.innerHTML = '<tr><td colspan="11" class="empty">No visits recorded yet — check back after your ad campaign starts sending traffic.</td></tr>';
           return;
         }
         body.innerHTML = visits.map((v) => `
           <tr>
+            <td class="checkbox-col"><input type="checkbox" class="rowCheck" data-id="${v.session_id}"></td>
             <td class="nowrap" title="${v.session_id}">${v.session_id.slice(0, 10)}…</td>
+            <td class="nowrap">${v.submittedInfo ? escapeHtml(v.submittedInfo) : '—'}</td>
             <td class="nowrap">${pageLabel(v.landing_path)}</td>
             <td class="nowrap">${fmtWhen(v.last_seen_at)}</td>
             <td class="nowrap">${fmtSeconds(v.total_seconds)}</td>
             <td class="nowrap">${v.converted ? '<span class="badge yes">Yes</span>' : '<span class="badge no">No</span>'}</td>
             <td>${fmtClicks(v.clicks)}</td>
             <td>${allSections(v.sections)}</td>
-            <td>${v.referrer || 'Direct'}</td>
+            <td>${v.referrer ? escapeHtml(v.referrer) : 'Direct'}</td>
             <td>${v.screen_w && v.screen_h ? v.screen_w + '×' + v.screen_h : '—'}</td>
           </tr>
         `).join('');
+
+        body.querySelectorAll('.rowCheck').forEach((cb) => {
+          cb.addEventListener('change', () => {
+            if (cb.checked) selected.add(cb.dataset.id);
+            else selected.delete(cb.dataset.id);
+            updateToolbar();
+          });
+        });
       })
       .catch(() => {
-        document.getElementById('visitsBody').innerHTML = '<tr><td colspan="9" class="empty">Could not load visits.</td></tr>';
+        document.getElementById('visitsBody').innerHTML = '<tr><td colspan="11" class="empty">Could not load visits.</td></tr>';
       });
+    }
+
+    document.getElementById('selectAll').addEventListener('change', (e) => {
+      document.querySelectorAll('.rowCheck').forEach((cb) => {
+        cb.checked = e.target.checked;
+        if (cb.checked) selected.add(cb.dataset.id);
+        else selected.delete(cb.dataset.id);
+      });
+      updateToolbar();
+    });
+
+    document.getElementById('deleteBtn').addEventListener('click', () => {
+      if (!selected.size) return;
+      if (!confirm(`Delete ${selected.size} selected visit${selected.size === 1 ? '' : 's'}? This can't be undone.`)) return;
+      const deleteBtn = document.getElementById('deleteBtn');
+      deleteBtn.disabled = true;
+      fetch('/api/admin/visits', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionIds: Array.from(selected) }),
+      })
+        .then((r) => r.json())
+        .then(() => loadVisits())
+        .catch(() => {
+          alert('Could not delete — please try again.');
+          deleteBtn.disabled = false;
+        });
+    });
+
+    loadVisits();
   </script>
 </body>
 </html>

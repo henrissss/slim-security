@@ -1120,6 +1120,7 @@ function gtag_report_conversion(url) {
             zip: payload.zip,
             interestedPackage: pkg,
             notes: payload.notes,
+            sessionId: window.__ssVisitorId || null,
           }),
         });
         const data = await res.json();
@@ -1395,6 +1396,10 @@ function gtag_report_conversion(url) {
       // Private browsing / storage blocked — fall back to a per-load id.
       sessionId = newId();
     }
+    // Exposed so the lead/quote form can tag its submission with this same
+    // id — that's how /admin/visits matches a visit row back to the actual
+    // name/phone/zip someone typed in.
+    window.__ssVisitorId = sessionId;
     function touchSession() {
       try {
         localStorage.setItem('ss_visitor_session', JSON.stringify({ id: sessionId, lastActive: Date.now() }));

@@ -168,7 +168,7 @@ app.get('/api/availability', (req, res) => {
 
 // ---------- Leads (customers who just want a quote, no date/payment yet) ----------
 app.post('/api/leads', (req, res) => {
-  const { firstName, lastName, phone, email, zip, interestedPackage, notes } = req.body || {};
+  const { firstName, lastName, phone, email, zip, interestedPackage, notes, sessionId } = req.body || {};
 
   if (!firstName || !lastName || !phone || !zip) {
     return res.status(400).json({ error: 'Missing required fields.' });
@@ -176,9 +176,9 @@ app.post('/api/leads', (req, res) => {
 
   const id = uuid();
   db.prepare(`
-    INSERT INTO leads (id, first_name, last_name, phone, email, zip, interested_package, notes)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(id, firstName, lastName, phone, email || '', zip, interestedPackage || null, notes || null);
+    INSERT INTO leads (id, first_name, last_name, phone, email, zip, interested_package, notes, session_id)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(id, firstName, lastName, phone, email || '', zip, interestedPackage || null, notes || null, sessionId || null);
 
   res.json({ leadId: id });
 });
@@ -229,11 +229,27 @@ app.post('/api/track', (req, res) => {
 
 app.get('/api/admin/visits', (req, res) => {
   const rows = db.prepare('SELECT * FROM visits ORDER BY last_seen_at DESC').all();
-  const visits = rows.map((r) => ({
-    ...r,
-    sections: JSON.parse(r.sections_json || '{}'),
-    clicks: JSON.parse(r.clicks_json || '{}'),
-  }));
+
+  // Match each visit back to the lead it submitted (if any), so the
+  // dashboard can show who this visitor actually was.
+  const leadRows = db.prepare(`
+    SELECT session_id, first_name, last_name, phone, zip
+    FROM leads
+    WHERE session_id IS NOT NULL
+    ORDER BY created_at ASC
+  `).all();
+  const leadBySession = {};
+  for (const l of leadRows) leadBySession[l.session_id] = l; // last one wins if resubmitted
+
+  const visits = rows.map((r) => {
+    const lead = leadBySession[r.session_id];
+    return {
+      ...r,
+      sections: JSON.parse(r.sections_json || '{}'),
+      clicks: JSON.parse(r.clicks_json || '{}'),
+      submittedInfo: lead ? `${lead.first_name} ${lead.last_name};${lead.phone};${lead.zip}` : null,
+    };
+  });
 
   const totalVisits = visits.length;
   const avgSeconds = totalVisits
@@ -255,6 +271,18 @@ app.get('/api/admin/visits', (req, res) => {
     summary: { totalVisits, avgSeconds, converted, sectionTotals, ctaTotals },
     visits,
   });
+});
+
+// Delete one or more visit rows (used by the "select + delete" controls on
+// /admin/visits.html to clear out test visits and keep only real traffic).
+app.delete('/api/admin/visits', (req, res) => {
+  const { sessionIds } = req.body || {};
+  if (!Array.isArray(sessionIds) || sessionIds.length === 0) {
+    return res.status(400).json({ error: 'sessionIds must be a non-empty array.' });
+  }
+  const placeholders = sessionIds.map(() => '?').join(',');
+  const result = db.prepare(`DELETE FROM visits WHERE session_id IN (${placeholders})`).run(...sessionIds);
+  res.json({ deleted: result.changes });
 });
 
 // ---------- Appointments ----------

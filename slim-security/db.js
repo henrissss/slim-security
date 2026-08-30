@@ -41,6 +41,7 @@ db.exec(`
     interested_package TEXT,   -- usually 'Not sure yet', but kept flexible
     notes TEXT,
     status TEXT NOT NULL DEFAULT 'new', -- new | contacted | converted | closed
+    session_id TEXT,           -- ties this lead back to its /admin/visits row, when known
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
 
@@ -87,6 +88,14 @@ if (!existingColumns.includes('hold_expires_at')) {
 const existingVisitColumns = db.prepare('PRAGMA table_info(visits)').all().map((c) => c.name);
 if (!existingVisitColumns.includes('clicks_json')) {
   db.exec('ALTER TABLE visits ADD COLUMN clicks_json TEXT');
+}
+
+// Same idea: if you're upgrading from a copy of this project that had the
+// leads table before session_id was added (lets /admin/visits show the
+// submitted name/phone/zip right on the matching visit row).
+const existingLeadColumns = db.prepare('PRAGMA table_info(leads)').all().map((c) => c.name);
+if (!existingLeadColumns.includes('session_id')) {
+  db.exec('ALTER TABLE leads ADD COLUMN session_id TEXT');
 }
 
 // Thin wrapper that mimics the handful of better-sqlite3 methods server.js
