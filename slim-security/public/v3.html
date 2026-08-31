@@ -122,6 +122,24 @@ function gtag_report_conversion(url) {
   .burger{display:none;flex-direction:column;gap:5px;width:24px;}
   .burger span{height:2px;background:var(--white);border-radius:2px;transition:transform .3s var(--ease), opacity .3s var(--ease);}
 
+  /* Mobile-only call row under the logo — the header's normal phone number
+     link lives inside .nav-cta, which is hidden below 860px along with the
+     rest of the nav, so without this a mobile visitor has no visible way to
+     call until they open the burger menu. Sits inside the (already
+     position:fixed) header, so it never pushes hero content down — the hero
+     keeps its own padding-top, which already has enough headroom for it. */
+  .header-call-row{display:none;}
+  @media(max-width:860px){
+    .header-call-row{display:flex;justify-content:center;margin-top:12px;}
+    .header-call-row a{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+      color:var(--white);font-size:13.5px;font-weight:700;
+      padding:9px 18px;border-radius:100px;
+    }
+    .header-call-row svg{width:15px;height:15px;flex-shrink:0;}
+  }
+
   .mobile-menu{
     position:fixed;inset:0;background:var(--navy-950);z-index:999;
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
@@ -551,6 +569,12 @@ function gtag_report_conversion(url) {
       </div>
       <div class="burger" id="burger"><span></span><span></span><span></span></div>
     </nav>
+    <div class="header-call-row">
+      <a href="tel:+12012756527" data-track-cta="Header — Call Now">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z"/></svg>
+        Call Now: (201) 275-6527
+      </a>
+    </div>
   </div>
 </header>
 
