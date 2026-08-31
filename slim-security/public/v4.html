@@ -541,10 +541,11 @@ function gtag_report_conversion(url) {
     border-radius:14px;padding:14px 20px;margin:18px 0 24px;
   }
   .price-highlight-row{
-    display:flex;align-items:baseline;gap:8px;font-size:15px;font-weight:700;color:#fff;
-    padding:5px 0;flex-wrap:wrap;
+    display:flex;align-items:flex-start;gap:8px;font-size:15px;font-weight:700;color:#fff;
+    padding:5px 0;flex-wrap:nowrap;
   }
-  .price-highlight-row svg{width:18px;height:18px;flex-shrink:0;color:var(--cyan-400);align-self:center;}
+  .price-highlight-row svg{width:18px;height:18px;flex-shrink:0;color:var(--cyan-400);margin-top:3px;}
+  .price-highlight-row > span{flex:1;min-width:0;}
   .price-highlight-row .amt{color:var(--cyan-400);font-weight:800;}
   .price-highlight-foot{
     margin-top:8px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.12);
@@ -630,18 +631,14 @@ function gtag_report_conversion(url) {
   <div class="container">
     <div class="contact-wrap reveal">
       <div class="contact-info">
-        <div class="urgency-line">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="9"/></svg>
-          Only 1 install slot per day — limited weekly availability
-        </div>
         <div class="price-highlight">
           <div class="price-highlight-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-            4 Cameras + 24/7 Recording + Professional Installation — <span class="amt">$2,099</span>
+            <span>4 Cameras + 24/7 Recording + Professional Home Installation — <span class="amt">$2,099</span></span>
           </div>
           <div class="price-highlight-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-            8 Cameras + 24/7 Recording + Professional Installation — <span class="amt">$2,999</span>
+            <span>8 Cameras + 24/7 Recording + Professional Home Installation — <span class="amt">$2,999</span></span>
           </div>
           <div class="price-highlight-foot">No monthly fees. View everything from your phone.</div>
         </div>
@@ -818,7 +815,7 @@ function gtag_report_conversion(url) {
     <div class="pricing-grid reveal-stagger">
       <div class="price-card">
         <h3>Starter</h3>
-        <p class="price-sub">4 Cameras + 24/7 Recording + Professional Installation</p>
+        <p class="price-sub">4 Cameras + 24/7 Recording + Professional Home Installation</p>
         <div class="price-amount">$2,099 <span>one-time</span></div>
         <p class="price-note">Starting price, install included</p>
         <ul>
@@ -833,7 +830,7 @@ function gtag_report_conversion(url) {
       <div class="price-card featured">
         <div class="price-tag">Most Popular</div>
         <h3>Essential</h3>
-        <p class="price-sub">8 Cameras + 24/7 Recording + Professional Installation</p>
+        <p class="price-sub">8 Cameras + 24/7 Recording + Professional Home Installation</p>
         <div class="price-amount">$2,999 <span>one-time</span></div>
         <p class="price-note">Starting price, install included</p>
         <ul>
@@ -848,7 +845,7 @@ function gtag_report_conversion(url) {
       </div>
       <div class="price-card">
         <h3>Complete</h3>
-        <p class="price-sub">8+ Cameras + 24/7 Recording + Alarm + Professional Installation</p>
+        <p class="price-sub">8+ Cameras + 24/7 Recording + Alarm + Professional Home Installation</p>
         <div class="price-amount" style="font-size:26px;">Get a Quote</div>
         <p class="price-note">Pricing depends on home size &amp; equipment</p>
         <ul>
@@ -965,7 +962,6 @@ function gtag_report_conversion(url) {
   <div class="container">
     <div class="teaser-inner">
       <div class="teaser-text">
-        <span class="eyebrow" style="color:var(--cyan-300, #6ee9e4);">Only 1 install slot per day</span>
         <h2>Ready to see your home in a whole new light?</h2>
         <p>Free, no-obligation quote — we'll call within one business day.</p>
       </div>
