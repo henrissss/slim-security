@@ -98,6 +98,10 @@ function gtag_report_conversion(url) {
   }
   nav{display:flex;align-items:center;justify-content:space-between;}
   .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;letter-spacing:-0.02em;color:var(--white);}
+  .logo-text{display:flex;flex-direction:column;line-height:1.15;}
+  .logo-text .logo-name{font-size:17px;font-weight:800;letter-spacing:0.01em;color:var(--white);}
+  .logo-text .logo-tagline{font-size:10.5px;font-weight:600;letter-spacing:0.02em;color:var(--slate-400);margin-top:1px;white-space:nowrap;}
+  @media(max-width:400px){.logo-text .logo-tagline{font-size:9px;}}
   .logo-mark{
     width:34px;height:34px;border-radius:9px;
     background:linear-gradient(135deg, var(--cyan-400), var(--blue-500));
@@ -483,6 +487,7 @@ function gtag_report_conversion(url) {
 
   /* ===== v3: conversion-focused hero/form + sticky mobile CTA ===== */
   .hero{padding:150px 0 90px;}
+  @media(max-width:640px){.hero{padding-top:112px;}}
   .contact-info .mini-testi{
     margin-top:30px;padding:16px 18px;background:rgba(255,255,255,0.05);
     border:1px solid rgba(255,255,255,0.12);border-radius:12px;position:relative;
@@ -494,6 +499,38 @@ function gtag_report_conversion(url) {
   .hero .contact-info{background:transparent;padding:0 20px 0 0;}
   .hero .contact-info::before{display:none;}
   .hero .contact-wrap{background:transparent;box-shadow:none;border-radius:0;gap:44px;}
+  /* Desktop only: the left column (badge/headline/price box/testimonial) runs
+     much taller than the form, and grid columns stretch to match each other's
+     height by default — without this the white form card stretches down to
+     match it, leaving a big empty white gap below the form's real content.
+     Scoped to >900px since below that .hero .contact-wrap drops to a single
+     column (see the max-width:900px rule below) where this never applied. */
+  @media(min-width:901px){.hero .contact-wrap{align-items:start;}}
+
+  /* Desktop-only float cards below the form, in the space the form no
+     longer stretches into — same glassmorphic "floaty" cards from the
+     original hero-visual on index.html. Hidden on mobile/tablet on
+     purpose: below 900px .hero .contact-wrap drops to a single column and
+     this would just add clutter under an already-stacked layout. */
+  .hero-float-cards{display:none;}
+  @media(min-width:901px){
+    .hero-float-cards{display:flex;flex-direction:column;gap:16px;margin-top:22px;}
+    .hero-float-cards .float-card{
+      background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
+      backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+      border-radius:16px;padding:16px 18px;
+      display:flex;align-items:center;gap:14px;
+      animation:floaty 6s ease-in-out infinite;
+      box-shadow:0 20px 50px -20px rgba(0,0,0,0.5);
+    }
+    .hero-float-cards .float-card:nth-child(2){animation-delay:1.4s;margin-left:40px;}
+    .hero-float-cards .float-card:nth-child(3){animation-delay:2.8s;}
+  }
+  @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+  .float-icon{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg, var(--cyan-400), var(--blue-500));display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .float-icon svg{width:20px;height:20px;color:var(--navy-950);}
+  .float-text b{display:block;color:var(--white);font-size:14px;}
+  .float-text span{color:var(--slate-400);font-size:12.5px;}
   .hero .contact-form{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);padding:38px 34px;color:var(--navy-900);}
   .hero .contact-form h2{font-size:22px;font-weight:700;color:var(--navy-950);margin-bottom:6px;letter-spacing:-0.01em;}
   .hero .contact-form > p{font-size:13.5px;color:#5b6b85;margin-bottom:22px;}
@@ -502,13 +539,15 @@ function gtag_report_conversion(url) {
 
   .price-highlight{
     background:rgba(61,220,214,0.06);border:1.5px solid rgba(61,220,214,0.35);
-    border-radius:14px;padding:16px 20px;margin:18px 0 24px;
+    border-radius:14px;padding:14px 20px;margin:18px 0 24px;
   }
+  @media(max-width:640px){.price-highlight{margin-top:8px;}}
   .price-highlight-row{
-    display:flex;align-items:baseline;gap:10px;font-size:16px;font-weight:700;color:#fff;
-    padding:6px 0;flex-wrap:wrap;
+    display:flex;align-items:flex-start;gap:8px;font-size:15px;font-weight:700;color:#fff;
+    padding:5px 0;flex-wrap:nowrap;
   }
-  .price-highlight-row svg{width:18px;height:18px;flex-shrink:0;color:var(--cyan-400);align-self:center;}
+  .price-highlight-row svg{width:18px;height:18px;flex-shrink:0;color:var(--cyan-400);margin-top:3px;}
+  .price-highlight-row > span{flex:1;min-width:0;}
   .price-highlight-row .amt{color:var(--cyan-400);font-weight:800;}
   .price-highlight-foot{
     margin-top:8px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.12);
@@ -552,7 +591,10 @@ function gtag_report_conversion(url) {
         <span class="logo-mark">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L4 5v6c0 5 3.4 8.9 8 10 4.6-1.1 8-5 8-10V5l-8-3z" fill="#0a0f1c"/></svg>
         </span>
-        Slim CCTV Security
+        <span class="logo-text">
+          <span class="logo-name">SLIM SECURITY</span>
+          <span class="logo-tagline">Home Security Camera Installation</span>
+        </span>
       </a>
       <div class="nav-links" id="navLinks">
         <a href="#pricing">Pricing</a>
@@ -591,18 +633,14 @@ function gtag_report_conversion(url) {
   <div class="container">
     <div class="contact-wrap reveal">
       <div class="contact-info">
-        <div class="urgency-line">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="9"/></svg>
-          Only 1 install slot per day — limited weekly availability
-        </div>
         <div class="price-highlight">
           <div class="price-highlight-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-            4 Cameras + NVR + Professional Installation — <span class="amt">$2,099</span>
+            <span>4 Cameras + 24/7 Recording + Professional Home Installation — <span class="amt">$2,099</span></span>
           </div>
           <div class="price-highlight-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-            8 Cameras + NVR + Professional Installation — <span class="amt">$2,999</span>
+            <span>8 Cameras + 24/7 Recording + Professional Home Installation — <span class="amt">$2,999</span></span>
           </div>
           <div class="price-highlight-foot">No monthly fees. View everything from your phone.</div>
         </div>
@@ -634,6 +672,7 @@ function gtag_report_conversion(url) {
           <div class="who">James M. — Jersey City, NJ</div>
         </div>
       </div>
+      <div class="contact-form-col">
       <div class="contact-form" id="quote-form">
         <h2>Get your free quote</h2>
         <p>Tell us a bit about your home — we'll call within one business day with a custom recommendation and pricing. No obligation.</p>
@@ -717,6 +756,21 @@ function gtag_report_conversion(url) {
           </div>
         </div>
       </div>
+      <div class="hero-float-cards">
+        <div class="float-card">
+          <div class="float-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0f1c" stroke-width="2.2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+          <div class="float-text"><b>4K Live View</b><span>Front door camera</span></div>
+        </div>
+        <div class="float-card">
+          <div class="float-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0f1c" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="float-text"><b>System Armed</b><span>All zones secure</span></div>
+        </div>
+        <div class="float-card">
+          <div class="float-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0f1c" stroke-width="2.2"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg></div>
+          <div class="float-text"><b>Motion Alert</b><span>Backyard, 2 min ago</span></div>
+        </div>
+      </div>
+      </div>
     </div>
   </div>
 </section>
@@ -763,12 +817,12 @@ function gtag_report_conversion(url) {
     <div class="pricing-grid reveal-stagger">
       <div class="price-card">
         <h3>Starter</h3>
-        <p class="price-sub">4 Cameras + NVR + Professional Installation</p>
+        <p class="price-sub">4 Cameras + 24/7 Recording + Professional Home Installation</p>
         <div class="price-amount">$2,099 <span>one-time</span></div>
-        <p class="price-note">Starting price, install included</p>
+        <p class="price-note">All-in price — taxes &amp; installation included</p>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>4 &times; 3K–4K cameras</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>NVR/local recording — no monthly fees</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 Recording — no monthly fees</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Mobile app access</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Night vision &amp; motion alerts</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Professional installation included</li>
@@ -778,12 +832,12 @@ function gtag_report_conversion(url) {
       <div class="price-card featured">
         <div class="price-tag">Most Popular</div>
         <h3>Essential</h3>
-        <p class="price-sub">8 Cameras + NVR + Professional Installation</p>
+        <p class="price-sub">8 Cameras + 24/7 Recording + Professional Home Installation</p>
         <div class="price-amount">$2,999 <span>one-time</span></div>
-        <p class="price-note">Starting price, install included</p>
+        <p class="price-note">All-in price — taxes &amp; installation included</p>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>8 &times; 3K–4K cameras</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>NVR/local recording — no monthly fees</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 Recording — no monthly fees</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Mobile app access</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>AI person &amp; vehicle detection</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Night vision</li>
@@ -793,12 +847,12 @@ function gtag_report_conversion(url) {
       </div>
       <div class="price-card">
         <h3>Complete</h3>
-        <p class="price-sub">8+ Cameras + NVR + Alarm + Professional Installation</p>
+        <p class="price-sub">8+ Cameras + 24/7 Recording + Alarm + Professional Home Installation</p>
         <div class="price-amount" style="font-size:26px;">Get a Quote</div>
         <p class="price-note">Pricing depends on home size &amp; equipment</p>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>4K cameras, 8+ included</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>NVR/local recording — no monthly fees</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 Recording — no monthly fees</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Alarm system included</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 professional monitoring</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Full smart home integration</li>
@@ -910,7 +964,6 @@ function gtag_report_conversion(url) {
   <div class="container">
     <div class="teaser-inner">
       <div class="teaser-text">
-        <span class="eyebrow" style="color:var(--cyan-300, #6ee9e4);">Only 1 install slot per day</span>
         <h2>Ready to see your home in a whole new light?</h2>
         <p>Free, no-obligation quote — we'll call within one business day.</p>
       </div>
