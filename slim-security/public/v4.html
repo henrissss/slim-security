@@ -160,7 +160,7 @@ function gtag_report_conversion(url) {
     color:var(--white);
     padding:180px 0 140px;
     position:relative;
-    overflow:clip;
+    overflow:hidden;
   }
   .hero::before{
     content:"";position:absolute;top:-20%;right:-10%;width:600px;height:600px;
@@ -198,8 +198,6 @@ function gtag_report_conversion(url) {
     padding:16px 30px;border-radius:100px;font-weight:600;font-size:15.5px;
     transition:transform .3s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease), color .3s var(--ease);
   }
-  .btn-large{padding:19px 38px;font-size:17px;width:100%;justify-content:center;}
-  @media(min-width:640px){.btn-large{width:auto;}}
   .btn-primary{
     background:linear-gradient(100deg, var(--cyan-400), var(--blue-500));
     color:var(--navy-950);
@@ -216,7 +214,6 @@ function gtag_report_conversion(url) {
 
   .trust-row{display:flex;gap:36px;flex-wrap:wrap;}
   .trust-item{display:flex;align-items:center;gap:10px;color:var(--slate-400);font-size:13.5px;font-weight:500;}
-  .trust-line-simple{color:var(--slate-400);font-size:13.5px;font-weight:600;letter-spacing:0.01em;margin-bottom:26px;}
   .trust-item svg{width:18px;height:18px;color:var(--cyan-400);flex-shrink:0;}
 
   /* floating device mock */
@@ -639,21 +636,35 @@ function gtag_report_conversion(url) {
         <div class="price-highlight">
           <div class="price-highlight-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-            <span>4 Cameras + 24/7 Recording + Professional Home Installation + Tax — <span class="amt">$2,099</span></span>
+            <span>4 Cameras + 24/7 Recording + Professional Home Installation — <span class="amt">$2,099</span></span>
           </div>
           <div class="price-highlight-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-            <span>8 Cameras + 24/7 Recording + Professional Home Installation + Tax — <span class="amt">$2,999</span></span>
+            <span>8 Cameras + 24/7 Recording + Professional Home Installation — <span class="amt">$2,999</span></span>
           </div>
           <div class="price-highlight-foot">No monthly fees. View everything from your phone.</div>
         </div>
-        <h1>Professional Home Security Cameras — <span class="grad">$2,099 Installed</span></h1>
-        <p class="lead">4 cameras. 24/7 recording. View everything from your phone. No monthly fees.</p>
-        <div class="trust-line-simple">NJ &amp; NY &bull; Licensed &amp; Insured &bull; Professional Installation</div>
+        <h1>See every door, gate, and driveway — from your phone, day or night, <span class="grad">at a fraction of the price.</span></h1>
+        <p class="lead">Professional camera systems for your home — <b style="color:#fff;">one-time payment</b>, $2,099 installed. No monthly fees, ever. Serving New Jersey &amp; New York.</p>
         <div class="hero-ctas">
-          <a href="#quote-form" class="btn btn-primary btn-large" data-track-cta="Hero — Get My Free Quote">Get My Free Quote
+          <a href="#quote-form" class="btn btn-primary" data-track-cta="Hero — Get My Free Quote">Get My Free Quote
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
+          <a href="#pricing" class="btn btn-ghost" data-track-cta="Hero — See Pricing">See Pricing</a>
+        </div>
+        <div class="trust-row">
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 3v6c0 5-3.4 8.9-8 10-4.6-1.1-8-5-8-10V5l8-3z"/></svg>
+            Licensed &amp; insured installers
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-4.5-8-11a8 8 0 0116 0c0 6.5-8 11-8 11z"/><circle cx="12" cy="10" r="3"/></svg>
+            Serving all of NJ &amp; NY
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="9"/></svg>
+            Most installs completed same week
+          </div>
         </div>
         <div class="mini-testi">
           <div class="stars">★★★★★</div>
