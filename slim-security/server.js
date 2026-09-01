@@ -206,6 +206,7 @@ app.post('/api/track', (req, res) => {
     INSERT INTO visits (session_id, referrer, landing_path, user_agent, screen_w, screen_h, total_seconds, sections_json, clicks_json, converted, last_seen_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
     ON CONFLICT(session_id) DO UPDATE SET
+      landing_path = excluded.landing_path,
       total_seconds = excluded.total_seconds,
       sections_json = excluded.sections_json,
       clicks_json = excluded.clicks_json,

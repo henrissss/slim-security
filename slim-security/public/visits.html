@@ -139,6 +139,8 @@
     function pageLabel(path) {
       if (path === '/v2.html' || path === '/v2') return 'Restructured (v2)';
       if (path === '/v3.html' || path === '/v3') return 'Conversion-focused (v3)';
+      if (path === '/v4.html' || path === '/v4') return 'v4';
+      if (path === '/v4-test.html' || path === '/v4-test') return 'v4-test';
       if (path === '/' || path === '/index.html' || !path) return 'Original';
       return path;
     }
