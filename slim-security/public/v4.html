@@ -541,7 +541,13 @@ function gtag_report_conversion(url) {
     .hero .contact-info{padding-right:0;}
     .hero-slideshow-mobile{
       display:block;position:relative;margin-top:34px;
-      width:100vw;margin-left:calc(50% - 50vw);
+      /* Actual edge-to-edge width/offset is set in px by JS (see
+         fitSlideshowEdge below) — 100vw/calc() is unreliable here because
+         on many mobile browsers 100vw is computed including the width a
+         vertical scrollbar would reserve, so it overshoots the real
+         visible width and makes the whole page jump/drift on load. Until
+         JS runs this just sits at the normal contained width, so there's
+         nothing to correct/jump from. */
     }
     .hero-slideshow-mobile .hero-slideshow-track{
       aspect-ratio:4/5;display:flex;overflow-x:auto;
@@ -1109,6 +1115,29 @@ function gtag_report_conversion(url) {
       setInterval(() => goTo(current + 1), 4000);
     }
 
+    // Makes the mobile slideshow span true edge-to-edge in real pixels
+    // instead of via width:100vw/negative-margin math. That vw-based trick
+    // measures the viewport wrong on plenty of mobile browsers (it can
+    // include room for a scrollbar that isn't actually taking up visible
+    // space), which overshoots the real width and makes the whole page
+    // jump/drift horizontally on load. Measuring the already-full-width
+    // .hero section directly and copying its exact pixel width/offset
+    // sidesteps that entirely.
+    function fitSlideshowEdge() {
+      const mobile = document.getElementById('heroSlideshowMobile');
+      const hero = document.querySelector('.hero');
+      if (!mobile || !hero) return;
+      if (window.innerWidth >= 901) {
+        mobile.style.width = '';
+        mobile.style.marginLeft = '';
+        return;
+      }
+      const heroRect = hero.getBoundingClientRect();
+      const parentRect = mobile.parentElement.getBoundingClientRect();
+      mobile.style.width = heroRect.width + 'px';
+      mobile.style.marginLeft = (heroRect.left - parentRect.left) + 'px';
+    }
+
     const isDesktop = window.innerWidth >= 901; // matches the CSS breakpoint above
     if (isDesktop) {
       const el = document.getElementById('heroSlideshow');
@@ -1116,7 +1145,14 @@ function gtag_report_conversion(url) {
     } else {
       const el = document.getElementById('heroSlideshowMobile');
       if (el) initMobileSlideshow(el);
+      fitSlideshowEdge();
     }
+
+    let edgeResizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(edgeResizeTimer);
+      edgeResizeTimer = setTimeout(fitSlideshowEdge, 100);
+    });
   })();
 
   // Reveal on scroll
