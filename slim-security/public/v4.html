@@ -57,7 +57,7 @@ function gtag_report_conversion(url) {
   }
 
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;overscroll-behavior-x:none;}
+  html{scroll-behavior:smooth;}
   body{
     font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     color:var(--navy-900);
@@ -65,7 +65,6 @@ function gtag_report_conversion(url) {
     line-height:1.5;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
-    overscroll-behavior-x:none;
   }
   img{max-width:100%;display:block;}
   a{color:inherit;text-decoration:none;}
@@ -163,17 +162,12 @@ function gtag_report_conversion(url) {
     position:relative;
     overflow:clip;
   }
-  /* Decorative blur circles live in their own clipped layer (rather than
-     directly on .hero) so .hero itself can safely go overflow:visible on
-     mobile (see max-width:900px below) to let the full-bleed photo
-     slideshow escape its column — without these circles spilling out too. */
-  .hero-bg-clip{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
-  .hero-bg-clip::before{
+  .hero::before{
     content:"";position:absolute;top:-20%;right:-10%;width:600px;height:600px;
     background:radial-gradient(circle, rgba(61,220,214,0.16) 0%, transparent 70%);
     filter:blur(10px);
   }
-  .hero-bg-clip::after{
+  .hero::after{
     content:"";position:absolute;bottom:-30%;left:-10%;width:500px;height:500px;
     background:radial-gradient(circle, rgba(59,130,246,0.14) 0%, transparent 70%);
   }
@@ -195,29 +189,10 @@ function gtag_report_conversion(url) {
     background:linear-gradient(100deg, var(--cyan-300), var(--blue-500) 60%);
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
-  .hero p.lead-sub{
-    font-size:15.5px;color:var(--cyan-300);max-width:560px;margin:-10px 0 16px;font-weight:600;letter-spacing:0.01em;
-  }
   .hero p.lead{
     font-size:19px;color:var(--slate-300);max-width:560px;margin-bottom:38px;font-weight:400;
   }
   .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:56px;}
-  /* A soft glow bridging the button's lower edge down to the photo
-     slideshow below it, mobile only (that's the only layout where the
-     button sits directly above the slideshow, with nothing but empty
-     gap between them). Sits behind the button (z-index) so it reads as
-     light spilling out from under it rather than sitting on top of it. */
-  @media(max-width:900px){
-    .hero-ctas{position:relative;}
-    .hero-ctas .btn-primary{position:relative;z-index:1;}
-    .hero-ctas::after{
-      content:"";position:absolute;z-index:0;pointer-events:none;
-      left:50%;bottom:-74px;transform:translateX(-50%);
-      width:70%;max-width:280px;height:100px;
-      background:radial-gradient(ellipse at center, rgba(61,220,214,0.6) 0%, rgba(59,130,246,0.32) 45%, transparent 75%);
-      filter:blur(18px);
-    }
-  }
   .btn{
     display:inline-flex;align-items:center;gap:10px;
     padding:16px 30px;border-radius:100px;font-weight:600;font-size:15.5px;
@@ -490,7 +465,7 @@ function gtag_report_conversion(url) {
   /* On mobile the testimonial is replaced by the photo slideshow below, so hide it there. */
   @media(max-width:900px){.contact-info .mini-testi{display:none;}}
   .hero .contact-wrap{position:relative;z-index:2;}
-  .hero .contact-info{background:transparent;padding:0 20px 0 0;overflow:visible;}
+  .hero .contact-info{background:transparent;padding:0 20px 0 0;}
   .hero .contact-info::before{display:none;}
   .hero .contact-wrap{background:transparent;box-shadow:none;border-radius:0;gap:44px;overflow:visible;}
   /* Desktop only: the left column (badge/headline/price box/testimonial) runs
@@ -548,65 +523,15 @@ function gtag_report_conversion(url) {
   }
 
   /* Mobile-only photo slideshow, replacing the testimonial in that spot
-     (see @media(max-width:900px){.contact-info .mini-testi} above). Unlike
-     the desktop version (a fixed image that fades to the next one), this is
-     a real horizontally-swipeable carousel — one finger-swipe scrolls to the
-     next/previous photo, snapping into place — with autoplay advancing it
-     the rest of the time. Styled full-bleed (edge to edge, breaking out of
-     the container's side padding) for a more modern, immersive look than a
-     boxed-in card. */
+     (see @media(max-width:900px){.contact-info .mini-testi} above). */
   .hero-slideshow-mobile{display:none;}
   @media(max-width:900px){
-    .hero{overflow:visible;}
-    .hero .contact-info{padding-right:0;}
     .hero-slideshow-mobile{
-      display:block;position:relative;margin-top:34px;
-      /* Break out of the container's 24px side padding using a fixed px
-         value (matching .container's own padding exactly) instead of
-         width:100vw/calc(). vw units measure wrong on plenty of mobile
-         browsers (they can include room for a scrollbar that isn't
-         actually taking up visible space), which overshot the real width
-         here and made the whole page drift/jump on load. Plain px math
-         against a padding value that never changes has nothing to get
-         wrong. */
-      width:calc(100% + 48px);
-      margin-left:-24px;
+      display:block;margin-top:30px;border-radius:12px;overflow:hidden;
+      box-shadow:0 12px 30px -14px rgba(0,0,0,0.5);
+      border:1px solid rgba(255,255,255,0.12);
     }
-    .hero-slideshow-mobile .hero-slideshow-track{
-      aspect-ratio:4/5;display:flex;overflow-x:auto;
-      scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
-      scrollbar-width:none;
-      /* Since this now touches the true screen edge, a swipe that starts
-         right at its boundary can otherwise "leak" into the page itself —
-         the browser reads it as a page-level horizontal gesture and
-         rubber-bands/shifts the whole page sideways. Containing the scroll
-         here (plus overscroll-behavior-x:none on html/body above) keeps
-         the gesture inside the carousel only. */
-      overscroll-behavior-x:contain;
-    }
-    .hero-slideshow-mobile .hero-slideshow-track::-webkit-scrollbar{display:none;}
-    .hero-slideshow-mobile .hero-slideshow-track img{
-      position:static;flex:0 0 100%;width:100%;height:100%;
-      scroll-snap-align:start;opacity:1;transition:none;
-    }
-    /* Bottom gradient so the caption stays readable over any photo. */
-    .hero-slideshow-mobile::after{
-      content:"";position:absolute;left:0;right:0;bottom:0;height:40%;
-      background:linear-gradient(to top, rgba(4,8,16,0.78), transparent);
-      pointer-events:none;
-    }
-    .hero-slideshow-mobile .hero-slideshow-caption{
-      position:absolute;left:20px;bottom:18px;z-index:2;
-      display:flex;align-items:center;gap:8px;
-      color:#fff;font-size:14.5px;font-weight:700;letter-spacing:-0.01em;
-    }
-    .hero-slideshow-mobile .hero-slideshow-counter{
-      position:absolute;right:16px;top:16px;z-index:2;
-      background:rgba(10,15,28,0.5);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-      color:#fff;font-size:12px;font-weight:700;
-      padding:5px 12px;border-radius:999px;
-      border:1px solid rgba(255,255,255,0.2);
-    }
+    .hero-slideshow-mobile .hero-slideshow-track{aspect-ratio:4/3;}
   }
   .hero .contact-form{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);padding:38px 34px;color:var(--navy-900);}
   .hero .contact-form h2{font-size:22px;font-weight:700;color:var(--navy-950);margin-bottom:6px;letter-spacing:-0.01em;}
@@ -707,7 +632,6 @@ function gtag_report_conversion(url) {
 </div>
 
 <section class="hero" id="top">
-  <div class="hero-bg-clip"></div>
   <div class="container">
     <div class="contact-wrap reveal">
       <div class="contact-info">
@@ -722,8 +646,8 @@ function gtag_report_conversion(url) {
           </div>
           <div class="price-highlight-foot">Pay it off, then it's $0/month — forever. Or just pay one time.</div>
         </div>
-        <h1>Professional Security Camera Installation — <span class="grad">From $49/Month or Pay One-Time Only</span></h1>
-        <p class="lead-sub">For homes, apartments, condos, multi-family buildings &amp; small businesses.</p>
+        <h1>Professional Home Security Cameras — <span class="grad">From $49/Month or Pay One-Time</span></h1>
+        <p class="lead">4 cameras. 24/7 recording. View everything from your phone. No hidden fees, ever — pay it off, then it's $0/month for life.</p>
         <div class="trust-line-simple">NJ &amp; NY &bull; Licensed &amp; Insured &bull; Professional Installation</div>
         <div class="hero-ctas">
           <a href="#quote-form" class="btn btn-primary btn-large" data-track-cta="Hero — Get My Free Quote">Get My Free Quote
@@ -746,17 +670,16 @@ function gtag_report_conversion(url) {
             <img data-src="/images/work/work-7.jpg" alt="Slim Security exit sign camera installation">
             <img data-src="/images/work/work-8.jpg" alt="Slim Security ceiling camera installation">
           </div>
-          <div class="hero-slideshow-caption">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-            Real installs — NJ &amp; NY
+          <div class="hero-slideshow-dots">
+            <span class="active"></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
           </div>
-          <div class="hero-slideshow-counter"><span id="heroSlideshowMobileCounter">1</span>/8</div>
         </div>
       </div>
       <div class="contact-form-col">
       <div class="contact-form" id="quote-form">
         <h2>Get your free quote</h2>
-        <p>Tell us a bit about your home — we'll call shortly to confirm your needs and pricing. No obligation.</p>
+        <p>Tell us a bit about your home — we'll call within one business day with a custom recommendation and pricing. No obligation.</p>
         <form id="quoteForm">
           <div class="field">
             <label for="fname">Name</label>
@@ -1006,7 +929,7 @@ function gtag_report_conversion(url) {
     <div class="teaser-inner">
       <div class="teaser-text">
         <h2>Ready to see your home in a whole new light?</h2>
-        <p>Free, no-obligation quote — we'll call shortly to confirm your needs and pricing.</p>
+        <p>Free, no-obligation quote — we'll call within one business day.</p>
       </div>
       <a href="#quote-form" class="btn btn-primary" data-track-cta="Final CTA — Get My Free Quote">Get My Free Quote
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -1084,22 +1007,17 @@ function gtag_report_conversion(url) {
   // mobile. Only the one actually visible at this breakpoint has its images
   // populated from data-src, so the hidden one never downloads anything.
   (function () {
-    function populateImages(root) {
+    function initSlideshow(root) {
       const slides = root.querySelectorAll('.hero-slideshow-track img');
+      const dots = root.querySelectorAll('.hero-slideshow-dots span');
+      if (!slides.length) return;
+
       slides.forEach((img) => {
         if (img.dataset.src) {
           img.src = img.dataset.src;
           img.removeAttribute('data-src');
         }
       });
-      return slides;
-    }
-
-    // Desktop: fixed image, fades to the next one — no interaction needed.
-    function initDesktopSlideshow(root) {
-      const slides = populateImages(root);
-      const dots = root.querySelectorAll('.hero-slideshow-dots span');
-      if (!slides.length) return;
 
       let current = 0;
       setInterval(() => {
@@ -1111,70 +1029,9 @@ function gtag_report_conversion(url) {
       }, 4000);
     }
 
-    // Mobile: a purely manual swipeable carousel (horizontal scroll-snap) —
-    // no autoplay, the visitor moves through the photos only by swiping.
-    // It also loops infinitely in both directions: swiping past photo 8
-    // continues on to photo 1 (and swiping the other way past photo 1
-    // continues on to photo 8), rather than just stopping dead at the end.
-    //
-    // Native scroll-snap has no built-in concept of "wrap around", so this
-    // uses the standard trick for it: a clone of the last photo is placed
-    // before the first real one, and a clone of the first photo after the
-    // last real one. The visitor can then swipe seamlessly onto a clone;
-    // once the swipe settles there, the track silently (no animation, so
-    // it's invisible — the clone looks identical to the real photo it's
-    // sitting next to) jumps to the matching real photo at the other end.
-    function initMobileSlideshow(root) {
-      const track = root.querySelector('.hero-slideshow-track');
-      const counter = root.querySelector('.hero-slideshow-counter span');
-      if (!track) return;
-      const realSlides = Array.from(track.querySelectorAll('img'));
-      const total = realSlides.length;
-      if (!total) return;
-
-      const startClone = realSlides[total - 1].cloneNode(true);
-      const endClone = realSlides[0].cloneNode(true);
-      startClone.classList.remove('active');
-      endClone.classList.remove('active');
-      track.insertBefore(startClone, realSlides[0]);
-      track.appendChild(endClone);
-      populateImages(root); // gives the clones their real src too, from data-src
-
-      // Index space now runs 0..total+1: 0 is the start clone, 1..total
-      // are the real photos, total+1 is the end clone.
-      let current = 1;
-      track.scrollTo({ left: current * track.clientWidth, behavior: 'instant' });
-
-      function setCounter() {
-        if (counter) counter.textContent = current;
-      }
-      setCounter();
-
-      let scrollEndTimer = null;
-      track.addEventListener('scroll', () => {
-        clearTimeout(scrollEndTimer);
-        scrollEndTimer = setTimeout(() => {
-          current = Math.round(track.scrollLeft / track.clientWidth);
-          if (current === 0) {
-            current = total;
-            track.scrollTo({ left: current * track.clientWidth, behavior: 'instant' });
-          } else if (current === total + 1) {
-            current = 1;
-            track.scrollTo({ left: current * track.clientWidth, behavior: 'instant' });
-          }
-          setCounter();
-        }, 120);
-      });
-    }
-
     const isDesktop = window.innerWidth >= 901; // matches the CSS breakpoint above
-    if (isDesktop) {
-      const el = document.getElementById('heroSlideshow');
-      if (el) initDesktopSlideshow(el);
-    } else {
-      const el = document.getElementById('heroSlideshowMobile');
-      if (el) initMobileSlideshow(el);
-    }
+    const target = document.getElementById(isDesktop ? 'heroSlideshow' : 'heroSlideshowMobile');
+    if (target) initSlideshow(target);
   })();
 
   // Reveal on scroll
@@ -1434,36 +1291,19 @@ function gtag_report_conversion(url) {
 </script>
 
 <script>
-  // Sticky mobile call/quote bar — shows the instant the photo slideshow's
-  // bottom edge scrolls into view (i.e. the whole photo has appeared on
-  // screen), hides again once it scrolls back out below the screen as the
-  // visitor scrolls back up.
-  //
-  // Driven by a per-frame check (requestAnimationFrame) rather than a
-  // 'scroll' event listener or IntersectionObserver: the trigger line here
-  // is the moment rect.bottom crosses window.innerHeight, a point in the
-  // *middle* of the photo's visibility (it's already partly on screen
-  // before this and stays fully on screen after) — a plain 'scroll'
-  // listener can miss/lag that instant on a fast flick since the browser
-  // may deliver scroll events at a lower rate while the page is still
-  // moving, and IntersectionObserver only reports enter/exit of the
-  // element as a whole, not an arbitrary crossing point partway through.
-  // Checking every animation frame instead means it can't be missed
-  // regardless of scroll speed, and the check itself is cheap enough to
-  // run continuously.
+  // Sticky mobile call/quote bar — shows once the visitor scrolls past the
+  // hero (where the primary form + call links already are), hides again if
+  // they scroll back up to it.
   (function () {
     const bar = document.getElementById('stickyMobileCta');
     const hero = document.getElementById('top');
-    const slideshow = document.getElementById('heroSlideshowMobile');
-    const trigger = slideshow || hero;
-    if (!bar || !trigger) return;
-
-    function loop() {
-      const rect = trigger.getBoundingClientRect();
-      bar.classList.toggle('show', rect.bottom <= window.innerHeight);
-      requestAnimationFrame(loop);
-    }
-    requestAnimationFrame(loop);
+    if (!bar || !hero) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        bar.classList.toggle('show', !entry.isIntersecting);
+      });
+    }, { threshold: 0 });
+    io.observe(hero);
   })();
 </script>
 
