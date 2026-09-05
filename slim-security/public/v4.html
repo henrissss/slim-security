@@ -199,6 +199,22 @@ function gtag_report_conversion(url) {
     font-size:19px;color:var(--slate-300);max-width:560px;margin-bottom:38px;font-weight:400;
   }
   .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:56px;}
+  /* A soft glow bridging the button's lower edge down to the photo
+     slideshow below it, mobile only (that's the only layout where the
+     button sits directly above the slideshow, with nothing but empty
+     gap between them). Sits behind the button (z-index) so it reads as
+     light spilling out from under it rather than sitting on top of it. */
+  @media(max-width:900px){
+    .hero-ctas{position:relative;}
+    .hero-ctas .btn-primary{position:relative;z-index:1;}
+    .hero-ctas::after{
+      content:"";position:absolute;z-index:0;pointer-events:none;
+      left:50%;bottom:-74px;transform:translateX(-50%);
+      width:70%;max-width:280px;height:100px;
+      background:radial-gradient(ellipse at center, rgba(61,220,214,0.6) 0%, rgba(59,130,246,0.32) 45%, transparent 75%);
+      filter:blur(18px);
+    }
+  }
   .btn{
     display:inline-flex;align-items:center;gap:10px;
     padding:16px 30px;border-radius:100px;font-weight:600;font-size:15.5px;
@@ -1393,19 +1409,37 @@ function gtag_report_conversion(url) {
 </script>
 
 <script>
-  // Sticky mobile call/quote bar — shows once the visitor scrolls past the
-  // hero (where the primary form + call links already are), hides again if
-  // they scroll back up to it.
+  // Sticky mobile call/quote bar — shows as soon as the visitor scrolls
+  // past the photo slideshow (the last thing in the hero), hides again if
+  // they scroll back up above it. Uses the slideshow's own bottom edge
+  // (rather than the whole hero section) as the trigger line so the bar
+  // appears right when the photo clears the top of the screen, instead of
+  // waiting through the hero's bottom padding too.
+  //
+  // A plain IntersectionObserver can't express this: "not intersecting"
+  // is also true before the visitor has scrolled anywhere near the photo,
+  // so it can't tell "haven't reached it yet" apart from "already passed
+  // it". Checking the live bounding rect on scroll can, since only
+  // "already passed" ever pushes the bottom edge above 0.
   (function () {
     const bar = document.getElementById('stickyMobileCta');
     const hero = document.getElementById('top');
-    if (!bar || !hero) return;
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        bar.classList.toggle('show', !entry.isIntersecting);
-      });
-    }, { threshold: 0 });
-    io.observe(hero);
+    const slideshow = document.getElementById('heroSlideshowMobile');
+    const trigger = slideshow || hero;
+    if (!bar || !trigger) return;
+
+    let ticking = false;
+    function update() {
+      ticking = false;
+      bar.classList.toggle('show', trigger.getBoundingClientRect().bottom < 0);
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    update();
   })();
 </script>
 
