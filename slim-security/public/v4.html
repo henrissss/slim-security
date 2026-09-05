@@ -162,12 +162,17 @@ function gtag_report_conversion(url) {
     position:relative;
     overflow:clip;
   }
-  .hero::before{
+  /* Decorative blur circles live in their own clipped layer (rather than
+     directly on .hero) so .hero itself can safely go overflow:visible on
+     mobile (see max-width:900px below) to let the full-bleed photo
+     slideshow escape its column — without these circles spilling out too. */
+  .hero-bg-clip{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+  .hero-bg-clip::before{
     content:"";position:absolute;top:-20%;right:-10%;width:600px;height:600px;
     background:radial-gradient(circle, rgba(61,220,214,0.16) 0%, transparent 70%);
     filter:blur(10px);
   }
-  .hero::after{
+  .hero-bg-clip::after{
     content:"";position:absolute;bottom:-30%;left:-10%;width:500px;height:500px;
     background:radial-gradient(circle, rgba(59,130,246,0.14) 0%, transparent 70%);
   }
@@ -465,7 +470,7 @@ function gtag_report_conversion(url) {
   /* On mobile the testimonial is replaced by the photo slideshow below, so hide it there. */
   @media(max-width:900px){.contact-info .mini-testi{display:none;}}
   .hero .contact-wrap{position:relative;z-index:2;}
-  .hero .contact-info{background:transparent;padding:0 20px 0 0;}
+  .hero .contact-info{background:transparent;padding:0 20px 0 0;overflow:visible;}
   .hero .contact-info::before{display:none;}
   .hero .contact-wrap{background:transparent;box-shadow:none;border-radius:0;gap:44px;overflow:visible;}
   /* Desktop only: the left column (badge/headline/price box/testimonial) runs
@@ -532,6 +537,8 @@ function gtag_report_conversion(url) {
      boxed-in card. */
   .hero-slideshow-mobile{display:none;}
   @media(max-width:900px){
+    .hero{overflow:visible;}
+    .hero .contact-info{padding-right:0;}
     .hero-slideshow-mobile{
       display:block;position:relative;margin-top:34px;
       width:100vw;margin-left:calc(50% - 50vw);
@@ -664,6 +671,7 @@ function gtag_report_conversion(url) {
 </div>
 
 <section class="hero" id="top">
+  <div class="hero-bg-clip"></div>
   <div class="container">
     <div class="contact-wrap reveal">
       <div class="contact-info">
