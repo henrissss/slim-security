@@ -42,15 +42,15 @@ app.get('/api/admin/leads', (req, res) => {
 // still ongoing.
 app.post('/api/track', (req, res) => {
   const {
-    sessionId, referrer, landingPath, userAgent,
+    sessionId, referrer, source, landingPath, userAgent,
     screenW, screenH, totalSeconds, sections, clicks, converted,
   } = req.body || {};
 
   if (!sessionId) return res.status(400).json({ error: 'Missing sessionId.' });
 
   db.prepare(`
-    INSERT INTO visits (session_id, referrer, landing_path, user_agent, screen_w, screen_h, total_seconds, sections_json, clicks_json, converted, last_seen_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+    INSERT INTO visits (session_id, referrer, source, landing_path, user_agent, screen_w, screen_h, total_seconds, sections_json, clicks_json, converted, last_seen_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
     ON CONFLICT(session_id) DO UPDATE SET
       landing_path = excluded.landing_path,
       total_seconds = excluded.total_seconds,
@@ -61,6 +61,7 @@ app.post('/api/track', (req, res) => {
   `).run(
     sessionId,
     referrer || null,
+    source || null,
     landingPath || null,
     userAgent || null,
     screenW || null,

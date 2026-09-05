@@ -1036,15 +1036,53 @@ function gtag_report_conversion(url) {
     function newId() {
       return 'v_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
     }
-    let sessionId;
+    // Works out a clean "source" label for /admin/visits — gclid/msclkid/
+    // fbclid/utm_source first (these are the reliable signals: Google Ads'
+    // auto-tagging appends ?gclid=... to the landing URL on every ad click,
+    // with no setup needed on our end), falling back to document.referrer
+    // only when none of those are present. Plain document.referrer alone
+    // isn't enough on its own — plenty of ad clicks (especially on mobile,
+    // or opened from an app) arrive with an empty referrer, which used to
+    // get logged as "Direct" even though the visitor came from a paid ad.
+    function computeSource() {
+      try {
+        const qs = new URLSearchParams(location.search);
+        if (qs.get('gclid')) return 'Google Ads';
+        if (qs.get('gbraid') || qs.get('wbraid')) return 'Google Ads';
+        if (qs.get('msclkid')) return 'Microsoft Ads (Bing)';
+        if (qs.get('fbclid')) return 'Facebook / Instagram Ads';
+        const utmSource = qs.get('utm_source');
+        if (utmSource) {
+          const medium = qs.get('utm_medium');
+          return medium ? (utmSource + ' / ' + medium) : utmSource;
+        }
+        const ref = document.referrer;
+        if (ref) {
+          const host = new URL(ref).hostname.replace(/^www\./, '');
+          if (/(^|\.)google\./.test(host)) return 'Google (organic)';
+          if (/(^|\.)bing\./.test(host)) return 'Bing (organic)';
+          if (/(^|\.)(facebook|instagram)\./.test(host)) return 'Facebook / Instagram';
+          if (/(^|\.)yahoo\./.test(host)) return 'Yahoo (organic)';
+          return host;
+        }
+      } catch (e) { /* ignore */ }
+      return 'Direct';
+    }
+    let sessionId, source;
     try {
       const stored = JSON.parse(localStorage.getItem('ss_visitor_session') || 'null');
       const fresh = stored && stored.id && (Date.now() - stored.lastActive) < SESSION_TIMEOUT_MS;
       sessionId = fresh ? stored.id : newId();
-      localStorage.setItem('ss_visitor_session', JSON.stringify({ id: sessionId, lastActive: Date.now() }));
+      // First-touch source: kept from the stored session (same convention as
+      // sessionId itself) so it doesn't get overwritten by "Direct" if the
+      // visitor clicks around the site and the query params aren't on the
+      // URL anymore.
+      source = (fresh && stored.source) ? stored.source : computeSource();
+      localStorage.setItem('ss_visitor_session', JSON.stringify({ id: sessionId, lastActive: Date.now(), source }));
     } catch (e) {
       // Private browsing / storage blocked — fall back to a per-load id.
       sessionId = newId();
+      source = computeSource();
     }
     // Exposed so the lead/quote form can tag its submission with this same
     // id — that's how /admin/visits matches a visit row back to the actual
@@ -1052,7 +1090,7 @@ function gtag_report_conversion(url) {
     window.__ssVisitorId = sessionId;
     function touchSession() {
       try {
-        localStorage.setItem('ss_visitor_session', JSON.stringify({ id: sessionId, lastActive: Date.now() }));
+        localStorage.setItem('ss_visitor_session', JSON.stringify({ id: sessionId, lastActive: Date.now(), source }));
       } catch (e) { /* ignore */ }
     }
 
@@ -1136,6 +1174,7 @@ function gtag_report_conversion(url) {
       const payload = {
         sessionId,
         referrer: document.referrer || null,
+        source,
         landingPath: location.pathname,
         userAgent: navigator.userAgent,
         screenW: window.screen ? window.screen.width : null,

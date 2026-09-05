@@ -102,7 +102,7 @@
           <th>Converted</th>
           <th>Buttons clicked</th>
           <th>Time per section</th>
-          <th>Referrer</th>
+          <th>Source</th>
           <th>Screen</th>
         </tr>
       </thead>
@@ -244,7 +244,7 @@
             <td class="nowrap">${v.converted ? '<span class="badge yes">Yes</span>' : '<span class="badge no">No</span>'}</td>
             <td>${fmtClicks(v.clicks)}</td>
             <td>${allSections(v.sections)}</td>
-            <td>${v.referrer ? escapeHtml(v.referrer) : 'Direct'}</td>
+            <td>${v.source ? escapeHtml(v.source) : (v.referrer ? escapeHtml(v.referrer) : 'Direct')}</td>
             <td>${v.screen_w && v.screen_h ? v.screen_w + '×' + v.screen_h : '—'}</td>
           </tr>
         `).join('');

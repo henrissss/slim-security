@@ -62,6 +62,15 @@ if (!existingLeadColumns.includes('session_id')) {
   db.exec('ALTER TABLE leads ADD COLUMN session_id TEXT');
 }
 
+// Same idea again: if you're upgrading from a copy of this project that had
+// the visits table before `source` was added. Unlike referrer (the raw
+// browser value, often blank for ad clicks), `source` is a cleaned-up label
+// the page works out from the landing URL's gclid/utm params first and the
+// referrer only as a fallback — see the tracking script in the HTML pages.
+if (!existingVisitColumns.includes('source')) {
+  db.exec('ALTER TABLE visits ADD COLUMN source TEXT');
+}
+
 // Thin wrapper that mimics the handful of better-sqlite3 methods server.js
 // relies on (`.get()` / `.all()` / `.run()` on a prepared statement), so the
 // rest of the codebase doesn't need to change.
