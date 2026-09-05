@@ -527,16 +527,17 @@ function gtag_report_conversion(url) {
      the desktop version (a fixed image that fades to the next one), this is
      a real horizontally-swipeable carousel — one finger-swipe scrolls to the
      next/previous photo, snapping into place — with autoplay advancing it
-     the rest of the time. */
+     the rest of the time. Styled full-bleed (edge to edge, breaking out of
+     the container's side padding) for a more modern, immersive look than a
+     boxed-in card. */
   .hero-slideshow-mobile{display:none;}
   @media(max-width:900px){
     .hero-slideshow-mobile{
-      display:block;margin-top:30px;border-radius:12px;overflow:hidden;
-      box-shadow:0 12px 30px -14px rgba(0,0,0,0.5);
-      border:1px solid rgba(255,255,255,0.12);
+      display:block;position:relative;margin-top:34px;
+      width:100vw;margin-left:calc(50% - 50vw);
     }
     .hero-slideshow-mobile .hero-slideshow-track{
-      aspect-ratio:4/3;display:flex;overflow-x:auto;
+      aspect-ratio:4/5;display:flex;overflow-x:auto;
       scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
       scrollbar-width:none;
     }
@@ -544,6 +545,24 @@ function gtag_report_conversion(url) {
     .hero-slideshow-mobile .hero-slideshow-track img{
       position:static;flex:0 0 100%;width:100%;height:100%;
       scroll-snap-align:start;opacity:1;transition:none;
+    }
+    /* Bottom gradient so the caption stays readable over any photo. */
+    .hero-slideshow-mobile::after{
+      content:"";position:absolute;left:0;right:0;bottom:0;height:40%;
+      background:linear-gradient(to top, rgba(4,8,16,0.78), transparent);
+      pointer-events:none;
+    }
+    .hero-slideshow-mobile .hero-slideshow-caption{
+      position:absolute;left:20px;bottom:18px;z-index:2;
+      display:flex;align-items:center;gap:8px;
+      color:#fff;font-size:14.5px;font-weight:700;letter-spacing:-0.01em;
+    }
+    .hero-slideshow-mobile .hero-slideshow-counter{
+      position:absolute;right:16px;top:16px;z-index:2;
+      background:rgba(10,15,28,0.5);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+      color:#fff;font-size:12px;font-weight:700;
+      padding:5px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,0.2);
     }
   }
   .hero .contact-form{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);padding:38px 34px;color:var(--navy-900);}
@@ -683,10 +702,11 @@ function gtag_report_conversion(url) {
             <img data-src="/images/work/work-7.jpg" alt="Slim Security exit sign camera installation">
             <img data-src="/images/work/work-8.jpg" alt="Slim Security ceiling camera installation">
           </div>
-          <div class="hero-slideshow-dots">
-            <span class="active"></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span>
+          <div class="hero-slideshow-caption">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            Real installs — NJ &amp; NY
           </div>
+          <div class="hero-slideshow-counter"><span id="heroSlideshowMobileCounter">1</span>/8</div>
         </div>
       </div>
       <div class="contact-form-col">
@@ -1055,28 +1075,26 @@ function gtag_report_conversion(url) {
     function initMobileSlideshow(root) {
       const track = root.querySelector('.hero-slideshow-track');
       const slides = populateImages(root);
-      const dots = root.querySelectorAll('.hero-slideshow-dots span');
+      const counter = root.querySelector('.hero-slideshow-counter span');
       if (!track || !slides.length) return;
 
       let current = 0;
-      function setActiveDot(i) {
-        dots.forEach((d, di) => d.classList.toggle('active', di === i));
+      function setCounter(i) {
+        if (counter) counter.textContent = i + 1;
       }
       function goTo(i) {
         current = (i + slides.length) % slides.length;
         track.scrollTo({ left: current * track.clientWidth, behavior: 'smooth' });
-        setActiveDot(current);
+        setCounter(current);
       }
 
-      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
-
-      // Keep `current`/dots in sync with wherever the visitor actually swipes to.
+      // Keep `current`/counter in sync with wherever the visitor actually swipes to.
       let scrollEndTimer = null;
       track.addEventListener('scroll', () => {
         clearTimeout(scrollEndTimer);
         scrollEndTimer = setTimeout(() => {
           current = Math.round(track.scrollLeft / track.clientWidth);
-          setActiveDot(current);
+          setCounter(current);
         }, 120);
       });
 
