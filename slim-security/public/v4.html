@@ -501,14 +501,18 @@ function gtag_report_conversion(url) {
   .hero .contact-wrap{position:relative;z-index:2;}
   .hero .contact-info{background:transparent;padding:0 20px 0 0;}
   .hero .contact-info::before{display:none;}
-  .hero .contact-wrap{background:transparent;box-shadow:none;border-radius:0;gap:44px;}
+  .hero .contact-wrap{background:transparent;box-shadow:none;border-radius:0;gap:44px;overflow:visible;}
   /* Desktop only: the left column (badge/headline/price box/testimonial) runs
-     much taller than the form, and grid columns stretch to match each other's
-     height by default — without this the white form card stretches down to
-     match it, leaving a big empty white gap below the form's real content.
-     Scoped to >900px since below that .hero .contact-wrap drops to a single
-     column (see the max-width:900px rule below) where this never applied. */
-  @media(min-width:901px){.hero .contact-wrap{align-items:start;}}
+     taller than the form. Grid columns stretch to match each other's height
+     by default, so the right column (form + slideshow) is stretched to that
+     same height — the slideshow (flex:1, below) absorbs that extra height
+     instead of leaving a gap, so its bottom lines up with the testimonial's
+     bottom on the left. Scoped to >900px since below that .hero .contact-wrap
+     drops to a single column (see the max-width:900px rule below). */
+  @media(min-width:901px){
+    .hero .contact-form-col{display:flex;flex-direction:column;min-height:0;}
+    .hero .contact-form{flex:none;}
+  }
 
   /* Desktop-only photo slideshow below the form, in the space the form no
      longer stretches into — real installs, replacing the old floating
@@ -518,12 +522,19 @@ function gtag_report_conversion(url) {
   .hero-slideshow{display:none;}
   @media(min-width:901px){
     .hero-slideshow{
-      display:block;position:relative;margin-top:22px;
+      display:flex;flex-direction:column;flex:1;min-height:0;
+      position:relative;margin-top:22px;
       border-radius:16px;overflow:hidden;
       box-shadow:0 20px 50px -20px rgba(0,0,0,0.5);
       border:1px solid rgba(255,255,255,0.1);
+      /* Wider than the form above it (form width is untouched) by bleeding
+         into the container's outer padding on the right only — left edge
+         stays aligned with the form's left edge. Height fills the remaining
+         space down to the testimonial's bottom (see flex:1 above). */
+      width:calc(100% + 48px);
+      margin-right:-48px;
     }
-    .hero-slideshow-track{position:relative;width:100%;aspect-ratio:16/10;background:#0a0f1c;}
+    .hero-slideshow-track{position:relative;width:100%;flex:1;min-height:0;background:#0a0f1c;}
     .hero-slideshow-track img{
       position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
       opacity:0;transition:opacity 1s ease;
@@ -752,15 +763,15 @@ function gtag_report_conversion(url) {
       </div>
       <div class="hero-slideshow" id="heroSlideshow">
         <div class="hero-slideshow-track">
-          <img src="/images/work/work-1.jpg" alt="Slim Security installed NVR and monitor wall" class="active">
-          <img src="/images/work/work-2.jpg" alt="Slim Security intercom installation">
-          <img src="/images/work/work-3.jpg" alt="Slim Security dome camera installation">
-          <img src="/images/work/work-4.jpg" alt="Slim Security stairwell camera installation">
-          <img src="/images/work/work-5.jpg" alt="Slim Security monitoring wall">
-          <img src="/images/work/work-6.jpg" alt="Slim Security exterior camera installation">
-          <img src="/images/work/work-7.jpg" alt="Slim Security exit sign camera installation">
-          <img src="/images/work/work-8.jpg" alt="Slim Security ceiling camera installation">
-          <img src="/images/work/work-9.jpg" alt="Slim Security intercom panel installation">
+          <img data-src="/images/work/work-1.jpg" alt="Slim Security installed NVR and monitor wall" class="active">
+          <img data-src="/images/work/work-2.jpg" alt="Slim Security intercom installation">
+          <img data-src="/images/work/work-3.jpg" alt="Slim Security dome camera installation">
+          <img data-src="/images/work/work-4.jpg" alt="Slim Security stairwell camera installation">
+          <img data-src="/images/work/work-5.jpg" alt="Slim Security monitoring wall">
+          <img data-src="/images/work/work-6.jpg" alt="Slim Security exterior camera installation">
+          <img data-src="/images/work/work-7.jpg" alt="Slim Security exit sign camera installation">
+          <img data-src="/images/work/work-8.jpg" alt="Slim Security ceiling camera installation">
+          <img data-src="/images/work/work-9.jpg" alt="Slim Security intercom panel installation">
         </div>
         <div class="hero-slideshow-dots">
           <span class="active"></span><span></span><span></span><span></span>
@@ -1039,12 +1050,21 @@ function gtag_report_conversion(url) {
     a.addEventListener('click', () => mobileMenu.classList.remove('open'));
   });
 
-  // Hero photo slideshow (desktop only — the element is display:none below 901px,
-  // but the interval is harmless either way since it just toggles classes).
+  // Hero photo slideshow (desktop only — element is display:none below 901px).
+  // Images use data-src so mobile visitors never download them at all.
   (function () {
     const slides = document.querySelectorAll('.hero-slideshow-track img');
     const dots = document.querySelectorAll('.hero-slideshow-dots span');
     if (!slides.length) return;
+    if (window.innerWidth < 901) return; // matches CSS min-width:901px breakpoint
+
+    slides.forEach((img) => {
+      if (img.dataset.src) {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+      }
+    });
+
     let current = 0;
     setInterval(() => {
       slides[current].classList.remove('active');

@@ -7,30 +7,12 @@ const path = require('path');
 // On most cloud hosts (Render, Railway, etc.) everything outside a mounted
 // persistent disk is wiped on every redeploy/restart. Set DB_PATH to a file
 // inside that mounted disk in production (e.g. /data/data.sqlite) so your
-// appointments/leads/payments survive deploys. Locally it just defaults to
-// a file right next to this script.
+// leads/visits survive deploys. Locally it just defaults to a file right
+// next to this script.
 const dbPath = process.env.DB_PATH || path.join(__dirname, 'data.sqlite');
 const db = new DatabaseSync(dbPath);
 
 db.exec(`
-  CREATE TABLE IF NOT EXISTS appointments (
-    id TEXT PRIMARY KEY,
-    first_name TEXT NOT NULL,
-    last_name TEXT NOT NULL,
-    phone TEXT NOT NULL,
-    email TEXT NOT NULL,
-    zip TEXT NOT NULL,
-    package TEXT NOT NULL,
-    amount_cents INTEGER NOT NULL,
-    preferred_date TEXT,
-    notes TEXT,
-    status TEXT NOT NULL DEFAULT 'pending_payment', -- pending_payment | scheduled | paid | canceled
-    hold_expires_at TEXT, -- while pending_payment, the install date is reserved until this timestamp
-    created_at TEXT NOT NULL DEFAULT (datetime('now'))
-  );
-
-  CREATE INDEX IF NOT EXISTS idx_appointments_preferred_date ON appointments(preferred_date);
-
   CREATE TABLE IF NOT EXISTS leads (
     id TEXT PRIMARY KEY,
     first_name TEXT NOT NULL,
@@ -43,17 +25,6 @@ db.exec(`
     status TEXT NOT NULL DEFAULT 'new', -- new | contacted | converted | closed
     session_id TEXT,           -- ties this lead back to its /admin/visits row, when known
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
-  );
-
-  CREATE TABLE IF NOT EXISTS payments (
-    id TEXT PRIMARY KEY,
-    appointment_id TEXT NOT NULL,
-    provider TEXT NOT NULL,           -- 'stripe_card' | 'stripe_ach_plaid'
-    provider_ref TEXT,                -- Stripe PaymentIntent id
-    amount_cents INTEGER NOT NULL,
-    status TEXT NOT NULL,             -- requires_payment_method | processing | succeeded | failed
-    created_at TEXT NOT NULL DEFAULT (datetime('now')),
-    FOREIGN KEY (appointment_id) REFERENCES appointments(id)
   );
 
   -- One row per visitor session (a browser tab's time on the site). Updated
@@ -76,14 +47,7 @@ db.exec(`
   );
 `);
 
-// Lightweight migration: if you're upgrading from an older copy of this
-// project whose data.sqlite predates the hold_expires_at column, add it.
-const existingColumns = db.prepare('PRAGMA table_info(appointments)').all().map((c) => c.name);
-if (!existingColumns.includes('hold_expires_at')) {
-  db.exec('ALTER TABLE appointments ADD COLUMN hold_expires_at TEXT');
-}
-
-// Same idea: if you're upgrading from a copy of this project that had the
+// Lightweight migration: if you're upgrading from a copy of this project that had the
 // visits table before clicks_json was added, add the column now.
 const existingVisitColumns = db.prepare('PRAGMA table_info(visits)').all().map((c) => c.name);
 if (!existingVisitColumns.includes('clicks_json')) {

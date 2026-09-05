@@ -424,42 +424,6 @@ function gtag_report_conversion(url) {
 
   .form-error{display:none;font-size:13.5px;color:#c0362c;background:#fdecea;border:1px solid #f5c2bd;padding:12px 16px;border-radius:10px;margin-top:16px;}
   .form-error.show{display:block;}
-  .field-hint{display:block;font-size:12px;color:#8092ab;margin-top:6px;}
-
-  /* flatpickr overrides to match the site look */
-  .flatpickr-day.flatpickr-disabled, .flatpickr-day.flatpickr-disabled:hover{color:#c8d2e0 !important;text-decoration:line-through;background:transparent !important;}
-  .flatpickr-day.selected{background:var(--blue-500) !important;border-color:var(--blue-500) !important;}
-  .flatpickr-day.today{border-color:var(--blue-500);}
-
-  /* ===== PAYMENT STEP ===== */
-  .payment-step{display:none;margin-top:32px;padding-top:32px;border-top:1px solid #e3e9f1;}
-  .payment-step.show{display:block;}
-  .pay-summary h3{font-size:19px;font-weight:700;margin-bottom:6px;letter-spacing:-0.01em;}
-  .pay-summary p{font-size:14px;color:#5b6b85;margin-bottom:22px;}
-  .pay-tabs{display:flex;gap:8px;margin-bottom:20px;border-bottom:1px solid #e3e9f1;}
-  .pay-tab{
-    padding:10px 4px;margin-bottom:-1px;font-size:14px;font-weight:600;color:#8092ab;
-    border-bottom:2px solid transparent;transition:color .2s var(--ease), border-color .2s var(--ease);
-    margin-right:22px;
-  }
-  .pay-tab.active{color:var(--navy-950);border-bottom-color:var(--blue-500);}
-  .pay-choose-label{font-size:13px;font-weight:600;color:var(--navy-900);margin-bottom:10px;}
-  .pay-panel{padding-top:4px;}
-  #card-element{
-    padding:13px 15px;border-radius:10px;border:1.5px solid #e3e9f1;background:var(--white);
-  }
-  #card-element.StripeElement--focus{border-color:var(--blue-500);box-shadow:0 0 0 4px rgba(59,130,246,0.12);}
-  #card-element.StripeElement--invalid{border-color:#c0362c;}
-  #apple-pay-button{max-width:240px;}
-  .btn-ghost-dark{background:var(--slate-100);color:var(--navy-950);border:1px solid #e3e9f1;}
-  .btn-ghost-dark:hover{background:#e3e9f1;}
-  .pay-message{font-size:13.5px;margin-top:12px;}
-  .pay-message.error{color:#c0362c;}
-  .pay-message.info{color:#5b6b85;}
-  .pay-success{
-    display:flex;align-items:center;gap:10px;background:#eafff6;border:1px solid #b6f2d8;color:#0d7a4f;
-    padding:14px 18px;border-radius:12px;font-weight:600;margin-top:20px;
-  }
 
   /* ===== FOOTER ===== */
   footer{background:var(--navy-950);color:var(--slate-400);padding:60px 0 30px;}
@@ -705,11 +669,6 @@ function gtag_report_conversion(url) {
               <option value="More than 8">More than 8</option>
             </select>
           </div>
-          <div class="field" id="preferredDateField" style="display:none;">
-            <label for="preferredDate">Install date <span id="dateFieldOptionalTag" style="font-weight:400;color:#8092ab;">(only needed if booking a package)</span></label>
-            <input type="text" id="preferredDate" name="preferredDate" placeholder="Select an available date" autocomplete="off">
-            <span class="field-hint" id="dateFieldHint">Fully booked dates are greyed out — we currently do one install per day.</span>
-          </div>
           <div class="submit-row">
             <button type="submit" class="btn btn-primary" id="quoteSubmitBtn" style="width:100%;justify-content:center;" data-track-cta="Quote form — Submit">Get My Free Quote — No Obligation
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -723,43 +682,6 @@ function gtag_report_conversion(url) {
           <div class="form-error" id="formError"></div>
         </form>
 
-        <div class="payment-step" id="paymentStep">
-          <div class="pay-summary">
-            <h3>Pay for your <span id="paySummaryPackage">Essential</span> package</h3>
-            <p>Amount due today: <b id="paySummaryAmount">$0.00</b> &middot; appointment booked, payment confirms your install date.</p>
-          </div>
-          <p class="pay-choose-label">Choose how you'd like to pay:</p>
-          <div class="pay-tabs">
-            <button type="button" class="pay-tab active" data-tab="card">Credit / Debit Card</button>
-            <button type="button" class="pay-tab" data-tab="applepay">Apple Pay</button>
-            <button type="button" class="pay-tab" data-tab="bank">Bank Account (Plaid)</button>
-          </div>
-
-          <div class="pay-panel" id="cardPanel">
-            <div id="card-element"></div>
-            <button id="cardPayBtn" class="btn btn-primary" type="button" style="margin-top:18px;">
-              Pay <span id="cardPayAmount"></span>
-            </button>
-            <div class="pay-message" id="cardPayMessage"></div>
-          </div>
-
-          <div class="pay-panel" id="applePayPanel" style="display:none;">
-            <p style="font-size:14px;color:#5b6b85;margin-bottom:16px;">Pay instantly with Face ID / Touch ID — no card entry needed.</p>
-            <div id="apple-pay-button"></div>
-            <div class="pay-message" id="applePayMessage"></div>
-          </div>
-
-          <div class="pay-panel" id="bankPanel" style="display:none;">
-            <p style="font-size:14px;color:#5b6b85;margin-bottom:16px;">Securely connect your bank account through Plaid — we never see or store your online banking credentials. Payment is debited via ACH and typically settles in 1–3 business days.</p>
-            <button id="plaidLinkBtn" class="btn btn-ghost-dark" type="button">Link bank account</button>
-            <div class="pay-message" id="bankPayMessage"></div>
-          </div>
-
-          <div class="pay-message pay-success" id="paySuccessMessage" style="display:none;">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
-            Payment received — your install is booked! A confirmation has been sent to your email.
-          </div>
-        </div>
       </div>
       <div class="hero-slideshow" id="heroSlideshow">
         <div class="hero-slideshow-track">
@@ -771,11 +693,10 @@ function gtag_report_conversion(url) {
           <img data-src="/images/work/work-6.jpg" alt="Slim Security exterior camera installation">
           <img data-src="/images/work/work-7.jpg" alt="Slim Security exit sign camera installation">
           <img data-src="/images/work/work-8.jpg" alt="Slim Security ceiling camera installation">
-          <img data-src="/images/work/work-9.jpg" alt="Slim Security intercom panel installation">
         </div>
         <div class="hero-slideshow-dots">
           <span class="active"></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
         </div>
       </div>
       </div>
@@ -1029,10 +950,6 @@ function gtag_report_conversion(url) {
   </div>
 </div>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script defer src="https://js.stripe.com/v3/"></script>
-<script defer src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
 <script>
   // Header scroll state
   const header = document.getElementById('siteHeader');
@@ -1107,36 +1024,17 @@ function gtag_report_conversion(url) {
     });
   });
 
-  // ===== Booking + payment =====
+  // ===== Quote form =====
   const form = document.getElementById('quoteForm');
   const success = document.getElementById('formSuccess');
   const formError = document.getElementById('formError');
   const submitBtn = document.getElementById('quoteSubmitBtn');
-  const paymentStep = document.getElementById('paymentStep');
-  const paySuccessMessage = document.getElementById('paySuccessMessage');
   const packageSelect = document.getElementById('package');
-  const dateInput = document.getElementById('preferredDate');
-
-  // Flip this to true to turn the date-picker + online payment flow back on
-  // (everything for it is still here, just switched off for now while
-  // appointments are booked by phone and payment is taken in person).
-  const PAYMENTS_ENABLED = false;
-
-  let stripe = null;
-  let cardElement = null;
-  let currentClientSecret = null;
-  let currentAppointmentId = null;
-  let currentAmountCents = 0;
 
   // gtag_report_conversion() itself is defined in <head>, right after the
   // Google tag, per Google Ads' instructions — called below right when a
-  // quote request or booking is successfully saved (this form submits via
-  // JS and never navigates to a separate "thank you" page, so no redirect
-  // url is passed).
-
-  function money(cents) {
-    return '$' + (cents / 100).toFixed(2);
-  }
+  // quote request is successfully saved (this form submits via JS and never
+  // navigates to a separate "thank you" page, so no redirect url is passed).
 
   function showError(msg) {
     formError.textContent = msg;
@@ -1145,56 +1043,6 @@ function gtag_report_conversion(url) {
   function clearError() {
     formError.classList.remove('show');
     formError.textContent = '';
-  }
-
-  // Load public config (Stripe publishable key) once the page is ready.
-  let configPromise = fetch('/api/config').then(r => r.json()).catch(() => null);
-
-  // ----- Date picker: fetch which dates are already fully booked and grey them out -----
-  function toISODate(d) {
-    return d.toISOString().slice(0, 10);
-  }
-
-  const today = new Date();
-  const rangeEnd = new Date(today);
-  rangeEnd.setDate(rangeEnd.getDate() + 120); // show availability 120 days out
-
-  let unavailableDates = [];
-  let picker = null;
-
-  async function loadAvailabilityAndInitPicker() {
-    try {
-      const res = await fetch(`/api/availability?from=${toISODate(today)}&to=${toISODate(rangeEnd)}`);
-      const data = await res.json();
-      unavailableDates = (data.unavailableDates || []);
-    } catch (err) {
-      unavailableDates = []; // fail open on the client — the server still enforces this on submit
-    }
-
-    picker = flatpickr(dateInput, {
-      minDate: 'today',
-      maxDate: rangeEnd,
-      dateFormat: 'Y-m-d',
-      altInput: true,
-      altFormat: 'F j, Y',
-      disableMobile: true, // keep flatpickr's own calendar on phones too — the native mobile
-                            // date picker it would otherwise fall back to doesn't know about
-                            // our unavailable/booked dates, so it was letting past & booked
-                            // dates through on mobile.
-      disable: unavailableDates,
-    });
-  }
-  if (PAYMENTS_ENABLED) {
-    document.getElementById('preferredDateField').style.display = '';
-    loadAvailabilityAndInitPicker();
-
-    // Only require an install date when the customer is booking a real package.
-    function updateDateRequirement() {
-      const needsDate = packageSelect.value !== 'Not sure yet';
-      document.getElementById('dateFieldOptionalTag').style.display = needsDate ? 'none' : 'inline';
-    }
-    packageSelect.addEventListener('change', updateDateRequirement);
-    updateDateRequirement();
   }
 
   form.addEventListener('submit', async (e) => {
@@ -1210,273 +1058,37 @@ function gtag_report_conversion(url) {
       phone: document.getElementById('phone').value.trim(),
       zip: document.getElementById('zip').value.trim(),
       package: pkg,
-      preferredDate: dateInput.value || null,
       notes: null,
     };
 
-    if (!PAYMENTS_ENABLED || pkg === 'Not sure yet') {
-      // Online booking/payment is currently switched off (PAYMENTS_ENABLED = false above) —
-      // every submission is treated as a quote request/lead regardless of package chosen,
-      // and saved so you can call the customer back to book + collect payment in person.
-      submitBtn.disabled = true;
-      try {
-        const res = await fetch('/api/leads', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            firstName: payload.firstName,
-            lastName: payload.lastName,
-            phone: payload.phone,
-            zip: payload.zip,
-            interestedPackage: pkg,
-            notes: payload.notes,
-            sessionId: window.__ssVisitorId || null,
-          }),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Could not send your request — please try again.');
-
-        gtag_report_conversion();
-        window.dispatchEvent(new Event('ss:lead-submitted'));
-        success.classList.add('show');
-        form.reset();
-        if (picker) picker.clear();
-        success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      } catch (err) {
-        showError(err.message || 'Something went wrong — please try again.');
-      } finally {
-        submitBtn.disabled = false;
-      }
-      return;
-    }
-
-    if (!payload.preferredDate) {
-      showError('Please select an install date.');
-      dateInput.focus();
-      return;
-    }
-
     submitBtn.disabled = true;
     try {
-      const res = await fetch('/api/appointments', {
+      const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          firstName: payload.firstName,
+          lastName: payload.lastName,
+          phone: payload.phone,
+          zip: payload.zip,
+          interestedPackage: pkg,
+          notes: payload.notes,
+          sessionId: window.__ssVisitorId || null,
+        }),
       });
       const data = await res.json();
-      if (!res.ok) {
-        // If the date got taken between page load and submit, refresh availability so it greys out.
-        if (res.status === 409) loadAvailabilityAndInitPicker();
-        throw new Error(data.error || 'Could not book your appointment.');
-      }
-
-      currentAppointmentId = data.appointmentId;
-      currentAmountCents = data.amountCents;
+      if (!res.ok) throw new Error(data.error || 'Could not send your request — please try again.');
 
       gtag_report_conversion();
-
-      document.getElementById('paySummaryPackage').textContent = pkg;
-      document.getElementById('paySummaryAmount').textContent = money(currentAmountCents);
-      document.getElementById('cardPayAmount').textContent = money(currentAmountCents);
-
-      paymentStep.classList.add('show');
-      paymentStep.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-      await initPayments();
+      window.dispatchEvent(new Event('ss:lead-submitted'));
+      success.classList.add('show');
+      form.reset();
+      success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } catch (err) {
       showError(err.message || 'Something went wrong — please try again.');
     } finally {
       submitBtn.disabled = false;
     }
-  });
-
-  async function initPayments() {
-    const cfg = await configPromise;
-    if (!cfg || !cfg.publishableKey) {
-      const msg = 'Card payments are not configured yet (missing Stripe publishable key on the server).';
-      document.getElementById('cardPayMessage').textContent = msg;
-      document.getElementById('cardPayMessage').classList.add('error');
-      document.getElementById('applePayMessage').textContent = msg;
-      document.getElementById('applePayMessage').classList.add('error');
-      return;
-    }
-    if (!stripe) stripe = Stripe(cfg.publishableKey);
-
-    const res = await fetch('/api/create-payment-intent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ appointmentId: currentAppointmentId }),
-    });
-    const data = await res.json();
-    if (!res.ok) {
-      document.getElementById('cardPayMessage').textContent = data.error || 'Could not start payment.';
-      document.getElementById('cardPayMessage').classList.add('error');
-      return;
-    }
-    currentClientSecret = data.clientSecret;
-
-    // ----- Card fields -----
-    const elements = stripe.elements();
-    cardElement = elements.create('card', {
-      style: { base: { fontSize: '15px', fontFamily: 'Inter, sans-serif', color: '#0d1526' } },
-    });
-    cardElement.mount('#card-element');
-
-    // ----- Apple Pay button (also covers Google Pay on non-Apple devices/browsers) -----
-    const paymentRequest = stripe.paymentRequest({
-      country: 'US',
-      currency: 'usd',
-      total: { label: 'Slim CCTV Security install', amount: currentAmountCents },
-      requestPayerName: true,
-      requestPayerEmail: true,
-    });
-
-    const prButton = elements.create('paymentRequestButton', {
-      paymentRequest,
-      style: { paymentRequestButton: { type: 'book', theme: 'dark', height: '48px' } },
-    });
-
-    const applePayMsg = document.getElementById('applePayMessage');
-    const canPay = await paymentRequest.canMakePayment();
-    if (canPay) {
-      prButton.mount('#apple-pay-button');
-    } else {
-      document.getElementById('apple-pay-button').style.display = 'none';
-      applePayMsg.textContent = 'Apple Pay isn\'t available in this browser/device (it needs Safari on a Mac or iPhone with a card set up in Wallet, on a live HTTPS site). Try Card or Bank Account instead.';
-      applePayMsg.classList.add('info');
-    }
-
-    paymentRequest.on('paymentmethod', async (ev) => {
-      const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(
-        currentClientSecret,
-        { payment_method: ev.paymentMethod.id },
-        { handleActions: false }
-      );
-
-      if (confirmError) {
-        ev.complete('fail');
-        applePayMsg.textContent = confirmError.message;
-        applePayMsg.classList.add('error');
-        return;
-      }
-      ev.complete('success');
-
-      if (paymentIntent.status === 'requires_action') {
-        const { error: actionError } = await stripe.confirmCardPayment(currentClientSecret);
-        if (actionError) {
-          applePayMsg.textContent = actionError.message;
-          applePayMsg.classList.add('error');
-          return;
-        }
-      }
-      onPaymentSucceeded();
-    });
-  }
-
-  document.getElementById('cardPayBtn').addEventListener('click', async () => {
-    const msg = document.getElementById('cardPayMessage');
-    msg.textContent = '';
-    msg.className = 'pay-message';
-    if (!stripe || !cardElement || !currentClientSecret) return;
-
-    const { error, paymentIntent } = await stripe.confirmCardPayment(currentClientSecret, {
-      payment_method: { card: cardElement },
-    });
-
-    if (error) {
-      msg.textContent = error.message;
-      msg.classList.add('error');
-      return;
-    }
-    if (paymentIntent && paymentIntent.status === 'succeeded') {
-      onPaymentSucceeded();
-    } else {
-      msg.textContent = 'Payment is processing — we will confirm shortly.';
-      msg.classList.add('info');
-    }
-  });
-
-  function onPaymentSucceeded() {
-    paymentStep.querySelectorAll('.pay-choose-label, .pay-tabs, .pay-panel').forEach(el => el.style.display = 'none');
-    paySuccessMessage.style.display = 'flex';
-    paySuccessMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-
-  // ----- Payment method tabs -----
-  const PAY_PANEL_IDS = { card: 'cardPanel', applepay: 'applePayPanel', bank: 'bankPanel' };
-  document.querySelectorAll('.pay-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      const target = tab.dataset.tab;
-      Object.entries(PAY_PANEL_IDS).forEach(([key, id]) => {
-        document.getElementById(id).style.display = key === target ? 'block' : 'none';
-      });
-    });
-  });
-
-  // ----- Plaid: link bank account, then pay via ACH -----
-  document.getElementById('plaidLinkBtn').addEventListener('click', async () => {
-    const msg = document.getElementById('bankPayMessage');
-    msg.textContent = '';
-    msg.className = 'pay-message';
-
-    if (typeof Plaid === 'undefined') {
-      msg.textContent = 'Plaid Link failed to load.';
-      msg.classList.add('error');
-      return;
-    }
-
-    let linkToken;
-    try {
-      const res = await fetch('/api/plaid/create-link-token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ appointmentId: currentAppointmentId }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Could not start bank linking.');
-      linkToken = data.linkToken;
-    } catch (err) {
-      msg.textContent = err.message;
-      msg.classList.add('error');
-      return;
-    }
-
-    const handler = Plaid.create({
-      token: linkToken,
-      onSuccess: async (publicToken, metadata) => {
-        msg.textContent = 'Bank linked — completing payment...';
-        msg.classList.add('info');
-        try {
-          const accountId = metadata.accounts && metadata.accounts[0] ? metadata.accounts[0].id : null;
-          const res = await fetch('/api/plaid/pay', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ appointmentId: currentAppointmentId, publicToken, accountId }),
-          });
-          const data = await res.json();
-          if (!res.ok) throw new Error(data.error || 'Bank payment failed.');
-
-          if (data.status === 'succeeded' || data.status === 'pending') {
-            onPaymentSucceeded();
-          } else {
-            msg.textContent = 'Payment status: ' + data.status;
-            msg.classList.add('info');
-          }
-        } catch (err) {
-          msg.textContent = err.message;
-          msg.classList.add('error');
-        }
-      },
-      onExit: (err) => {
-        if (err) {
-          msg.textContent = 'Bank linking was cancelled.';
-          msg.classList.add('info');
-        }
-      },
-    });
-    handler.open();
   });
 </script>
 
