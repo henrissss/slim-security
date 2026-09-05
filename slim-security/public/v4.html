@@ -57,7 +57,7 @@ function gtag_report_conversion(url) {
   }
 
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth;overscroll-behavior-x:none;}
   body{
     font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     color:var(--navy-900);
@@ -65,6 +65,7 @@ function gtag_report_conversion(url) {
     line-height:1.5;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
+    overscroll-behavior-x:none;
   }
   img{max-width:100%;display:block;}
   a{color:inherit;text-decoration:none;}
@@ -541,18 +542,28 @@ function gtag_report_conversion(url) {
     .hero .contact-info{padding-right:0;}
     .hero-slideshow-mobile{
       display:block;position:relative;margin-top:34px;
-      /* Actual edge-to-edge width/offset is set in px by JS (see
-         fitSlideshowEdge below) — 100vw/calc() is unreliable here because
-         on many mobile browsers 100vw is computed including the width a
-         vertical scrollbar would reserve, so it overshoots the real
-         visible width and makes the whole page jump/drift on load. Until
-         JS runs this just sits at the normal contained width, so there's
-         nothing to correct/jump from. */
+      /* Break out of the container's 24px side padding using a fixed px
+         value (matching .container's own padding exactly) instead of
+         width:100vw/calc(). vw units measure wrong on plenty of mobile
+         browsers (they can include room for a scrollbar that isn't
+         actually taking up visible space), which overshot the real width
+         here and made the whole page drift/jump on load. Plain px math
+         against a padding value that never changes has nothing to get
+         wrong. */
+      width:calc(100% + 48px);
+      margin-left:-24px;
     }
     .hero-slideshow-mobile .hero-slideshow-track{
       aspect-ratio:4/5;display:flex;overflow-x:auto;
       scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
       scrollbar-width:none;
+      /* Since this now touches the true screen edge, a swipe that starts
+         right at its boundary can otherwise "leak" into the page itself —
+         the browser reads it as a page-level horizontal gesture and
+         rubber-bands/shifts the whole page sideways. Containing the scroll
+         here (plus overscroll-behavior-x:none on html/body above) keeps
+         the gesture inside the carousel only. */
+      overscroll-behavior-x:contain;
     }
     .hero-slideshow-mobile .hero-slideshow-track::-webkit-scrollbar{display:none;}
     .hero-slideshow-mobile .hero-slideshow-track img{
@@ -1115,29 +1126,6 @@ function gtag_report_conversion(url) {
       setInterval(() => goTo(current + 1), 4000);
     }
 
-    // Makes the mobile slideshow span true edge-to-edge in real pixels
-    // instead of via width:100vw/negative-margin math. That vw-based trick
-    // measures the viewport wrong on plenty of mobile browsers (it can
-    // include room for a scrollbar that isn't actually taking up visible
-    // space), which overshoots the real width and makes the whole page
-    // jump/drift horizontally on load. Measuring the already-full-width
-    // .hero section directly and copying its exact pixel width/offset
-    // sidesteps that entirely.
-    function fitSlideshowEdge() {
-      const mobile = document.getElementById('heroSlideshowMobile');
-      const hero = document.querySelector('.hero');
-      if (!mobile || !hero) return;
-      if (window.innerWidth >= 901) {
-        mobile.style.width = '';
-        mobile.style.marginLeft = '';
-        return;
-      }
-      const heroRect = hero.getBoundingClientRect();
-      const parentRect = mobile.parentElement.getBoundingClientRect();
-      mobile.style.width = heroRect.width + 'px';
-      mobile.style.marginLeft = (heroRect.left - parentRect.left) + 'px';
-    }
-
     const isDesktop = window.innerWidth >= 901; // matches the CSS breakpoint above
     if (isDesktop) {
       const el = document.getElementById('heroSlideshow');
@@ -1145,14 +1133,7 @@ function gtag_report_conversion(url) {
     } else {
       const el = document.getElementById('heroSlideshowMobile');
       if (el) initMobileSlideshow(el);
-      fitSlideshowEdge();
     }
-
-    let edgeResizeTimer = null;
-    window.addEventListener('resize', () => {
-      clearTimeout(edgeResizeTimer);
-      edgeResizeTimer = setTimeout(fitSlideshowEdge, 100);
-    });
   })();
 
   // Reveal on scroll
