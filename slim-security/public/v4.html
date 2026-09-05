@@ -1108,38 +1108,60 @@ function gtag_report_conversion(url) {
       }, 4000);
     }
 
-    // Mobile: a real swipeable carousel (horizontal scroll-snap) — the
-    // visitor can swipe through the photos with a finger at any time, and it
-    // also auto-advances on its own the rest of the time. Autoplay and swipe
-    // share one "current index", kept in sync from actual scroll position so
-    // they never fight each other.
+    // Mobile: a purely manual swipeable carousel (horizontal scroll-snap) —
+    // no autoplay, the visitor moves through the photos only by swiping.
+    // It also loops infinitely in both directions: swiping past photo 8
+    // continues on to photo 1 (and swiping the other way past photo 1
+    // continues on to photo 8), rather than just stopping dead at the end.
+    //
+    // Native scroll-snap has no built-in concept of "wrap around", so this
+    // uses the standard trick for it: a clone of the last photo is placed
+    // before the first real one, and a clone of the first photo after the
+    // last real one. The visitor can then swipe seamlessly onto a clone;
+    // once the swipe settles there, the track silently (no animation, so
+    // it's invisible — the clone looks identical to the real photo it's
+    // sitting next to) jumps to the matching real photo at the other end.
     function initMobileSlideshow(root) {
       const track = root.querySelector('.hero-slideshow-track');
-      const slides = populateImages(root);
       const counter = root.querySelector('.hero-slideshow-counter span');
-      if (!track || !slides.length) return;
+      if (!track) return;
+      const realSlides = Array.from(track.querySelectorAll('img'));
+      const total = realSlides.length;
+      if (!total) return;
 
-      let current = 0;
-      function setCounter(i) {
-        if (counter) counter.textContent = i + 1;
-      }
-      function goTo(i) {
-        current = (i + slides.length) % slides.length;
-        track.scrollTo({ left: current * track.clientWidth, behavior: 'smooth' });
-        setCounter(current);
-      }
+      const startClone = realSlides[total - 1].cloneNode(true);
+      const endClone = realSlides[0].cloneNode(true);
+      startClone.classList.remove('active');
+      endClone.classList.remove('active');
+      track.insertBefore(startClone, realSlides[0]);
+      track.appendChild(endClone);
+      populateImages(root); // gives the clones their real src too, from data-src
 
-      // Keep `current`/counter in sync with wherever the visitor actually swipes to.
+      // Index space now runs 0..total+1: 0 is the start clone, 1..total
+      // are the real photos, total+1 is the end clone.
+      let current = 1;
+      track.scrollTo({ left: current * track.clientWidth, behavior: 'instant' });
+
+      function setCounter() {
+        if (counter) counter.textContent = current;
+      }
+      setCounter();
+
       let scrollEndTimer = null;
       track.addEventListener('scroll', () => {
         clearTimeout(scrollEndTimer);
         scrollEndTimer = setTimeout(() => {
           current = Math.round(track.scrollLeft / track.clientWidth);
-          setCounter(current);
+          if (current === 0) {
+            current = total;
+            track.scrollTo({ left: current * track.clientWidth, behavior: 'instant' });
+          } else if (current === total + 1) {
+            current = 1;
+            track.scrollTo({ left: current * track.clientWidth, behavior: 'instant' });
+          }
+          setCounter();
         }, 120);
       });
-
-      setInterval(() => goTo(current + 1), 4000);
     }
 
     const isDesktop = window.innerWidth >= 901; // matches the CSS breakpoint above
@@ -1409,18 +1431,23 @@ function gtag_report_conversion(url) {
 </script>
 
 <script>
-  // Sticky mobile call/quote bar — shows as soon as the visitor scrolls
-  // past the photo slideshow (the last thing in the hero), hides again if
-  // they scroll back up above it. Uses the slideshow's own bottom edge
-  // (rather than the whole hero section) as the trigger line so the bar
-  // appears right when the photo clears the top of the screen, instead of
-  // waiting through the hero's bottom padding too.
+  // Sticky mobile call/quote bar — shows the instant the photo slideshow's
+  // bottom edge scrolls into view (i.e. the whole photo has appeared on
+  // screen), hides again once it scrolls back out below the screen as the
+  // visitor scrolls back up.
   //
-  // A plain IntersectionObserver can't express this: "not intersecting"
-  // is also true before the visitor has scrolled anywhere near the photo,
-  // so it can't tell "haven't reached it yet" apart from "already passed
-  // it". Checking the live bounding rect on scroll can, since only
-  // "already passed" ever pushes the bottom edge above 0.
+  // Driven by a per-frame check (requestAnimationFrame) rather than a
+  // 'scroll' event listener or IntersectionObserver: the trigger line here
+  // is the moment rect.bottom crosses window.innerHeight, a point in the
+  // *middle* of the photo's visibility (it's already partly on screen
+  // before this and stays fully on screen after) — a plain 'scroll'
+  // listener can miss/lag that instant on a fast flick since the browser
+  // may deliver scroll events at a lower rate while the page is still
+  // moving, and IntersectionObserver only reports enter/exit of the
+  // element as a whole, not an arbitrary crossing point partway through.
+  // Checking every animation frame instead means it can't be missed
+  // regardless of scroll speed, and the check itself is cheap enough to
+  // run continuously.
   (function () {
     const bar = document.getElementById('stickyMobileCta');
     const hero = document.getElementById('top');
@@ -1428,18 +1455,12 @@ function gtag_report_conversion(url) {
     const trigger = slideshow || hero;
     if (!bar || !trigger) return;
 
-    let ticking = false;
-    function update() {
-      ticking = false;
-      bar.classList.toggle('show', trigger.getBoundingClientRect().bottom < 0);
+    function loop() {
+      const rect = trigger.getBoundingClientRect();
+      bar.classList.toggle('show', rect.bottom <= window.innerHeight);
+      requestAnimationFrame(loop);
     }
-    function onScroll() {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    update();
+    requestAnimationFrame(loop);
   })();
 </script>
 
