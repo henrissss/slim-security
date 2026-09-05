@@ -510,30 +510,35 @@ function gtag_report_conversion(url) {
      column (see the max-width:900px rule below) where this never applied. */
   @media(min-width:901px){.hero .contact-wrap{align-items:start;}}
 
-  /* Desktop-only float cards below the form, in the space the form no
-     longer stretches into — same glassmorphic "floaty" cards from the
-     original hero-visual on index.html. Hidden on mobile/tablet on
-     purpose: below 900px .hero .contact-wrap drops to a single column and
-     this would just add clutter under an already-stacked layout. */
-  .hero-float-cards{display:none;}
+  /* Desktop-only photo slideshow below the form, in the space the form no
+     longer stretches into — real installs, replacing the old floating
+     status-card mockups. Hidden on mobile/tablet on purpose: below 900px
+     .hero .contact-wrap drops to a single column and this would just add
+     clutter under an already-stacked layout. */
+  .hero-slideshow{display:none;}
   @media(min-width:901px){
-    .hero-float-cards{display:flex;flex-direction:column;gap:16px;margin-top:22px;}
-    .hero-float-cards .float-card{
-      background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
-      backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-      border-radius:16px;padding:16px 18px;
-      display:flex;align-items:center;gap:14px;
-      animation:floaty 6s ease-in-out infinite;
+    .hero-slideshow{
+      display:block;position:relative;margin-top:22px;
+      border-radius:16px;overflow:hidden;
       box-shadow:0 20px 50px -20px rgba(0,0,0,0.5);
+      border:1px solid rgba(255,255,255,0.1);
     }
-    .hero-float-cards .float-card:nth-child(2){animation-delay:1.4s;margin-left:40px;}
-    .hero-float-cards .float-card:nth-child(3){animation-delay:2.8s;}
+    .hero-slideshow-track{position:relative;width:100%;aspect-ratio:16/10;background:#0a0f1c;}
+    .hero-slideshow-track img{
+      position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+      opacity:0;transition:opacity 1s ease;
+    }
+    .hero-slideshow-track img.active{opacity:1;}
+    .hero-slideshow-dots{
+      position:absolute;bottom:12px;left:0;right:0;
+      display:flex;justify-content:center;gap:7px;z-index:2;
+    }
+    .hero-slideshow-dots span{
+      width:6px;height:6px;border-radius:50%;
+      background:rgba(255,255,255,0.4);transition:background .3s ease, transform .3s ease;
+    }
+    .hero-slideshow-dots span.active{background:var(--cyan-400);transform:scale(1.3);}
   }
-  @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
-  .float-icon{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg, var(--cyan-400), var(--blue-500));display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .float-icon svg{width:20px;height:20px;color:var(--navy-950);}
-  .float-text b{display:block;color:var(--white);font-size:14px;}
-  .float-text span{color:var(--slate-400);font-size:12.5px;}
   .hero .contact-form{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);padding:38px 34px;color:var(--navy-900);}
   .hero .contact-form h2{font-size:22px;font-weight:700;color:var(--navy-950);margin-bottom:6px;letter-spacing:-0.01em;}
   .hero .contact-form > p{font-size:13.5px;color:#5b6b85;margin-bottom:22px;}
@@ -645,9 +650,9 @@ function gtag_report_conversion(url) {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
             <span>8 Cameras + 24/7 Recording + Professional Home Installation + Tax — <span class="amt">From $69/Month</span></span>
           </div>
-          <div class="price-highlight-foot">Pay it off, then it's $0/month — forever.</div>
+          <div class="price-highlight-foot">Pay it off, then it's $0/month — forever. Or just pay one time.</div>
         </div>
-        <h1>Professional Home Security Cameras — <span class="grad">From $49/Month</span></h1>
+        <h1>Professional Home Security Cameras — <span class="grad">From $49/Month or Pay One-Time</span></h1>
         <p class="lead">4 cameras. 24/7 recording. View everything from your phone. No hidden fees, ever — pay it off, then it's $0/month for life.</p>
         <div class="trust-line-simple">NJ &amp; NY &bull; Licensed &amp; Insured &bull; Professional Installation</div>
         <div class="hero-ctas">
@@ -745,18 +750,21 @@ function gtag_report_conversion(url) {
           </div>
         </div>
       </div>
-      <div class="hero-float-cards">
-        <div class="float-card">
-          <div class="float-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0f1c" stroke-width="2.2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
-          <div class="float-text"><b>4K Live View</b><span>Front door camera</span></div>
+      <div class="hero-slideshow" id="heroSlideshow">
+        <div class="hero-slideshow-track">
+          <img src="/images/work/work-1.jpg" alt="Slim Security installed NVR and monitor wall" class="active">
+          <img src="/images/work/work-2.jpg" alt="Slim Security intercom installation">
+          <img src="/images/work/work-3.jpg" alt="Slim Security dome camera installation">
+          <img src="/images/work/work-4.jpg" alt="Slim Security stairwell camera installation">
+          <img src="/images/work/work-5.jpg" alt="Slim Security monitoring wall">
+          <img src="/images/work/work-6.jpg" alt="Slim Security exterior camera installation">
+          <img src="/images/work/work-7.jpg" alt="Slim Security exit sign camera installation">
+          <img src="/images/work/work-8.jpg" alt="Slim Security ceiling camera installation">
+          <img src="/images/work/work-9.jpg" alt="Slim Security intercom panel installation">
         </div>
-        <div class="float-card">
-          <div class="float-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0f1c" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <div class="float-text"><b>System Armed</b><span>All zones secure</span></div>
-        </div>
-        <div class="float-card">
-          <div class="float-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0f1c" stroke-width="2.2"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg></div>
-          <div class="float-text"><b>Motion Alert</b><span>Backyard, 2 min ago</span></div>
+        <div class="hero-slideshow-dots">
+          <span class="active"></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
         </div>
       </div>
       </div>
@@ -1030,6 +1038,22 @@ function gtag_report_conversion(url) {
   document.querySelectorAll('.mobile-menu a').forEach(a => {
     a.addEventListener('click', () => mobileMenu.classList.remove('open'));
   });
+
+  // Hero photo slideshow (desktop only — the element is display:none below 901px,
+  // but the interval is harmless either way since it just toggles classes).
+  (function () {
+    const slides = document.querySelectorAll('.hero-slideshow-track img');
+    const dots = document.querySelectorAll('.hero-slideshow-dots span');
+    if (!slides.length) return;
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      dots[current] && dots[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+      dots[current] && dots[current].classList.add('active');
+    }, 4000);
+  })();
 
   // Reveal on scroll
   const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
