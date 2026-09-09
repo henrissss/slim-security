@@ -30,7 +30,8 @@ function gtag_report_conversion(url) {
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Slim CCTV Security | Cutting-Edge Home Security Cameras in NJ & NY</title><meta name="description" content="Slim CCTV Security installs cutting-edge security cameras and smart home security equipment for homeowners in New Jersey and New York — professional grade protection at a fraction of the price.">
+<title>Slim CCTV Security | Cutting-Edge Home Security Cameras in NJ & NY</title>
+<meta name="description" content="Slim CCTV Security installs cutting-edge security cameras and smart home security equipment for homeowners in New Jersey and New York — professional grade protection at a fraction of the price.">
 <style>
   :root{
     --navy-950:#0a0f1c;
@@ -55,7 +56,7 @@ function gtag_report_conversion(url) {
   }
 
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;overscroll-behavior-x:none;}
+  html{scroll-behavior:smooth;}
   body{
     font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     color:var(--navy-900);
@@ -63,7 +64,6 @@ function gtag_report_conversion(url) {
     line-height:1.5;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
-    overscroll-behavior-x:none;
   }
   img{max-width:100%;display:block;}
   a{color:inherit;text-decoration:none;}
@@ -97,10 +97,6 @@ function gtag_report_conversion(url) {
   }
   nav{display:flex;align-items:center;justify-content:space-between;}
   .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;letter-spacing:-0.02em;color:var(--white);}
-  .logo-text{display:flex;flex-direction:column;line-height:1.15;}
-  .logo-text .logo-name{font-size:17px;font-weight:800;letter-spacing:0.01em;color:var(--white);}
-  .logo-text .logo-tagline{font-size:10.5px;font-weight:600;letter-spacing:0.02em;color:var(--slate-400);margin-top:1px;white-space:nowrap;}
-  @media(max-width:400px){.logo-text .logo-tagline{font-size:9px;}}
   .logo-mark{
     width:34px;height:34px;border-radius:9px;
     background:linear-gradient(135deg, var(--cyan-400), var(--blue-500));
@@ -125,24 +121,6 @@ function gtag_report_conversion(url) {
   .burger{display:none;flex-direction:column;gap:5px;width:24px;}
   .burger span{height:2px;background:var(--white);border-radius:2px;transition:transform .3s var(--ease), opacity .3s var(--ease);}
 
-  /* Mobile-only call row under the logo — the header's normal phone number
-     link lives inside .nav-cta, which is hidden below 860px along with the
-     rest of the nav, so without this a mobile visitor has no visible way to
-     call until they open the burger menu. Sits inside the (already
-     position:fixed) header, so it never pushes hero content down — the hero
-     keeps its own padding-top, which already has enough headroom for it. */
-  .header-call-row{display:none;}
-  @media(max-width:860px){
-    .header-call-row{display:flex;justify-content:center;margin-top:12px;}
-    .header-call-row a{
-      display:inline-flex;align-items:center;gap:8px;
-      background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
-      color:var(--white);font-size:13.5px;font-weight:700;
-      padding:9px 18px;border-radius:100px;
-    }
-    .header-call-row svg{width:15px;height:15px;flex-shrink:0;}
-  }
-
   .mobile-menu{
     position:fixed;inset:0;background:var(--navy-950);z-index:999;
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
@@ -159,19 +137,14 @@ function gtag_report_conversion(url) {
     color:var(--white);
     padding:180px 0 140px;
     position:relative;
-    overflow:clip;
+    overflow:hidden;
   }
-  /* Decorative blur circles live in their own clipped layer (rather than
-     directly on .hero) so .hero itself can safely go overflow:visible on
-     mobile (see max-width:900px below) to let the full-bleed photo
-     slideshow escape its column — without these circles spilling out too. */
-  .hero-bg-clip{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
-  .hero-bg-clip::before{
+  .hero::before{
     content:"";position:absolute;top:-20%;right:-10%;width:600px;height:600px;
     background:radial-gradient(circle, rgba(61,220,214,0.16) 0%, transparent 70%);
     filter:blur(10px);
   }
-  .hero-bg-clip::after{
+  .hero::after{
     content:"";position:absolute;bottom:-30%;left:-10%;width:500px;height:500px;
     background:radial-gradient(circle, rgba(59,130,246,0.14) 0%, transparent 70%);
   }
@@ -193,36 +166,15 @@ function gtag_report_conversion(url) {
     background:linear-gradient(100deg, var(--cyan-300), var(--blue-500) 60%);
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
-  .hero p.lead-sub{
-    font-size:15.5px;color:var(--cyan-300);max-width:560px;margin:-10px 0 16px;font-weight:600;letter-spacing:0.01em;
-  }
   .hero p.lead{
     font-size:19px;color:var(--slate-300);max-width:560px;margin-bottom:38px;font-weight:400;
   }
   .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:56px;}
-  /* A soft glow bridging the button's lower edge down to the photo
-     slideshow below it, mobile only (that's the only layout where the
-     button sits directly above the slideshow, with nothing but empty
-     gap between them). Sits behind the button (z-index) so it reads as
-     light spilling out from under it rather than sitting on top of it. */
-  @media(max-width:900px){
-    .hero-ctas{position:relative;}
-    .hero-ctas .btn-primary{position:relative;z-index:1;}
-    .hero-ctas::after{
-      content:"";position:absolute;z-index:0;pointer-events:none;
-      left:50%;bottom:-74px;transform:translateX(-50%);
-      width:70%;max-width:280px;height:100px;
-      background:radial-gradient(ellipse at center, rgba(61,220,214,0.6) 0%, rgba(59,130,246,0.32) 45%, transparent 75%);
-      filter:blur(18px);
-    }
-  }
   .btn{
     display:inline-flex;align-items:center;gap:10px;
     padding:16px 30px;border-radius:100px;font-weight:600;font-size:15.5px;
     transition:transform .3s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease), color .3s var(--ease);
   }
-  .btn-large{padding:19px 38px;font-size:17px;width:100%;justify-content:center;}
-  @media(min-width:640px){.btn-large{width:auto;}}
   .btn-primary{
     background:linear-gradient(100deg, var(--cyan-400), var(--blue-500));
     color:var(--navy-950);
@@ -239,7 +191,6 @@ function gtag_report_conversion(url) {
 
   .trust-row{display:flex;gap:36px;flex-wrap:wrap;}
   .trust-item{display:flex;align-items:center;gap:10px;color:var(--slate-400);font-size:13.5px;font-weight:500;}
-  .trust-line-simple{color:var(--slate-400);font-size:13.5px;font-weight:600;letter-spacing:0.01em;margin-bottom:26px;}
   .trust-item svg{width:18px;height:18px;color:var(--cyan-400);flex-shrink:0;}
 
   /* floating device mock */
@@ -353,8 +304,6 @@ function gtag_report_conversion(url) {
   .price-amount{font-size:42px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;}
   .price-amount span{font-size:15px;font-weight:500;color:#5b6b85;}
   .price-card.featured .price-amount span{color:var(--slate-400);}
-  .price-onetime{font-size:14px;font-weight:600;color:#33415c;margin-bottom:14px;}
-  .price-card.featured .price-onetime{color:var(--slate-200,#d7e0ee);}
   .price-note{font-size:13px;color:#8092ab;margin-bottom:26px;}
   .price-card ul{margin-bottom:28px;flex:1;}
   .price-card ul li{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;margin-bottom:12px;color:#33415c;}
@@ -387,10 +336,7 @@ function gtag_report_conversion(url) {
   .testi-section{padding:110px 0;background:var(--navy-950);color:var(--white);}
   .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
   .testi-card{background:var(--navy-900);border:1px solid var(--navy-700);border-radius:var(--radius-lg);padding:30px;}
-  .testi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
-  .google-badge{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--slate-400);}
-  .google-badge svg{width:15px;height:15px;flex-shrink:0;}
-  .stars{display:flex;gap:4px;}
+  .stars{display:flex;gap:4px;margin-bottom:18px;}
   .stars svg{width:16px;height:16px;color:var(--amber-400);}
   .testi-card p{font-size:15px;color:var(--slate-300);margin-bottom:24px;line-height:1.6;}
   .testi-person{display:flex;align-items:center;gap:12px;}
@@ -473,196 +419,6 @@ function gtag_report_conversion(url) {
     .nav-links,.nav-cta{display:none;}
     .burger{display:flex;}
   }
-  .teaser-band{background:var(--navy-950);color:#fff;padding:36px 0;border-top:1px solid #1a2942;border-bottom:1px solid #1a2942;}
-  .teaser-inner{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;}
-  .teaser-text h2{font-size:24px;font-weight:800;letter-spacing:-0.01em;margin:6px 0 6px;}
-  .teaser-text p{font-size:14px;color:var(--slate-300,#b7c3d9);margin:0;}
-  .teaser-inner .btn{flex-shrink:0;}
-  @media (max-width:720px){.teaser-inner{flex-direction:column;align-items:flex-start;}}
-
-  /* ===== v3: conversion-focused hero/form + sticky mobile CTA ===== */
-  .hero{padding:150px 0 90px;}
-  @media(max-width:640px){.hero{padding-top:112px;}}
-  .contact-info .mini-testi{
-    margin-top:30px;padding:16px 18px;background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.12);border-radius:12px;position:relative;
-  }
-  .contact-info .mini-testi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-  .contact-info .mini-testi .stars{color:var(--amber-400);font-size:13px;letter-spacing:2px;}
-  .contact-info .mini-testi .google-badge{font-size:11px;color:var(--slate-400);}
-  .contact-info .mini-testi .google-badge svg{width:13px;height:13px;}
-  .contact-info .mini-testi p{color:var(--slate-300);font-size:13.5px;margin-bottom:8px;font-style:italic;line-height:1.5;}
-  .contact-info .mini-testi .who{color:var(--slate-400);font-size:12px;font-weight:600;font-style:normal;}
-  /* On mobile the testimonial is replaced by the photo slideshow below, so hide it there. */
-  @media(max-width:900px){.contact-info .mini-testi{display:none;}}
-  .hero .contact-wrap{position:relative;z-index:2;}
-  .hero .contact-info{background:transparent;padding:0 20px 0 0;overflow:visible;}
-  .hero .contact-info::before{display:none;}
-  .hero .contact-wrap{background:transparent;box-shadow:none;border-radius:0;gap:44px;overflow:visible;}
-  /* Desktop only: the left column (badge/headline/price box/testimonial) runs
-     taller than the form. Grid columns stretch to match each other's height
-     by default, so the right column (form + slideshow) is stretched to that
-     same height — the slideshow (flex:1, below) absorbs that extra height
-     instead of leaving a gap, so its bottom lines up with the testimonial's
-     bottom on the left. Scoped to >900px since below that .hero .contact-wrap
-     drops to a single column (see the max-width:900px rule below). */
-  @media(min-width:901px){
-    .hero .contact-form-col{display:flex;flex-direction:column;min-height:0;}
-    .hero .contact-form{flex:none;}
-  }
-
-  /* Shared photo-slideshow inner styles — used by both the desktop slideshow
-     (below the form) and the mobile slideshow (replacing the testimonial). */
-  .hero-slideshow-track{position:relative;width:100%;background:#0a0f1c;}
-  .hero-slideshow-track img{
-    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-    opacity:0;transition:opacity 1s ease;
-  }
-  .hero-slideshow-track img.active{opacity:1;}
-  .hero-slideshow-dots{
-    position:absolute;bottom:12px;left:0;right:0;
-    display:flex;justify-content:center;gap:7px;z-index:2;
-  }
-  .hero-slideshow-dots span{
-    width:6px;height:6px;border-radius:50%;
-    background:rgba(255,255,255,0.4);transition:background .3s ease, transform .3s ease;
-  }
-  .hero-slideshow-dots span.active{background:var(--cyan-400);transform:scale(1.3);}
-
-  /* Desktop-only photo slideshow below the form, in the space the form no
-     longer stretches into — real installs, replacing the old floating
-     status-card mockups. Hidden on mobile/tablet on purpose: below 900px
-     .hero .contact-wrap drops to a single column and this would just add
-     clutter under an already-stacked layout — the mobile slideshow below
-     (.hero-slideshow-mobile) takes over there instead. */
-  .hero-slideshow{display:none;}
-  @media(min-width:901px){
-    .hero-slideshow{
-      display:flex;flex-direction:column;flex:1;min-height:0;
-      position:relative;margin-top:22px;
-      border-radius:16px;overflow:hidden;
-      box-shadow:0 20px 50px -20px rgba(0,0,0,0.5);
-      border:1px solid rgba(255,255,255,0.1);
-      /* Wider than the form above it (form width is untouched) by bleeding
-         into the container's outer padding on the right only — left edge
-         stays aligned with the form's left edge. Height fills the remaining
-         space down to the testimonial's bottom (see flex:1 above). */
-      width:calc(100% + 48px);
-      margin-right:-48px;
-    }
-    .hero-slideshow .hero-slideshow-track{flex:1;min-height:0;}
-  }
-
-  /* Mobile-only photo slideshow, replacing the testimonial in that spot
-     (see @media(max-width:900px){.contact-info .mini-testi} above). Unlike
-     the desktop version (a fixed image that fades to the next one), this is
-     a real horizontally-swipeable carousel — one finger-swipe scrolls to the
-     next/previous photo, snapping into place — with autoplay advancing it
-     the rest of the time. Styled full-bleed (edge to edge, breaking out of
-     the container's side padding) for a more modern, immersive look than a
-     boxed-in card. */
-  .hero-slideshow-mobile{display:none;}
-  @media(max-width:900px){
-    .hero{overflow:visible;}
-    .hero .contact-info{padding-right:0;}
-    .hero-slideshow-mobile{
-      display:block;position:relative;margin-top:34px;
-      /* Break out of the container's 24px side padding using a fixed px
-         value (matching .container's own padding exactly) instead of
-         width:100vw/calc(). vw units measure wrong on plenty of mobile
-         browsers (they can include room for a scrollbar that isn't
-         actually taking up visible space), which overshot the real width
-         here and made the whole page drift/jump on load. Plain px math
-         against a padding value that never changes has nothing to get
-         wrong. */
-      width:calc(100% + 48px);
-      margin-left:-24px;
-    }
-    .hero-slideshow-mobile .hero-slideshow-track{
-      aspect-ratio:4/5;display:flex;overflow-x:auto;
-      scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
-      scrollbar-width:none;
-      /* Since this now touches the true screen edge, a swipe that starts
-         right at its boundary can otherwise "leak" into the page itself —
-         the browser reads it as a page-level horizontal gesture and
-         rubber-bands/shifts the whole page sideways. Containing the scroll
-         here (plus overscroll-behavior-x:none on html/body above) keeps
-         the gesture inside the carousel only. */
-      overscroll-behavior-x:contain;
-    }
-    .hero-slideshow-mobile .hero-slideshow-track::-webkit-scrollbar{display:none;}
-    .hero-slideshow-mobile .hero-slideshow-track img{
-      position:static;flex:0 0 100%;width:100%;height:100%;
-      scroll-snap-align:start;opacity:1;transition:none;
-    }
-    /* Bottom gradient so the caption stays readable over any photo. */
-    .hero-slideshow-mobile::after{
-      content:"";position:absolute;left:0;right:0;bottom:0;height:40%;
-      background:linear-gradient(to top, rgba(4,8,16,0.78), transparent);
-      pointer-events:none;
-    }
-    .hero-slideshow-mobile .hero-slideshow-caption{
-      position:absolute;left:20px;bottom:18px;z-index:2;
-      display:flex;align-items:center;gap:8px;
-      color:#fff;font-size:14.5px;font-weight:700;letter-spacing:-0.01em;
-    }
-    .hero-slideshow-mobile .hero-slideshow-counter{
-      position:absolute;right:16px;top:16px;z-index:2;
-      background:rgba(10,15,28,0.5);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-      color:#fff;font-size:12px;font-weight:700;
-      padding:5px 12px;border-radius:999px;
-      border:1px solid rgba(255,255,255,0.2);
-    }
-  }
-  .hero .contact-form{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);padding:38px 34px;color:var(--navy-900);}
-  .hero .contact-form h2{font-size:22px;font-weight:700;color:var(--navy-950);margin-bottom:6px;letter-spacing:-0.01em;}
-  .hero .contact-form > p{font-size:13.5px;color:#5b6b85;margin-bottom:22px;}
-  @media(max-width:900px){.hero .contact-wrap{grid-template-columns:1fr;}.hero .contact-info{padding:0;}}
-  @media(max-width:560px){.hero .contact-form{padding:28px 22px;}}
-
-  .price-highlight{
-    background:rgba(61,220,214,0.06);border:1.5px solid rgba(61,220,214,0.35);
-    border-radius:14px;padding:14px 20px;margin:18px 0 24px;
-  }
-  @media(max-width:640px){.price-highlight{margin-top:8px;}}
-  .price-highlight-row{
-    display:flex;align-items:flex-start;gap:8px;font-size:15px;font-weight:700;color:#fff;
-    padding:5px 0;flex-wrap:nowrap;
-  }
-  .price-highlight-row svg{width:18px;height:18px;flex-shrink:0;color:var(--cyan-400);margin-top:3px;}
-  .price-highlight-row > span{flex:1;min-width:0;}
-  .price-highlight-row .amt{color:var(--cyan-400);font-weight:800;}
-  .price-highlight-foot{
-    margin-top:8px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.12);
-    font-size:14px;font-weight:600;color:var(--slate-300);
-  }
-  @media(max-width:480px){.price-highlight-row{font-size:14.5px;}}
-
-  .urgency-line{
-    display:inline-flex;align-items:center;gap:8px;
-    background:rgba(245,185,66,0.12);border:1px solid rgba(245,185,66,0.35);
-    color:var(--amber-400);font-size:13px;font-weight:700;
-    padding:8px 16px;border-radius:100px;margin-bottom:20px;letter-spacing:0.01em;
-  }
-  .urgency-line svg{width:14px;height:14px;flex-shrink:0;}
-
-  /* Sticky mobile call/quote bar */
-  .sticky-mobile-cta{
-    position:fixed;left:0;right:0;bottom:0;z-index:1200;display:none;
-    background:var(--navy-950);padding:10px 14px calc(10px + env(safe-area-inset-bottom));
-    box-shadow:0 -10px 30px -10px rgba(0,0,0,0.55);border-top:1px solid var(--navy-700);
-    transform:translateY(100%);transition:transform .3s var(--ease);
-  }
-  .sticky-mobile-cta.show{transform:translateY(0);}
-  .sticky-mobile-cta-inner{display:flex;gap:10px;}
-  .sticky-mobile-cta a{
-    flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
-    padding:13px 10px;border-radius:100px;font-weight:700;font-size:14px;
-  }
-  .sticky-mobile-cta a svg{width:16px;height:16px;}
-  .sticky-mobile-cta .call-btn{background:rgba(255,255,255,0.08);color:var(--white);border:1px solid rgba(255,255,255,0.18);}
-  .sticky-mobile-cta .quote-btn{background:linear-gradient(100deg, var(--cyan-400), var(--blue-500));color:var(--navy-950);}
-  @media(max-width:720px){.sticky-mobile-cta{display:flex;}body{padding-bottom:64px;}}
 </style>
 </head>
 <body>
@@ -674,156 +430,70 @@ function gtag_report_conversion(url) {
         <span class="logo-mark">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L4 5v6c0 5 3.4 8.9 8 10 4.6-1.1 8-5 8-10V5l-8-3z" fill="#0a0f1c"/></svg>
         </span>
-        <span class="logo-text">
-          <span class="logo-name">SLIM SECURITY</span>
-          <span class="logo-tagline">Home Security Camera Installation</span>
-        </span>
+        Slim CCTV Security
       </a>
       <div class="nav-links" id="navLinks">
-        <a href="#pricing">Pricing</a>
+        <a href="#services">Services</a>
         <a href="#how">How It Works</a>
-        <a href="#testimonials">Reviews</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#area">Service Area</a>
         <a href="#faq">FAQ</a>
       </div>
-      <div style="display:flex;align-items:center;gap:18px;">
-        <a href="tel:+12012756527" class="nav-cta" style="background:transparent;color:var(--white);padding:0;" data-track-cta="Nav — Call (201) 275-6527">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z"/></svg>
-          (201) 275-6527
-        </a>
-        <a href="#quote-form" class="nav-cta" data-track-cta="Nav — Get a Free Quote">Get a Free Quote</a>
-      </div>
+      <a href="#contact" class="nav-cta" data-track-cta="Nav — Get a Free Quote">Get a Free Quote</a>
       <div class="burger" id="burger"><span></span><span></span><span></span></div>
     </nav>
-    <div class="header-call-row">
-      <a href="tel:+12012756527" data-track-cta="Header — Call Now">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z"/></svg>
-        Call Now: (201) 275-6527
-      </a>
-    </div>
   </div>
 </header>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#pricing">Pricing</a>
+  <a href="#services">Services</a>
   <a href="#how">How It Works</a>
-  <a href="#testimonials">Reviews</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#area">Service Area</a>
   <a href="#faq">FAQ</a>
-  <a href="tel:+12012756527" data-track-cta="Mobile nav — Call (201) 275-6527">Call (201) 275-6527</a>
-  <a href="#quote-form" class="nav-cta" data-track-cta="Mobile nav — Get a Free Quote">Get a Free Quote</a>
+  <a href="#contact" class="nav-cta" data-track-cta="Mobile nav — Get a Free Quote">Get a Free Quote</a>
 </div>
 
 <section class="hero" id="top">
-  <div class="hero-bg-clip"></div>
   <div class="container">
-    <div class="contact-wrap reveal">
-      <div class="contact-info">
-        <h1>Professional Security Camera Installation for <span class="grad">Homes &amp; Businesses</span></h1>
-        <p class="lead-sub">Complete systems from $49/month, with one-time payment available.</p>
-        <p class="lead">For homes, apartments, condos, multi-family buildings &amp; small businesses.</p>
-        <div class="trust-line-simple">NJ &amp; NY &bull; Licensed &amp; Insured &bull; Professional Installation</div>
-        <div class="hero-ctas">
-          <a href="#quote-form" class="btn btn-primary btn-large" data-track-cta="Hero — Get My Free Quote">Get My Free Quote
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
+    <div class="hero-inner">
+      <div class="badge"><span class="dot"></span> Now booking installs across NJ &amp; NY</div>
+      <h1>See every door, gate, and driveway — from your phone, day or night, <span class="grad">at a fraction of the price.</span></h1>
+      <p class="lead">Slim CCTV Security designs, installs, and supports professional-grade home camera systems for New Jersey and New York homeowners — without the inflated big-brand markup.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary" data-track-cta="Hero — Get My Free Quote">Get My Free Quote
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#services" class="btn btn-ghost" data-track-cta="Hero — See What's Included">See What's Included</a>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 3v6c0 5-3.4 8.9-8 10-4.6-1.1-8-5-8-10V5l8-3z"/></svg>
+          Licensed &amp; insured installers
         </div>
-        <!-- PLACEHOLDER REVIEW — see note above the testimonials section
-             further down; the Google badge should only sit next to a real
-             Google review, so replace this text before going live. -->
-        <div class="mini-testi">
-          <div class="mini-testi-top">
-            <div class="stars">★★★★★</div>
-            <div class="google-badge">
-              <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z"/><path fill="#34A853" d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z"/><path fill="#FBBC05" d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z"/><path fill="#EA4335" d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z"/></svg>
-              Google
-            </div>
-          </div>
-          <p>"Booked a free quote and had four cameras installed within the week. The crew was professional and left everything spotless — you'd never know they'd been in and out all day."</p>
-          <div class="who">James M. — Jersey City, NJ</div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-8-4.5-8-11a8 8 0 0116 0c0 6.5-8 11-8 11z"/><circle cx="12" cy="10" r="3"/></svg>
+          Serving all of NJ &amp; NY
         </div>
-        <div class="hero-slideshow-mobile" id="heroSlideshowMobile">
-          <div class="hero-slideshow-track">
-            <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active">
-            <img data-src="/images/work/work-2.jpg" alt="Slim Security PTZ camera installation on brick exterior">
-            <img data-src="/images/work/work-3.jpg" alt="Slim Security installed NVR and monitor wall">
-            <img data-src="/images/work/work-4.jpg" alt="Slim Security dome camera installation">
-            <img data-src="/images/work/work-5.jpg" alt="Slim Security intercom installation">
-            <img data-src="/images/work/work-6.jpg" alt="Slim Security building intercom installation">
-            <img data-src="/images/work/work-7.jpg" alt="Slim Security exterior camera installation">
-            <img data-src="/images/work/work-8.jpg" alt="Slim Security residential camera installation">
-            <img data-src="/images/work/work-9.jpg" alt="Slim Security residential camera installation">
-            <img data-src="/images/work/work-10.jpg" alt="Slim Security PTZ camera installation on brick exterior">
-            <img data-src="/images/work/work-11.jpg" alt="Slim Security ceiling camera installation">
-          </div>
-          <div class="hero-slideshow-caption">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-            Recent installation — NJ &amp; NY
-          </div>
-          <div class="hero-slideshow-counter"><span id="heroSlideshowMobileCounter">1</span>/11</div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="9"/></svg>
+          Most installs completed same week
         </div>
       </div>
-      <div class="contact-form-col">
-      <div class="contact-form" id="quote-form">
-        <h2>Get your free quote</h2>
-        <p>Tell us a bit about your home — we'll call shortly to confirm your needs and pricing. No obligation.</p>
-        <form id="quoteForm">
-          <div class="field">
-            <label for="fname">Name</label>
-            <input type="text" id="fname" name="fname" placeholder="Jane Doe" required>
-          </div>
-          <div class="form-row">
-            <div class="field">
-              <label for="phone">Phone</label>
-              <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
-            </div>
-            <div class="field">
-              <label for="zip">ZIP code</label>
-              <input type="text" id="zip" name="zip" placeholder="07302" required>
-            </div>
-          </div>
-          <div class="field">
-            <label for="package">How many cameras?</label>
-            <select id="package" name="package">
-              <option value="Not sure yet" selected>Not sure — recommend one for me</option>
-              <option value="4 cameras">4 cameras</option>
-              <option value="8 cameras">8 cameras</option>
-              <option value="More than 8">More than 8</option>
-            </select>
-          </div>
-          <div class="submit-row">
-            <button type="submit" class="btn btn-primary" id="quoteSubmitBtn" style="width:100%;justify-content:center;" data-track-cta="Quote form — Submit">Get My Free Quote — No Obligation
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </button>
-            <span class="form-note">No spam. We'll call you shortly to confirm details and schedule your install.</span>
-          </div>
-          <div class="form-success" id="formSuccess">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
-            Thanks! Your request has been received — we'll be in touch shortly.
-          </div>
-          <div class="form-error" id="formError"></div>
-        </form>
-
-      </div>
-      <div class="hero-slideshow" id="heroSlideshow">
-        <div class="hero-slideshow-track">
-          <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active">
-          <img data-src="/images/work/work-2.jpg" alt="Slim Security PTZ camera installation on brick exterior">
-          <img data-src="/images/work/work-3.jpg" alt="Slim Security installed NVR and monitor wall">
-          <img data-src="/images/work/work-4.jpg" alt="Slim Security dome camera installation">
-          <img data-src="/images/work/work-5.jpg" alt="Slim Security intercom installation">
-          <img data-src="/images/work/work-6.jpg" alt="Slim Security building intercom installation">
-          <img data-src="/images/work/work-7.jpg" alt="Slim Security exterior camera installation">
-          <img data-src="/images/work/work-8.jpg" alt="Slim Security residential camera installation">
-          <img data-src="/images/work/work-9.jpg" alt="Slim Security residential camera installation">
-          <img data-src="/images/work/work-10.jpg" alt="Slim Security PTZ camera installation on brick exterior">
-          <img data-src="/images/work/work-11.jpg" alt="Slim Security ceiling camera installation">
-        </div>
-        <div class="hero-slideshow-dots">
-          <span class="active"></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span>
-        </div>
-      </div>
-      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="float-card">
+      <div class="float-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0f1c" stroke-width="2.2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+      <div class="float-text"><b>4K Live View</b><span>Front door camera</span></div>
+    </div>
+    <div class="float-card">
+      <div class="float-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0f1c" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="float-text"><b>System Armed</b><span>All zones secure</span></div>
+    </div>
+    <div class="float-card">
+      <div class="float-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0f1c" stroke-width="2.2"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg></div>
+      <div class="float-text"><b>Motion Alert</b><span>Backyard, 2 min ago</span></div>
     </div>
   </div>
 </section>
@@ -860,57 +530,73 @@ function gtag_report_conversion(url) {
   </div>
 </section>
 
-<section class="pricing-section" id="pricing">
+<section class="services-section" id="services">
   <div class="container">
-    <div class="section-head center reveal">
-      <span class="eyebrow">Pricing</span>
-      <h2>Simple packages, no hidden fees</h2>
-      <p>Every package includes professional installation. Final pricing is confirmed after your free home assessment.</p>
+    <div class="section-head reveal">
+      <span class="eyebrow">Services</span>
+      <h2>Everything you need to secure your home</h2>
+      <p>Modular systems that scale from a single doorbell camera to full whole-home coverage.</p>
     </div>
-    <div class="pricing-grid reveal-stagger">
-      <div class="price-card">
-        <h3>Starter</h3>
-        <p class="price-sub">4 Cameras + 24/7 Recording + Professional Home Installation</p>
-        <div class="price-amount"><span>From</span> $49/mo</div>
-        <p class="price-note">Equipment, installation &amp; taxes included. Financing available. One-time payment also available.</p>
+    <div class="services-grid reveal-stagger">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <h3>4K Camera Systems</h3>
+        <p>Weatherproof outdoor and indoor cameras with night vision and cloud or local storage.</p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>4 &times; 3K–4K cameras</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 Recording included</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Mobile app access</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Night vision &amp; motion alerts</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Professional installation included</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>4K / night vision</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>AI motion &amp; person detection</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>App-based live view</li>
         </ul>
-        <a href="#quote-form" class="btn btn-dark" data-track-cta="Pricing — Starter — Get This Package">Get This Package</a>
       </div>
-      <div class="price-card featured">
-        <div class="price-tag">Most Popular</div>
-        <h3>Essential</h3>
-        <p class="price-sub">8 Cameras + 24/7 Recording + Professional Home Installation</p>
-        <div class="price-amount"><span>From</span> $69/mo</div>
-        <p class="price-note">Equipment, installation &amp; taxes included. Financing available. One-time payment also available.</p>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <h3>Smart Video Doorbells</h3>
+        <p>See and speak to visitors from anywhere, with instant alerts before they even knock.</p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>8 &times; 3K–4K cameras</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 Recording included</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Mobile app access</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>AI person &amp; vehicle detection</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Night vision</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Professional installation included</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Two-way audio</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Package detection alerts</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>HD night video</li>
         </ul>
-        <a href="#quote-form" class="btn btn-primary" data-track-cta="Pricing — Essential — Get This Package">Get This Package</a>
       </div>
-      <div class="price-card">
-        <h3>Complete</h3>
-        <p class="price-sub">8+ Cameras + 24/7 Recording + Alarm + Professional Home Installation</p>
-        <div class="price-amount" style="font-size:26px;">Custom Quote</div>
-        <p class="price-note">Pricing depends on home size &amp; equipment</p>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <h3>Monitoring &amp; Alerts</h3>
+        <p>Optional 24/7 professional monitoring or free self-monitoring through our partner app.</p>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>4K cameras, 8+ included</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 Recording included</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Alarm system included</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 professional monitoring</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Full smart home integration</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Real-time push alerts</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Optional 24/7 monitoring</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Cloud video history</li>
         </ul>
-        <a href="#quote-form" class="btn btn-dark" data-track-cta="Pricing — Complete — Get a Quote">Get a Quote</a>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <h3>Smart Home Integration</h3>
+        <p>Connect cameras to smart locks, lighting, and voice assistants for one unified system.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Alexa &amp; Google Home</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Smart lock pairing</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Automation routines</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-num">05</div>
+        <h3>Professional Install</h3>
+        <p>Clean wiring, optimal camera placement, and a full walkthrough of your new system.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Same-week scheduling</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Licensed technicians</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Full system walkthrough</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-num">06</div>
+        <h3>Ongoing Support</h3>
+        <p>Free system checkups and priority repair scheduling for as long as you're a customer.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Priority repair booking</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Free annual checkup</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Local phone support</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -948,6 +634,93 @@ function gtag_report_conversion(url) {
   </div>
 </section>
 
+<section class="pricing-section" id="pricing">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Pricing</span>
+      <h2>Simple packages, no hidden fees</h2>
+      <p>Every package includes professional installation. Final pricing is confirmed after your free home assessment.</p>
+    </div>
+    <div class="pricing-grid reveal-stagger">
+      <div class="price-card">
+        <h3>Starter</h3>
+        <p class="price-sub">A solid start for smaller homes</p>
+        <div class="price-amount">$49/mo <span>from</span></div>
+        <p class="price-note">Taxes &amp; installation included — pay it off, then $0/month</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>4 cameras, 3K–4K resolution</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Mobile app access</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>30-day cloud storage</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Movement alerts, day &amp; night</li>
+        </ul>
+        <a href="#contact" class="btn btn-dark" data-track-cta="Pricing — Starter — Get This Package">Get This Package</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-tag">Most Popular</div>
+        <h3>Essential</h3>
+        <p class="price-sub">Full coverage for most homes</p>
+        <div class="price-amount">$69/mo <span>from</span></div>
+        <p class="price-note">Taxes &amp; installation included — pay it off, then $0/month</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>8 cameras, 3K–4K resolution</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Mobile app access</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>30-day cloud storage</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>AI search — person &amp; vehicle detection</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Movement alerts, day &amp; night</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary" data-track-cta="Pricing — Essential — Get This Package">Get This Package</a>
+      </div>
+      <div class="price-card">
+        <h3>Complete</h3>
+        <p class="price-sub">Full custom whole-home system</p>
+        <div class="price-amount" style="font-size:26px;">Get a Quote</div>
+        <p class="price-note">Pricing depends on home size &amp; equipment</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>4K cameras, 8+ included</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Alarm system included</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 professional monitoring</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Full smart home integration</li>
+        </ul>
+        <a href="#contact" class="btn btn-dark" data-track-cta="Pricing — Complete — Get a Quote">Get a Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="area-section" id="area">
+  <div class="container">
+    <div class="area-wrap">
+      <div class="area-map reveal">
+        <svg viewBox="0 0 200 200" fill="none">
+          <circle cx="100" cy="100" r="90" stroke="#1a2942" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="60" stroke="#1a2942" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="30" stroke="#1a2942" stroke-width="1.5"/>
+          <line x1="10" y1="100" x2="190" y2="100" stroke="#1a2942" stroke-width="1.5"/>
+          <line x1="100" y1="10" x2="100" y2="190" stroke="#1a2942" stroke-width="1.5"/>
+        </svg>
+        <div class="area-pin" style="top:38%;left:46%;"></div>
+        <div class="area-pin" style="top:55%;left:60%;"></div>
+        <div class="area-pin" style="top:66%;left:40%;"></div>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">Service area</span>
+        <h2 style="font-size:clamp(28px,3.6vw,38px);font-weight:700;letter-spacing:-0.025em;margin-bottom:16px;">Proudly serving homeowners across New Jersey &amp; New York</h2>
+        <p style="color:#5b6b85;font-size:16px;margin-bottom:8px;">Not sure if we cover your town? Reach out — we're expanding our service area every month.</p>
+        <ul class="county-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Bergen County, NJ</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Essex County, NJ</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Hudson County, NJ</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Union County, NJ</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Manhattan, NY</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Brooklyn, NY</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Queens, NY</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Westchester, NY</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="testi-section" id="testimonials">
   <div class="container">
     <div class="section-head center reveal">
@@ -955,33 +728,16 @@ function gtag_report_conversion(url) {
       <h2>Trusted by homeowners across NJ &amp; NY</h2>
     </div>
     <div class="testi-grid reveal-stagger">
-      <!-- PLACEHOLDER REVIEWS — not real customer reviews. Replace the three
-           cards below (text, names, towns) with actual reviews pulled from
-           the business's Google profile before this page goes live. The
-           Google "G" badge should only ever sit next to a review that is
-           genuinely posted on Google — don't leave it on placeholder text. -->
       <div class="testi-card">
-        <div class="testi-top">
-          <div class="stars">★★★★★</div>
-          <div class="google-badge">
-            <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z"/><path fill="#34A853" d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z"/><path fill="#FBBC05" d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z"/><path fill="#EA4335" d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z"/></svg>
-            Google
-          </div>
-        </div>
-        <p>"Booked a free quote and had four cameras installed within the week. The crew was professional and left everything spotless — you'd never know they'd been in and out all day."</p>
+        <div class="stars">★★★★★</div>
+        <p>"Booked a free quote and had four cameras installed within the week. Way cheaper than the big-name company I called first."</p>
         <div class="testi-person">
           <div class="avatar">JM</div>
           <div><b>James M.</b><span>Jersey City, NJ</span></div>
         </div>
       </div>
       <div class="testi-card">
-        <div class="testi-top">
-          <div class="stars">★★★★★</div>
-          <div class="google-badge">
-            <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z"/><path fill="#34A853" d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z"/><path fill="#FBBC05" d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z"/><path fill="#EA4335" d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z"/></svg>
-            Google
-          </div>
-        </div>
+        <div class="stars">★★★★★</div>
         <p>"The app is so easy to use and the install crew was professional and quick. Highly recommend Slim CCTV Security to any neighbor."</p>
         <div class="testi-person">
           <div class="avatar">RP</div>
@@ -989,14 +745,8 @@ function gtag_report_conversion(url) {
         </div>
       </div>
       <div class="testi-card">
-        <div class="testi-top">
-          <div class="stars">★★★★★</div>
-          <div class="google-badge">
-            <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z"/><path fill="#34A853" d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z"/><path fill="#FBBC05" d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z"/><path fill="#EA4335" d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z"/></svg>
-            Google
-          </div>
-        </div>
-        <p>"Professional from start to finish — showed up on time, walked me through the whole setup, and left the place spotless. You'd never know they were even here."</p>
+        <div class="stars">★★★★★</div>
+        <p>"Finally caught a package thief thanks to the doorbell cam. Setup took under an hour and the price was unbeatable."</p>
         <div class="testi-person">
           <div class="avatar">DK</div>
           <div><b>David K.</b><span>Yonkers, NY</span></div>
@@ -1005,6 +755,7 @@ function gtag_report_conversion(url) {
     </div>
   </div>
 </section>
+
 <section class="faq-section" id="faq">
   <div class="container">
     <div class="section-head center reveal">
@@ -1036,16 +787,80 @@ function gtag_report_conversion(url) {
   </div>
 </section>
 
-<section class="teaser-band" id="final-cta">
+<section class="contact-section" id="contact">
   <div class="container">
-    <div class="teaser-inner">
-      <div class="teaser-text">
-        <h2>Ready to see your home in a whole new light?</h2>
-        <p>Free, no-obligation quote — we'll call shortly to confirm your needs and pricing.</p>
+    <div class="contact-wrap reveal">
+      <div class="contact-info">
+        <h2>Book your install now</h2>
+        <p>Tell us a bit about your home and we'll follow up within one business day with a custom recommendation and pricing.</p>
+        <div class="contact-detail">
+          <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3ddcd6" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z"/></svg></div>
+          <div><b>Call or text us</b><span><a href="tel:+12012756527" data-track-cta="Contact — Call (201) 275-6527">(201) 275-6527</a> &middot; <a href="tel:+19143389068" data-track-cta="Contact — Call (914) 338-9068">(914) 338-9068</a></span></div>
+        </div>
+        <div class="contact-detail">
+          <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3ddcd6" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+          <div><b>Email</b><span>quotes@slimsecurity.com</span></div>
+        </div>
+        <div class="contact-detail">
+          <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3ddcd6" stroke-width="2"><path d="M12 21s-8-4.5-8-11a8 8 0 0116 0c0 6.5-8 11-8 11z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><b>Service area</b><span>New Jersey &amp; New York</span></div>
+        </div>
       </div>
-      <a href="#quote-form" class="btn btn-primary" data-track-cta="Final CTA — Get My Free Quote">Get My Free Quote
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
+      <div class="contact-form">
+        <form id="quoteForm">
+          <div class="form-row">
+            <div class="field">
+              <label for="fname">First name</label>
+              <input type="text" id="fname" name="fname" placeholder="Jane" required>
+            </div>
+            <div class="field">
+              <label for="lname">Last name</label>
+              <input type="text" id="lname" name="lname" placeholder="Doe" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="jane@email.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="zip">ZIP code</label>
+              <input type="text" id="zip" name="zip" placeholder="07302" required>
+            </div>
+            <div class="field">
+              <label for="package">Package</label>
+              <select id="package" name="package">
+                <option>Starter</option>
+                <option selected>Essential</option>
+                <option>Complete</option>
+                <option value="Not sure yet">Not sure yet — just send me a quote</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="message">Tell us about your home (optional)</label>
+            <textarea id="message" name="message" placeholder="Number of entrances, home type, specific concerns..."></textarea>
+          </div>
+          <div class="submit-row">
+            <button type="submit" class="btn btn-primary" id="quoteSubmitBtn" data-track-cta="Quote form — Submit">Get My Free Quote
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <span class="form-note">No spam, no obligation. We'll call you shortly to confirm details and schedule your install — payment is handled in person.</span>
+          </div>
+          <div class="form-success" id="formSuccess">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+            Thanks! Your request has been received — we'll be in touch shortly.
+          </div>
+          <div class="form-error" id="formError"></div>
+        </form>
+
+      </div>
     </div>
   </div>
 </section>
@@ -1064,9 +879,9 @@ function gtag_report_conversion(url) {
         <div class="footer-col">
           <h4>Company</h4>
           <ul>
+            <li><a href="#services">Services</a></li>
             <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#how">How It Works</a></li>
-            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#area">Service Area</a></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>
         </div>
@@ -1087,15 +902,6 @@ function gtag_report_conversion(url) {
     </div>
   </div>
 </footer>
-<div class="sticky-mobile-cta" id="stickyMobileCta">
-  <div class="sticky-mobile-cta-inner">
-    <a href="tel:+12012756527" class="call-btn" data-track-cta="Sticky bar — Call Now">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z"/></svg>
-      Call Now
-    </a>
-    <a href="#quote-form" class="quote-btn" data-track-cta="Sticky bar — Get Free Quote">Get Free Quote</a>
-  </div>
-</div>
 
 <script>
   // Header scroll state
@@ -1113,104 +919,6 @@ function gtag_report_conversion(url) {
   document.querySelectorAll('.mobile-menu a').forEach(a => {
     a.addEventListener('click', () => mobileMenu.classList.remove('open'));
   });
-
-  // Hero photo slideshow — one instance replaces the old floating status
-  // cards on desktop (below the form), another replaces the testimonial on
-  // mobile. Only the one actually visible at this breakpoint has its images
-  // populated from data-src, so the hidden one never downloads anything.
-  (function () {
-    function populateImages(root) {
-      const slides = root.querySelectorAll('.hero-slideshow-track img');
-      slides.forEach((img) => {
-        if (img.dataset.src) {
-          img.src = img.dataset.src;
-          img.removeAttribute('data-src');
-        }
-      });
-      return slides;
-    }
-
-    // Desktop: fixed image, fades to the next one — no interaction needed.
-    function initDesktopSlideshow(root) {
-      const slides = populateImages(root);
-      const dots = root.querySelectorAll('.hero-slideshow-dots span');
-      if (!slides.length) return;
-
-      let current = 0;
-      setInterval(() => {
-        slides[current].classList.remove('active');
-        dots[current] && dots[current].classList.remove('active');
-        current = (current + 1) % slides.length;
-        slides[current].classList.add('active');
-        dots[current] && dots[current].classList.add('active');
-      }, 4000);
-    }
-
-    // Mobile: a purely manual swipeable carousel (horizontal scroll-snap) —
-    // no autoplay, the visitor moves through the photos only by swiping.
-    // It also loops infinitely in both directions: swiping past photo 8
-    // continues on to photo 1 (and swiping the other way past photo 1
-    // continues on to photo 8), rather than just stopping dead at the end.
-    //
-    // Native scroll-snap has no built-in concept of "wrap around", so this
-    // uses the standard trick for it: a clone of the last photo is placed
-    // before the first real one, and a clone of the first photo after the
-    // last real one. The visitor can then swipe seamlessly onto a clone;
-    // once the swipe settles there, the track silently (no animation, so
-    // it's invisible — the clone looks identical to the real photo it's
-    // sitting next to) jumps to the matching real photo at the other end.
-    function initMobileSlideshow(root) {
-      const track = root.querySelector('.hero-slideshow-track');
-      const counter = root.querySelector('.hero-slideshow-counter span');
-      if (!track) return;
-      const realSlides = Array.from(track.querySelectorAll('img'));
-      const total = realSlides.length;
-      if (!total) return;
-
-      const startClone = realSlides[total - 1].cloneNode(true);
-      const endClone = realSlides[0].cloneNode(true);
-      startClone.classList.remove('active');
-      endClone.classList.remove('active');
-      track.insertBefore(startClone, realSlides[0]);
-      track.appendChild(endClone);
-      populateImages(root); // gives the clones their real src too, from data-src
-
-      // Index space now runs 0..total+1: 0 is the start clone, 1..total
-      // are the real photos, total+1 is the end clone.
-      let current = 1;
-      track.scrollTo({ left: current * track.clientWidth, behavior: 'instant' });
-
-      function setCounter() {
-        if (counter) counter.textContent = current;
-      }
-      setCounter();
-
-      let scrollEndTimer = null;
-      track.addEventListener('scroll', () => {
-        clearTimeout(scrollEndTimer);
-        scrollEndTimer = setTimeout(() => {
-          current = Math.round(track.scrollLeft / track.clientWidth);
-          if (current === 0) {
-            current = total;
-            track.scrollTo({ left: current * track.clientWidth, behavior: 'instant' });
-          } else if (current === total + 1) {
-            current = 1;
-            track.scrollTo({ left: current * track.clientWidth, behavior: 'instant' });
-          }
-          setCounter();
-        }, 120);
-      });
-    }
-
-    const isDesktop = window.innerWidth >= 901; // matches the CSS breakpoint above
-    if (isDesktop) {
-      const el = document.getElementById('heroSlideshow');
-      if (el) initDesktopSlideshow(el);
-    } else {
-      const el = document.getElementById('heroSlideshowMobile');
-      if (el) initMobileSlideshow(el);
-    }
-  })();
 
   // Reveal on scroll
   const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
@@ -1270,15 +978,14 @@ function gtag_report_conversion(url) {
     clearError();
 
     const pkg = packageSelect.value;
-    const fullName = document.getElementById('fname').value.trim();
-    const nameParts = fullName.split(/\s+/);
     const payload = {
-      firstName: nameParts[0] || fullName,
-      lastName: nameParts.slice(1).join(' ') || nameParts[0] || fullName,
+      firstName: document.getElementById('fname').value.trim(),
+      lastName: document.getElementById('lname').value.trim(),
       phone: document.getElementById('phone').value.trim(),
+      email: document.getElementById('email').value.trim(),
       zip: document.getElementById('zip').value.trim(),
       package: pkg,
-      notes: null,
+      notes: document.getElementById('message').value.trim() || null,
     };
 
     submitBtn.disabled = true;
@@ -1290,6 +997,7 @@ function gtag_report_conversion(url) {
           firstName: payload.firstName,
           lastName: payload.lastName,
           phone: payload.phone,
+          email: payload.email,
           zip: payload.zip,
           interestedPackage: pkg,
           notes: payload.notes,
@@ -1504,40 +1212,6 @@ function gtag_report_conversion(url) {
     // Mark this session as converted the moment a lead/booking succeeds, so
     // it shows up tied to the same visit in /admin/visits.
     window.addEventListener('ss:lead-submitted', () => { converted = true; send(false); });
-  })();
-</script>
-
-<script>
-  // Sticky mobile call/quote bar — shows the instant the photo slideshow's
-  // bottom edge scrolls into view (i.e. the whole photo has appeared on
-  // screen), hides again once it scrolls back out below the screen as the
-  // visitor scrolls back up.
-  //
-  // Driven by a per-frame check (requestAnimationFrame) rather than a
-  // 'scroll' event listener or IntersectionObserver: the trigger line here
-  // is the moment rect.bottom crosses window.innerHeight, a point in the
-  // *middle* of the photo's visibility (it's already partly on screen
-  // before this and stays fully on screen after) — a plain 'scroll'
-  // listener can miss/lag that instant on a fast flick since the browser
-  // may deliver scroll events at a lower rate while the page is still
-  // moving, and IntersectionObserver only reports enter/exit of the
-  // element as a whole, not an arbitrary crossing point partway through.
-  // Checking every animation frame instead means it can't be missed
-  // regardless of scroll speed, and the check itself is cheap enough to
-  // run continuously.
-  (function () {
-    const bar = document.getElementById('stickyMobileCta');
-    const hero = document.getElementById('top');
-    const slideshow = document.getElementById('heroSlideshowMobile');
-    const trigger = slideshow || hero;
-    if (!bar || !trigger) return;
-
-    function loop() {
-      const rect = trigger.getBoundingClientRect();
-      bar.classList.toggle('show', rect.bottom <= window.innerHeight);
-      requestAnimationFrame(loop);
-    }
-    requestAnimationFrame(loop);
   })();
 </script>
 
