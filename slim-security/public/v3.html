@@ -355,6 +355,8 @@ function gtag_report_conversion(url) {
   .price-amount{font-size:42px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;}
   .price-amount span{font-size:15px;font-weight:500;color:#5b6b85;}
   .price-card.featured .price-amount span{color:var(--slate-400);}
+  .price-onetime{font-size:14px;font-weight:600;color:#33415c;margin-bottom:14px;}
+  .price-card.featured .price-onetime{color:var(--slate-200,#d7e0ee);}
   .price-note{font-size:13px;color:#8092ab;margin-bottom:26px;}
   .price-card ul{margin-bottom:28px;flex:1;}
   .price-card ul li{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;margin-bottom:12px;color:#33415c;}
@@ -387,7 +389,10 @@ function gtag_report_conversion(url) {
   .testi-section{padding:110px 0;background:var(--navy-950);color:var(--white);}
   .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
   .testi-card{background:var(--navy-900);border:1px solid var(--navy-700);border-radius:var(--radius-lg);padding:30px;}
-  .stars{display:flex;gap:4px;margin-bottom:18px;}
+  .testi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+  .google-badge{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--slate-400);}
+  .google-badge svg{width:15px;height:15px;flex-shrink:0;}
+  .stars{display:flex;gap:4px;}
   .stars svg{width:16px;height:16px;color:var(--amber-400);}
   .testi-card p{font-size:15px;color:var(--slate-300);margin-bottom:24px;line-height:1.6;}
   .testi-person{display:flex;align-items:center;gap:12px;}
@@ -484,7 +489,10 @@ function gtag_report_conversion(url) {
     margin-top:30px;padding:16px 18px;background:rgba(255,255,255,0.05);
     border:1px solid rgba(255,255,255,0.12);border-radius:12px;position:relative;
   }
-  .contact-info .mini-testi .stars{color:var(--amber-400);font-size:13px;margin-bottom:8px;letter-spacing:2px;}
+  .contact-info .mini-testi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+  .contact-info .mini-testi .stars{color:var(--amber-400);font-size:13px;letter-spacing:2px;}
+  .contact-info .mini-testi .google-badge{font-size:11px;color:var(--slate-400);}
+  .contact-info .mini-testi .google-badge svg{width:13px;height:13px;}
   .contact-info .mini-testi p{color:var(--slate-300);font-size:13.5px;margin-bottom:8px;font-style:italic;line-height:1.5;}
   .contact-info .mini-testi .who{color:var(--slate-400);font-size:12px;font-weight:600;font-style:normal;}
   /* On mobile the testimonial is replaced by the photo slideshow below, so hide it there. */
@@ -711,28 +719,27 @@ function gtag_report_conversion(url) {
   <div class="container">
     <div class="contact-wrap reveal">
       <div class="contact-info">
-        <div class="price-highlight">
-          <div class="price-highlight-row">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-            <span>4 Cameras + 24/7 Recording + Professional Home Installation + Tax — <span class="amt">From $49/Month</span></span>
-          </div>
-          <div class="price-highlight-row">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-            <span>8 Cameras + 24/7 Recording + Professional Home Installation + Tax — <span class="amt">From $69/Month</span></span>
-          </div>
-          <div class="price-highlight-foot">Pay it off, then it's $0/month — forever. Or just pay one time.</div>
-        </div>
-        <h1>Professional Security Camera Installation — <span class="grad">From $49/Month or Pay One-Time Only</span></h1>
-        <p class="lead-sub">For homes, apartments, condos, multi-family buildings &amp; small businesses.</p>
+        <h1>Professional Security Camera Installation for <span class="grad">Homes &amp; Businesses</span></h1>
+        <p class="lead-sub">Complete systems from $49/month, with one-time payment available.</p>
+        <p class="lead">For homes, apartments, condos, multi-family buildings &amp; small businesses.</p>
         <div class="trust-line-simple">NJ &amp; NY &bull; Licensed &amp; Insured &bull; Professional Installation</div>
         <div class="hero-ctas">
           <a href="#quote-form" class="btn btn-primary btn-large" data-track-cta="Hero — Get My Free Quote">Get My Free Quote
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
         </div>
+        <!-- PLACEHOLDER REVIEW — see note above the testimonials section
+             further down; the Google badge should only sit next to a real
+             Google review, so replace this text before going live. -->
         <div class="mini-testi">
-          <div class="stars">★★★★★</div>
-          <p>"Booked a free quote and had four cameras installed within the week. Way cheaper than the big-name company I called first."</p>
+          <div class="mini-testi-top">
+            <div class="stars">★★★★★</div>
+            <div class="google-badge">
+              <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z"/><path fill="#34A853" d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z"/><path fill="#FBBC05" d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z"/><path fill="#EA4335" d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z"/></svg>
+              Google
+            </div>
+          </div>
+          <p>"Booked a free quote and had four cameras installed within the week. The crew was professional and left everything spotless — you'd never know they'd been in and out all day."</p>
           <div class="who">James M. — Jersey City, NJ</div>
         </div>
         <div class="hero-slideshow-mobile" id="heroSlideshowMobile">
@@ -751,7 +758,7 @@ function gtag_report_conversion(url) {
           </div>
           <div class="hero-slideshow-caption">
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-            Real installs — NJ &amp; NY
+            Recent installation — NJ &amp; NY
           </div>
           <div class="hero-slideshow-counter"><span id="heroSlideshowMobileCounter">1</span>/11</div>
         </div>
@@ -788,7 +795,7 @@ function gtag_report_conversion(url) {
             <button type="submit" class="btn btn-primary" id="quoteSubmitBtn" style="width:100%;justify-content:center;" data-track-cta="Quote form — Submit">Get My Free Quote — No Obligation
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
-            <span class="form-note">No spam. We'll call you shortly to confirm details and schedule your install — payment is handled in person.</span>
+            <span class="form-note">No spam. We'll call you shortly to confirm details and schedule your install.</span>
           </div>
           <div class="form-success" id="formSuccess">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
@@ -866,8 +873,8 @@ function gtag_report_conversion(url) {
       <div class="price-card">
         <h3>Starter</h3>
         <p class="price-sub">4 Cameras + 24/7 Recording + Professional Home Installation</p>
-        <div class="price-amount">$49/mo <span>from</span></div>
-        <p class="price-note">Taxes &amp; installation included — pay it off, then $0/month</p>
+        <div class="price-amount"><span>From</span> $49/mo</div>
+        <p class="price-note">Equipment, installation &amp; taxes included. Financing available. One-time payment also available.</p>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>4 &times; 3K–4K cameras</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 Recording included</li>
@@ -881,8 +888,8 @@ function gtag_report_conversion(url) {
         <div class="price-tag">Most Popular</div>
         <h3>Essential</h3>
         <p class="price-sub">8 Cameras + 24/7 Recording + Professional Home Installation</p>
-        <div class="price-amount">$69/mo <span>from</span></div>
-        <p class="price-note">Taxes &amp; installation included — pay it off, then $0/month</p>
+        <div class="price-amount"><span>From</span> $69/mo</div>
+        <p class="price-note">Equipment, installation &amp; taxes included. Financing available. One-time payment also available.</p>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>8 &times; 3K–4K cameras</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 Recording included</li>
@@ -896,7 +903,7 @@ function gtag_report_conversion(url) {
       <div class="price-card">
         <h3>Complete</h3>
         <p class="price-sub">8+ Cameras + 24/7 Recording + Alarm + Professional Home Installation</p>
-        <div class="price-amount" style="font-size:26px;">Get a Quote</div>
+        <div class="price-amount" style="font-size:26px;">Custom Quote</div>
         <p class="price-note">Pricing depends on home size &amp; equipment</p>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>4K cameras, 8+ included</li>
@@ -950,16 +957,33 @@ function gtag_report_conversion(url) {
       <h2>Trusted by homeowners across NJ &amp; NY</h2>
     </div>
     <div class="testi-grid reveal-stagger">
+      <!-- PLACEHOLDER REVIEWS — not real customer reviews. Replace the three
+           cards below (text, names, towns) with actual reviews pulled from
+           the business's Google profile before this page goes live. The
+           Google "G" badge should only ever sit next to a review that is
+           genuinely posted on Google — don't leave it on placeholder text. -->
       <div class="testi-card">
-        <div class="stars">★★★★★</div>
-        <p>"Booked a free quote and had four cameras installed within the week. Way cheaper than the big-name company I called first."</p>
+        <div class="testi-top">
+          <div class="stars">★★★★★</div>
+          <div class="google-badge">
+            <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z"/><path fill="#34A853" d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z"/><path fill="#FBBC05" d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z"/><path fill="#EA4335" d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z"/></svg>
+            Google
+          </div>
+        </div>
+        <p>"Booked a free quote and had four cameras installed within the week. The crew was professional and left everything spotless — you'd never know they'd been in and out all day."</p>
         <div class="testi-person">
           <div class="avatar">JM</div>
           <div><b>James M.</b><span>Jersey City, NJ</span></div>
         </div>
       </div>
       <div class="testi-card">
-        <div class="stars">★★★★★</div>
+        <div class="testi-top">
+          <div class="stars">★★★★★</div>
+          <div class="google-badge">
+            <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z"/><path fill="#34A853" d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z"/><path fill="#FBBC05" d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z"/><path fill="#EA4335" d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z"/></svg>
+            Google
+          </div>
+        </div>
         <p>"The app is so easy to use and the install crew was professional and quick. Highly recommend Slim CCTV Security to any neighbor."</p>
         <div class="testi-person">
           <div class="avatar">RP</div>
@@ -967,8 +991,14 @@ function gtag_report_conversion(url) {
         </div>
       </div>
       <div class="testi-card">
-        <div class="stars">★★★★★</div>
-        <p>"Finally caught a package thief thanks to the doorbell cam. Setup took under an hour and the price was unbeatable."</p>
+        <div class="testi-top">
+          <div class="stars">★★★★★</div>
+          <div class="google-badge">
+            <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z"/><path fill="#34A853" d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z"/><path fill="#FBBC05" d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z"/><path fill="#EA4335" d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z"/></svg>
+            Google
+          </div>
+        </div>
+        <p>"Professional from start to finish — showed up on time, walked me through the whole setup, and left the place spotless. You'd never know they were even here."</p>
         <div class="testi-person">
           <div class="avatar">DK</div>
           <div><b>David K.</b><span>Yonkers, NY</span></div>
