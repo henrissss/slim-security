@@ -1131,29 +1131,47 @@ function gtag_report_conversion(url) {
   // cards on desktop (below the form), another replaces the testimonial on
   // mobile. Only the one actually visible at this breakpoint has its images
   // populated from data-src, so the hidden one never downloads anything.
+  //
+  // On top of that: of the photos that ARE visible at this breakpoint, only
+  // the very first one (the LCP element) is loaded immediately. Loading all
+  // ~11 full-size photos (plus the 2 loop clones on mobile) up front meant
+  // they all competed for bandwidth with that one photo on a throttled
+  // connection, which was quietly working against the fetchpriority="high"
+  // hint on it. The rest load in after the page finishes loading (or right
+  // before they're needed, as a safety net) instead.
   (function () {
+    function populateOne(img) {
+      if (img && img.dataset.src) {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+      }
+    }
+
     function populateImages(root) {
       const slides = root.querySelectorAll('.hero-slideshow-track img');
-      slides.forEach((img) => {
-        if (img.dataset.src) {
-          img.src = img.dataset.src;
-          img.removeAttribute('data-src');
-        }
-      });
+      slides.forEach(populateOne);
       return slides;
+    }
+
+    function populateActiveOnly(root) {
+      populateOne(root.querySelector('.hero-slideshow-track img.active'));
+      return root.querySelectorAll('.hero-slideshow-track img');
     }
 
     // Desktop: fixed image, fades to the next one — no interaction needed.
     function initDesktopSlideshow(root) {
-      const slides = populateImages(root);
+      const slides = populateActiveOnly(root);
       const dots = root.querySelectorAll('.hero-slideshow-dots span');
       if (!slides.length) return;
+
+      window.addEventListener('load', () => populateImages(root));
 
       let current = 0;
       setInterval(() => {
         slides[current].classList.remove('active');
         dots[current] && dots[current].classList.remove('active');
         current = (current + 1) % slides.length;
+        populateOne(slides[current]); // safety net if 'load' hasn't fired yet
         slides[current].classList.add('active');
         dots[current] && dots[current].classList.add('active');
       }, 4000);
@@ -1186,7 +1204,12 @@ function gtag_report_conversion(url) {
       endClone.classList.remove('active');
       track.insertBefore(startClone, realSlides[0]);
       track.appendChild(endClone);
-      populateImages(root); // gives the clones their real src too, from data-src
+
+      // Only the first (active) photo needs to be ready immediately — it's
+      // the LCP element. The loop clones and the other 10 photos load in
+      // after the page finishes loading instead of all at once.
+      populateOne(track.querySelector('img.active'));
+      window.addEventListener('load', () => populateImages(root));
 
       // Index space now runs 0..total+1: 0 is the start clone, 1..total
       // are the real photos, total+1 is the end clone.
@@ -1197,6 +1220,10 @@ function gtag_report_conversion(url) {
         if (counter) counter.textContent = current;
       }
       setCounter();
+
+      function ensureSlideLoaded(index) {
+        populateOne(track.querySelectorAll('img')[index]);
+      }
 
       let scrollEndTimer = null;
       track.addEventListener('scroll', () => {
@@ -1210,6 +1237,7 @@ function gtag_report_conversion(url) {
             current = 1;
             track.scrollTo({ left: current * track.clientWidth, behavior: 'instant' });
           }
+          ensureSlideLoaded(current); // safety net if 'load' hasn't fired yet
           setCounter();
         }, 120);
       });
