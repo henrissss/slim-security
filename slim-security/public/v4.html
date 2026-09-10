@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Preload the first hero slideshow photo (the LCP element) so the browser
+     starts downloading it immediately from the initial HTML instead of
+     waiting for the slideshow JS to run and swap data-src -> src. Two
+     variants, matched to the same 900px breakpoint the slideshow JS/CSS
+     use, so only the one that's actually shown gets fetched. Placed ahead
+     of the Google Ads tag below on purpose — that script used to be the
+     very first thing in <head>, which meant its network request jumped
+     the queue ahead of this image under throttled connections and pushed
+     out the measured LCP even though the image itself loads fast. -->
+<link rel="preload" as="image" href="/images/work/work-1.jpg" fetchpriority="high" media="(max-width: 900px)">
+<link rel="preload" as="image" href="/images/work/work-1.jpg" fetchpriority="high" media="(min-width: 901px)">
+<title>Slim CCTV Security | Cutting-Edge Home Security Cameras in NJ & NY</title><meta name="description" content="Slim CCTV Security installs cutting-edge security cameras and smart home security equipment for homeowners in New Jersey and New York — professional grade protection at a fraction of the price.">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18412402704"></script>
 <script>
@@ -28,16 +42,6 @@ function gtag_report_conversion(url) {
   return false;
 }
 </script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Preload the first hero slideshow photo (the LCP element) so the browser
-     starts downloading it immediately from the initial HTML instead of
-     waiting for the slideshow JS to run and swap data-src -> src. Two
-     variants, matched to the same 900px breakpoint the slideshow JS/CSS
-     use, so only the one that's actually shown gets fetched. -->
-<link rel="preload" as="image" href="/images/work/work-1.jpg" fetchpriority="high" media="(max-width: 900px)">
-<link rel="preload" as="image" href="/images/work/work-1.jpg" fetchpriority="high" media="(min-width: 901px)">
-<title>Slim CCTV Security | Cutting-Edge Home Security Cameras in NJ & NY</title><meta name="description" content="Slim CCTV Security installs cutting-edge security cameras and smart home security equipment for homeowners in New Jersey and New York — professional grade protection at a fraction of the price.">
 <style>
   :root{
     --navy-950:#0a0f1c;
