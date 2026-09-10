@@ -795,6 +795,15 @@ function gtag_report_conversion(url) {
           if (!track) return;
           var realSlides = Array.from(track.querySelectorAll('img'));
           if (!realSlides.length) return;
+          // Read clientWidth BEFORE inserting the clones below, not after.
+          // Reading a layout property right after a DOM mutation forces the
+          // browser to do a synchronous layout pass right then (a "forced
+          // reflow") instead of on its own schedule — real, measurable
+          // main-thread cost. The track's own width doesn't depend on how
+          // many photos are inside it, so there's no need to read it after
+          // the clones are added; reading it first avoids the forced
+          // reflow entirely.
+          var trackWidth = track.clientWidth;
           var startClone = realSlides[realSlides.length - 1].cloneNode(true);
           var endClone = realSlides[0].cloneNode(true);
           startClone.classList.remove('active');
@@ -806,7 +815,7 @@ function gtag_report_conversion(url) {
             active.src = active.dataset.src;
             active.removeAttribute('data-src');
           }
-          track.scrollTo({ left: track.clientWidth, behavior: 'instant' });
+          track.scrollTo({ left: trackWidth, behavior: 'instant' });
           root.dataset.earlyInitDone = 'true';
         })();
         </script>
@@ -1149,6 +1158,13 @@ function gtag_report_conversion(url) {
 </div>
 
 <script>
+  // Read this immediately, before anything else in this script touches the
+  // DOM. window.innerWidth doesn't depend on page content, but reading it
+  // *after* other code has changed the DOM can still force the browser to
+  // do a synchronous layout pass early (a "forced reflow") to answer it.
+  // Reading it as literally the first thing avoids that.
+  const isDesktopViewport = window.innerWidth >= 901; // matches the CSS breakpoint below
+
   // Header scroll state
   const header = document.getElementById('siteHeader');
   window.addEventListener('scroll', () => {
@@ -1286,8 +1302,7 @@ function gtag_report_conversion(url) {
       });
     }
 
-    const isDesktop = window.innerWidth >= 901; // matches the CSS breakpoint above
-    if (isDesktop) {
+    if (isDesktopViewport) {
       const el = document.getElementById('heroSlideshow');
       if (el) initDesktopSlideshow(el);
     } else {
