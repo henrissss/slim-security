@@ -323,7 +323,7 @@ function gtag_report_conversion(url) {
 
   /* ===== VALUE PROPS ===== */
   .value-section{padding:120px 0 100px;}
-  .value-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
   .value-card{
     background:var(--slate-100);border-radius:var(--radius-lg);padding:32px 26px;
     transition:transform .4s var(--ease), box-shadow .4s var(--ease), background .4s var(--ease);
@@ -336,8 +336,7 @@ function gtag_report_conversion(url) {
   .value-icon svg{width:24px;height:24px;color:var(--cyan-400);}
   .value-card h3{font-size:18px;font-weight:700;margin-bottom:10px;letter-spacing:-0.01em;}
   .value-card p{font-size:14.5px;color:#5b6b85;}
-  @media(max-width:960px){.value-grid{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:560px){.value-grid{grid-template-columns:1fr;}}
+  @media(max-width:760px){.value-grid{grid-template-columns:1fr;}}
 
   /* ===== AREAS WE SERVE =====
      Placeholder town lists below — swap in the real cities/counties you
@@ -348,6 +347,18 @@ function gtag_report_conversion(url) {
   .areas-col ul{list-style:none;padding:0;margin:0;}
   .areas-col li{font-size:14.5px;color:var(--navy-600);padding:8px 0;border-bottom:1px solid var(--slate-300);}
   @media(max-width:560px){.areas-grid{grid-template-columns:1fr;gap:24px;}}
+
+  /* ===== LEARN / INFO CONTENT =====
+     Genuinely useful installation-topic content, placed after the final CTA
+     so it adds relevance depth without competing with the conversion flow
+     above the fold. */
+  .info-section{padding:100px 0;}
+  .info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:40px 60px;margin-top:44px;}
+  .info-grid h3{font-size:17px;margin-bottom:10px;color:var(--navy-950);}
+  .info-grid p{font-size:14.5px;color:#5b6b85;line-height:1.7;}
+  .info-closing{margin-top:50px;text-align:center;font-size:14.5px;color:#5b6b85;}
+  .info-closing a{color:var(--navy-950);text-decoration:underline;}
+  @media(max-width:760px){.info-grid{grid-template-columns:1fr;gap:32px;}}
 
   /* ===== SERVICES ===== */
   .services-section{padding:100px 0;background:var(--navy-950);color:var(--white);}
@@ -379,8 +390,7 @@ function gtag_report_conversion(url) {
   }
   .step h3{font-size:17px;font-weight:700;margin-bottom:10px;}
   .step p{font-size:14px;color:#5b6b85;}
-  .step-line{position:absolute;top:27px;left:calc(50% + 27px);width:calc(100% - 54px);height:2px;background:repeating-linear-gradient(90deg, #d5deea 0 8px, transparent 8px 16px);}
-  @media(max-width:960px){.steps-grid{grid-template-columns:repeat(2,1fr);gap:40px 0;}.step-line{display:none;}}
+  @media(max-width:960px){.steps-grid{grid-template-columns:repeat(2,1fr);gap:40px 0;}}
   @media(max-width:560px){.steps-grid{grid-template-columns:1fr;}}
 
   /* ===== PRICING ===== */
@@ -602,9 +612,14 @@ function gtag_report_conversion(url) {
       /* Wider than the form above it (form width is untouched) by bleeding
          into the container's outer padding on the right only — left edge
          stays aligned with the form's left edge. Height fills the remaining
-         space down to the testimonial's bottom (see flex:1 above). */
-      width:calc(100% + 48px);
-      margin-right:-48px;
+         space down to the testimonial's bottom (see flex:1 above).
+         Capped at 24px to match .container's own side padding (line 74) —
+         bleeding further than that overflows the viewport on any width
+         where .container is still full-bleed (roughly 901–1200px), since
+         there's no extra padding to absorb it — this is what was cutting
+         off the headline and form at ~1000-1020px wide. */
+      width:calc(100% + 24px);
+      margin-right:-24px;
     }
     .hero-slideshow .hero-slideshow-track{flex:1;min-height:0;}
   }
@@ -952,19 +967,14 @@ function gtag_report_conversion(url) {
         <p>4K resolution, night vision, AI motion detection, and smartphone control on every install.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3ddcd6" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-        <h3>Fraction of the price</h3>
-        <p>No franchise fees, no surprise charges — just fair, affordable payments on pro-grade equipment.</p>
-      </div>
-      <div class="value-card">
         <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3ddcd6" stroke-width="2"><path d="M3 21v-2a4 4 0 014-4h6a4 4 0 014 4v2"/><circle cx="10" cy="7" r="4"/><path d="M17 7a4 4 0 010 8"/></svg></div>
         <h3>Local NJ &amp; NY techs</h3>
         <p>Real technicians who know your neighborhood — not a call center hours away.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3ddcd6" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
-        <h3>Clean, fast install</h3>
-        <p>Most homes are fully wired and set up in a single visit, with no mess left behind.</p>
+        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3ddcd6" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M9 14l-2 7 5-3 5 3-2-7"/></svg></div>
+        <h3>15 years of experience</h3>
+        <p>A decade and a half installing security systems for homes and businesses across NJ &amp; NY.</p>
       </div>
     </div>
   </div>
@@ -1086,7 +1096,6 @@ function gtag_report_conversion(url) {
         <h3>You're covered</h3>
         <p>Monitor your home from your phone, with our support team just a call away.</p>
       </div>
-      <div class="step-line"></div>
     </div>
   </div>
 </section>
@@ -1185,6 +1194,34 @@ function gtag_report_conversion(url) {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>
+  </div>
+</section>
+
+<section class="info-section" id="learn">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Learn</span>
+      <h2>Choosing the right camera system for your property</h2>
+    </div>
+    <div class="info-grid reveal-stagger">
+      <div>
+        <h3>Wired (PoE) vs. wireless systems</h3>
+        <p>Most of our installs use Power over Ethernet (PoE) cameras, which send video and power over a single cable back to a local recorder. PoE systems tend to hold up better over time — no batteries to replace, no Wi-Fi interference dropping frames at the worst moment, and cleaner 24/7 recording. Wireless cameras still have a place — rentals, additions, or spots where running cable isn't practical. We install both, and during your free assessment we'll tell you honestly which fits your property.</p>
+      </div>
+      <div>
+        <h3>Residential vs. commercial installations</h3>
+        <p>A single-family home usually needs 4–8 cameras covering entry points, the driveway, and the backyard, wired into your home network with remote viewing from your phone. Commercial jobs — retail storefronts, multi-family buildings, warehouses — typically call for more cameras, wider fields of view, longer footage retention for liability and insurance purposes, and sometimes integration with access control or intercom systems. We install both, and equipment scales to the property, not a one-size package.</p>
+      </div>
+      <div>
+        <h3>NVR recording &amp; storage</h3>
+        <p>Footage is only useful if it's actually being recorded and easy to find later. Every install includes a Network Video Recorder (NVR) set up on-site that stores continuous or motion-triggered footage locally, so you're not stuck with a mandatory cloud subscription. Retention typically runs anywhere from a couple of weeks to a couple of months depending on drive size and camera count, and you get an app to pull up live or recorded footage from your phone.</p>
+      </div>
+      <div>
+        <h3>Camera placement that actually works</h3>
+        <p>Where a camera sits matters more than the camera itself. We aim for overlapping coverage at every entry point — front door, back door, garage — a driveway angle that actually catches license plates, and height/angle choices that avoid glare, direct sun, and easy tampering. A poorly placed 4K camera catches less useful footage than a well-placed 2MP one; that's a judgment call we make on-site, not something a generic package can guess at.</p>
+      </div>
+    </div>
+    <p class="info-closing">Not sure if your address is in range? We cover all of New Jersey and the greater New York metro area — see the full list above, or just <a href="#quote-form">request a free quote</a> and we'll confirm coverage for you.</p>
   </div>
 </section>
 </main>
