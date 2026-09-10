@@ -30,6 +30,13 @@ function gtag_report_conversion(url) {
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Preload the first hero slideshow photo (the LCP element) so the browser
+     starts downloading it immediately from the initial HTML instead of
+     waiting for the slideshow JS to run and swap data-src -> src. Two
+     variants, matched to the same 900px breakpoint the slideshow JS/CSS
+     use, so only the one that's actually shown gets fetched. -->
+<link rel="preload" as="image" href="/images/work/work-1.jpg" fetchpriority="high" media="(max-width: 900px)">
+<link rel="preload" as="image" href="/images/work/work-1.jpg" fetchpriority="high" media="(min-width: 901px)">
 <title>Slim CCTV Security | Cutting-Edge Home Security Cameras in NJ & NY</title><meta name="description" content="Slim CCTV Security installs cutting-edge security cameras and smart home security equipment for homeowners in New Jersey and New York — professional grade protection at a fraction of the price.">
 <style>
   :root{
@@ -712,6 +719,7 @@ function gtag_report_conversion(url) {
   <a href="#quote-form" class="nav-cta" data-track-cta="Mobile nav — Get a Free Quote">Get a Free Quote</a>
 </div>
 
+<main>
 <section class="hero" id="top">
   <div class="hero-bg-clip"></div>
   <div class="container">
@@ -742,7 +750,7 @@ function gtag_report_conversion(url) {
         </div>
         <div class="hero-slideshow-mobile" id="heroSlideshowMobile">
           <div class="hero-slideshow-track">
-            <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active">
+            <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active" fetchpriority="high">
             <img data-src="/images/work/work-2.jpg" alt="Slim Security PTZ camera installation on brick exterior">
             <img data-src="/images/work/work-3.jpg" alt="Slim Security installed NVR and monitor wall">
             <img data-src="/images/work/work-4.jpg" alt="Slim Security dome camera installation">
@@ -805,7 +813,7 @@ function gtag_report_conversion(url) {
       </div>
       <div class="hero-slideshow" id="heroSlideshow">
         <div class="hero-slideshow-track">
-          <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active">
+          <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active" fetchpriority="high">
           <img data-src="/images/work/work-2.jpg" alt="Slim Security PTZ camera installation on brick exterior">
           <img data-src="/images/work/work-3.jpg" alt="Slim Security installed NVR and monitor wall">
           <img data-src="/images/work/work-4.jpg" alt="Slim Security dome camera installation">
@@ -1049,6 +1057,7 @@ function gtag_report_conversion(url) {
     </div>
   </div>
 </section>
+</main>
 
 <footer>
   <div class="container">
