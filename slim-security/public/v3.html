@@ -14,8 +14,7 @@
      out the measured LCP even though the image itself loads fast. -->
 <link rel="preload" as="image" href="/images/work/work-1.jpg" fetchpriority="high" media="(max-width: 900px)">
 <link rel="preload" as="image" href="/images/work/work-1.jpg" fetchpriority="high" media="(min-width: 901px)">
-<title>Slim CCTV Security | CCTV Installation & Security Camera Installers in NJ & NY</title>
-<meta name="robots" content="noindex">
+<title>Slim CCTV Security | CCTV Installation & Security Camera Installers in NJ & NY</title><meta name="description" content="Slim CCTV Security provides professional CCTV installation and security camera installer services for homes and businesses across New Jersey and New York — licensed, insured, and priced honestly.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -34,7 +33,19 @@
   },
   "areaServed": [
     {"@type": "State", "name": "New Jersey"},
-    {"@type": "State", "name": "New York"}
+    {"@type": "AdministrativeArea", "name": "Hudson County, NJ"},
+    {"@type": "AdministrativeArea", "name": "Essex County, NJ"},
+    {"@type": "AdministrativeArea", "name": "Bergen County, NJ"},
+    {"@type": "AdministrativeArea", "name": "Union County, NJ"},
+    {"@type": "AdministrativeArea", "name": "Middlesex County, NJ"},
+    {"@type": "City", "name": "Manhattan, NY"},
+    {"@type": "City", "name": "Brooklyn, NY"},
+    {"@type": "City", "name": "Queens, NY"},
+    {"@type": "City", "name": "The Bronx, NY"},
+    {"@type": "City", "name": "Staten Island, NY"},
+    {"@type": "AdministrativeArea", "name": "Westchester County, NY"},
+    {"@type": "AdministrativeArea", "name": "Nassau County, NY"},
+    {"@type": "AdministrativeArea", "name": "Suffolk County, NY"}
   ],
   "url": "https://slimsecurity.co/"
 }
@@ -66,7 +77,6 @@ function gtag_report_conversion(url) {
   return false;
 }
 </script>
-<meta name="description" content="Slim CCTV Security provides professional CCTV installation and security camera installer services for homes and businesses across New Jersey and New York — licensed, insured, and priced honestly.">
 <style>
   :root{
     --navy-950:#0a0f1c;
@@ -369,14 +379,7 @@ function gtag_report_conversion(url) {
   }
   .step h3{font-size:17px;font-weight:700;margin-bottom:10px;}
   .step p{font-size:14px;color:#5b6b85;}
-  /* Runs between the centers of the 1st and 4th step-num circles (each circle
-     is centered in its 25%-wide column, so those centers sit at 12.5% and
-     87.5%), then trims back by the circle's own radius (27px) at each end so
-     the line starts/ends at the circle edges instead of running under them.
-     (Previously used 50%/100% — math for a 2-column layout, not this 4-column
-     grid — which pushed the line's right edge to 150% of the container,
-     overflowing the page on any width ≥961px, where the grid is 4 columns.) */
-  .step-line{position:absolute;top:27px;left:calc(12.5% + 27px);width:calc(75% - 54px);height:2px;background:repeating-linear-gradient(90deg, #d5deea 0 8px, transparent 8px 16px);}
+  .step-line{position:absolute;top:27px;left:calc(50% + 27px);width:calc(100% - 54px);height:2px;background:repeating-linear-gradient(90deg, #d5deea 0 8px, transparent 8px 16px);}
   @media(max-width:960px){.steps-grid{grid-template-columns:repeat(2,1fr);gap:40px 0;}.step-line{display:none;}}
   @media(max-width:560px){.steps-grid{grid-template-columns:1fr;}}
 
@@ -599,14 +602,9 @@ function gtag_report_conversion(url) {
       /* Wider than the form above it (form width is untouched) by bleeding
          into the container's outer padding on the right only — left edge
          stays aligned with the form's left edge. Height fills the remaining
-         space down to the testimonial's bottom (see flex:1 above).
-         Capped at 24px to match .container's own side padding (line 74) —
-         bleeding further than that overflows the viewport on any width
-         where .container is still full-bleed (roughly 901–1200px), since
-         there's no extra padding to absorb it — this is what was cutting
-         off the headline and form at ~1000-1020px wide. */
-      width:calc(100% + 24px);
-      margin-right:-24px;
+         space down to the testimonial's bottom (see flex:1 above). */
+      width:calc(100% + 48px);
+      margin-right:-48px;
     }
     .hero-slideshow .hero-slideshow-track{flex:1;min-height:0;}
   }
@@ -983,15 +981,22 @@ function gtag_report_conversion(url) {
     </div>
     <div class="areas-grid reveal-stagger">
       <div class="areas-col">
-        <h4>New Jersey</h4>
+        <h4>New Jersey — all 21 counties</h4>
         <ul>
-          <li>All of New Jersey</li>
+          <li>Hudson County (Jersey City, Hoboken)</li>
+          <li>Essex County (Newark)</li>
+          <li>Bergen County</li>
+          <li>Union &amp; Middlesex County</li>
+          <li>Statewide, north to south</li>
         </ul>
       </div>
       <div class="areas-col">
-        <h4>New York</h4>
+        <h4>New York metropolitan area</h4>
         <ul>
-          <li>New York metropolitan area</li>
+          <li>Manhattan, Brooklyn &amp; Queens</li>
+          <li>The Bronx &amp; Staten Island</li>
+          <li>Westchester County</li>
+          <li>Nassau &amp; Suffolk County (Long Island)</li>
         </ul>
       </div>
     </div>
