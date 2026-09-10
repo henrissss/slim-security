@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Preload the first hero slideshow photo (the LCP element) so the browser
+     starts downloading it immediately from the initial HTML instead of
+     waiting for the slideshow JS to run and swap data-src -> src. Two
+     variants, matched to the same 900px breakpoint the slideshow JS/CSS
+     use, so only the one that's actually shown gets fetched. Placed ahead
+     of the Google Ads tag below on purpose — that script used to be the
+     very first thing in <head>, which meant its network request jumped
+     the queue ahead of this image under throttled connections and pushed
+     out the measured LCP even though the image itself loads fast. -->
+<link rel="preload" as="image" href="/images/work/work-1.jpg" fetchpriority="high" media="(max-width: 900px)">
+<link rel="preload" as="image" href="/images/work/work-1.jpg" fetchpriority="high" media="(min-width: 901px)">
+<title>Slim CCTV Security | Cutting-Edge Home Security Cameras in NJ & NY</title><meta name="description" content="Slim CCTV Security installs cutting-edge security cameras and smart home security equipment for homeowners in New Jersey and New York — professional grade protection at a fraction of the price.">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18412402704"></script>
 <script>
@@ -28,9 +42,6 @@ function gtag_report_conversion(url) {
   return false;
 }
 </script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Slim CCTV Security | Cutting-Edge Home Security Cameras in NJ & NY</title><meta name="description" content="Slim CCTV Security installs cutting-edge security cameras and smart home security equipment for homeowners in New Jersey and New York — professional grade protection at a fraction of the price.">
 <style>
   :root{
     --navy-950:#0a0f1c;
@@ -712,10 +723,11 @@ function gtag_report_conversion(url) {
   <a href="#quote-form" class="nav-cta" data-track-cta="Mobile nav — Get a Free Quote">Get a Free Quote</a>
 </div>
 
+<main>
 <section class="hero" id="top">
   <div class="hero-bg-clip"></div>
   <div class="container">
-    <div class="contact-wrap reveal">
+    <div class="contact-wrap">
       <div class="contact-info">
         <h1>Professional Security Camera Installation for <span class="grad">Homes &amp; Businesses</span></h1>
         <p class="lead-sub">Flexible payment options available, including one-time payment.</p>
@@ -742,7 +754,7 @@ function gtag_report_conversion(url) {
         </div>
         <div class="hero-slideshow-mobile" id="heroSlideshowMobile">
           <div class="hero-slideshow-track">
-            <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active">
+            <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active" fetchpriority="high">
             <img data-src="/images/work/work-2.jpg" alt="Slim Security PTZ camera installation on brick exterior">
             <img data-src="/images/work/work-3.jpg" alt="Slim Security installed NVR and monitor wall">
             <img data-src="/images/work/work-4.jpg" alt="Slim Security dome camera installation">
@@ -760,6 +772,44 @@ function gtag_report_conversion(url) {
           </div>
           <div class="hero-slideshow-counter"><span id="heroSlideshowMobileCounter">1</span>/11</div>
         </div>
+        <!-- This carousel needs a tiny bit of JS to work at all: two "loop"
+             clone photos added to the ends, and the scroll position jumped
+             to skip past the leading clone so photo 1 shows first. That
+             correction runs right here, inline, immediately after this
+             markup — not in the big script block at the bottom of the page.
+             On a slow connection the browser can paint everything above
+             this point before it's even finished receiving the rest of the
+             page, so if this correction waited until the bottom-of-page
+             script, visitors would briefly see the wrong (unshifted) photo
+             and then see it visibly jump into place — a real layout shift,
+             not just a cosmetic nitpick. Running it here means it happens
+             the instant this part of the page is parsed, before there's
+             anything to see yet. The rest of the carousel's behavior
+             (swiping, the counter, autoplay handoff) is still wired up
+             later, in the main script block — this only ever does the
+             one-time structural fix. -->
+        <script>
+        (function () {
+          var root = document.getElementById('heroSlideshowMobile');
+          var track = root && root.querySelector('.hero-slideshow-track');
+          if (!track) return;
+          var realSlides = Array.from(track.querySelectorAll('img'));
+          if (!realSlides.length) return;
+          var startClone = realSlides[realSlides.length - 1].cloneNode(true);
+          var endClone = realSlides[0].cloneNode(true);
+          startClone.classList.remove('active');
+          endClone.classList.remove('active');
+          track.insertBefore(startClone, realSlides[0]);
+          track.appendChild(endClone);
+          var active = track.querySelector('img.active');
+          if (active && active.dataset.src) {
+            active.src = active.dataset.src;
+            active.removeAttribute('data-src');
+          }
+          track.scrollTo({ left: track.clientWidth, behavior: 'instant' });
+          root.dataset.earlyInitDone = 'true';
+        })();
+        </script>
       </div>
       <div class="contact-form-col">
       <div class="contact-form" id="quote-form">
@@ -805,7 +855,7 @@ function gtag_report_conversion(url) {
       </div>
       <div class="hero-slideshow" id="heroSlideshow">
         <div class="hero-slideshow-track">
-          <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active">
+          <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active" fetchpriority="high">
           <img data-src="/images/work/work-2.jpg" alt="Slim Security PTZ camera installation on brick exterior">
           <img data-src="/images/work/work-3.jpg" alt="Slim Security installed NVR and monitor wall">
           <img data-src="/images/work/work-4.jpg" alt="Slim Security dome camera installation">
@@ -1049,6 +1099,7 @@ function gtag_report_conversion(url) {
     </div>
   </div>
 </section>
+</main>
 
 <footer>
   <div class="container">
@@ -1118,14 +1169,29 @@ function gtag_report_conversion(url) {
   // cards on desktop (below the form), another replaces the testimonial on
   // mobile. Only the one actually visible at this breakpoint has its images
   // populated from data-src, so the hidden one never downloads anything.
+  //
+  // Of the photos that ARE visible at this breakpoint, all of them are still
+  // inserted into the DOM at the same time as before (an earlier version of
+  // this deferred the other 10 photos until after page load, but shifting
+  // *when* they got inserted turned out to cause real, if erratic, layout
+  // shift — not worth it). Instead, only the priority is different: the
+  // first photo (the LCP element) keeps its fetchpriority="high" from the
+  // HTML, and every other photo gets fetchpriority="low" applied here, so
+  // the browser's own network stack still fetches the one that matters
+  // first without any change to page layout timing.
   (function () {
+    function populateOne(img, priority) {
+      if (img && img.dataset.src) {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+        if (priority) img.setAttribute('fetchpriority', priority);
+      }
+    }
+
     function populateImages(root) {
       const slides = root.querySelectorAll('.hero-slideshow-track img');
       slides.forEach((img) => {
-        if (img.dataset.src) {
-          img.src = img.dataset.src;
-          img.removeAttribute('data-src');
-        }
+        populateOne(img, img.classList.contains('active') ? null : 'low');
       });
       return slides;
     }
@@ -1159,26 +1225,44 @@ function gtag_report_conversion(url) {
     // once the swipe settles there, the track silently (no animation, so
     // it's invisible — the clone looks identical to the real photo it's
     // sitting next to) jumps to the matching real photo at the other end.
+    //
+    // The clones themselves and the initial scroll jump are already done
+    // by a small inline script right after this carousel's own HTML (see
+    // that markup further up) — done there instead of here so it happens
+    // the instant that part of the page is parsed, rather than whenever
+    // this bottom-of-page script gets around to running. This function
+    // only wires up the interactive behavior on top of that already-fixed
+    // structure; it re-does the structural setup itself only as a fallback,
+    // in case that inline script didn't get a chance to run for some
+    // reason.
     function initMobileSlideshow(root) {
       const track = root.querySelector('.hero-slideshow-track');
       const counter = root.querySelector('.hero-slideshow-counter span');
       if (!track) return;
-      const realSlides = Array.from(track.querySelectorAll('img'));
-      const total = realSlides.length;
-      if (!total) return;
 
-      const startClone = realSlides[total - 1].cloneNode(true);
-      const endClone = realSlides[0].cloneNode(true);
-      startClone.classList.remove('active');
-      endClone.classList.remove('active');
-      track.insertBefore(startClone, realSlides[0]);
-      track.appendChild(endClone);
-      populateImages(root); // gives the clones their real src too, from data-src
+      if (!root.dataset.earlyInitDone) {
+        const realSlides = Array.from(track.querySelectorAll('img'));
+        const startClone = realSlides[realSlides.length - 1].cloneNode(true);
+        const endClone = realSlides[0].cloneNode(true);
+        startClone.classList.remove('active');
+        endClone.classList.remove('active');
+        track.insertBefore(startClone, realSlides[0]);
+        track.appendChild(endClone);
+        const active = track.querySelector('img.active');
+        if (active && active.dataset.src) {
+          active.src = active.dataset.src;
+          active.removeAttribute('data-src');
+        }
+        track.scrollTo({ left: track.clientWidth, behavior: 'instant' });
+      }
+
+      const total = track.querySelectorAll('img').length - 2;
+      if (total <= 0) return;
+      populateImages(root); // gives every slide (including the clones) its real src
 
       // Index space now runs 0..total+1: 0 is the start clone, 1..total
       // are the real photos, total+1 is the end clone.
       let current = 1;
-      track.scrollTo({ left: current * track.clientWidth, behavior: 'instant' });
 
       function setCounter() {
         if (counter) counter.textContent = current;
