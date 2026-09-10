@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Preload the first hero slideshow photo (the LCP element) so the browser
+     starts downloading it immediately from the initial HTML instead of
+     waiting for the slideshow JS to run and swap data-src -> src. Two
+     variants, matched to the same 900px breakpoint the slideshow JS/CSS
+     use, so only the one that's actually shown gets fetched. Placed ahead
+     of the Google Ads tag below on purpose — that script used to be the
+     very first thing in <head>, which meant its network request jumped
+     the queue ahead of this image under throttled connections and pushed
+     out the measured LCP even though the image itself loads fast. -->
+<link rel="preload" as="image" href="/images/work/work-1.jpg" fetchpriority="high" media="(max-width: 900px)">
+<link rel="preload" as="image" href="/images/work/work-1.jpg" fetchpriority="high" media="(min-width: 901px)">
+<title>Slim CCTV Security | Cutting-Edge Home Security Cameras in NJ & NY</title><meta name="description" content="Slim CCTV Security installs cutting-edge security cameras and smart home security equipment for homeowners in New Jersey and New York — professional grade protection at a fraction of the price.">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18412402704"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-18412402704');
+</script>
+<!-- Event snippet for Submit lead form conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-18412402704/pHapCLHguugcEJDw28tE',
+      'value': 1.0,
+      'currency': 'USD',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
+<style>
+  :root{
+    --navy-950:#0a0f1c;
+    --navy-900:#0d1526;
+    --navy-800:#121d33;
+    --navy-700:#1a2942;
+    --navy-600:#26395a;
+    --slate-400:#8fa1bd;
+    --slate-300:#b7c3d9;
+    --slate-100:#eef2f8;
+    --white:#ffffff;
+    --cyan-400:#3ddcd6;
+    --cyan-300:#6ee9e4;
+    --blue-500:#3b82f6;
+    --amber-400:#f5b942;
+    --radius-lg:20px;
+    --radius-md:14px;
+    --radius-sm:10px;
+    --shadow-soft: 0 20px 60px -20px rgba(10,15,28,0.35);
+    --shadow-glow: 0 0 0 1px rgba(61,220,214,0.15), 0 20px 60px -20px rgba(61,220,214,0.25);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;overscroll-behavior-x:none;}
+  body{
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color:var(--navy-900);
+    background:var(--white);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    overscroll-behavior-x:none;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  .container{width:100%;max-width:1200px;margin:0 auto;padding:0 24px;}
+  section{position:relative;}
+
+  /* Reveal animation */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease), transform .8s var(--ease);}
+  .reveal.is-visible{opacity:1;transform:translateY(0);}
+  .reveal-stagger > *{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease), transform .7s var(--ease);}
+  .reveal-stagger.is-visible > *{opacity:1;transform:translateY(0);}
+  .reveal-stagger.is-visible > *:nth-child(1){transition-delay:.05s;}
+  .reveal-stagger.is-visible > *:nth-child(2){transition-delay:.12s;}
+  .reveal-stagger.is-visible > *:nth-child(3){transition-delay:.19s;}
+  .reveal-stagger.is-visible > *:nth-child(4){transition-delay:.26s;}
+
+  /* ===== NAV ===== */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    padding:22px 0;
+    transition:padding .35s var(--ease), background .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  header.scrolled{
+    padding:12px 0;
+    background:rgba(10,15,28,0.85);
+    backdrop-filter:blur(16px) saturate(160%);
+    -webkit-backdrop-filter:blur(16px) saturate(160%);
+    box-shadow:0 10px 30px -15px rgba(0,0,0,0.4);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;letter-spacing:-0.02em;color:var(--white);}
+  .logo-text{display:flex;flex-direction:column;line-height:1.15;}
+  .logo-text .logo-name{font-size:17px;font-weight:800;letter-spacing:0.01em;color:var(--white);}
+  .logo-text .logo-tagline{font-size:10.5px;font-weight:600;letter-spacing:0.02em;color:var(--slate-400);margin-top:1px;white-space:nowrap;}
+  @media(max-width:400px){.logo-text .logo-tagline{font-size:9px;}}
+  .logo-mark{
+    width:34px;height:34px;border-radius:9px;
+    background:linear-gradient(135deg, var(--cyan-400), var(--blue-500));
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 18px -6px rgba(61,220,214,0.6);
+  }
+  .logo-mark svg{width:18px;height:18px;}
+  .nav-links{display:flex;align-items:center;gap:36px;}
+  .nav-links a{
+    color:var(--slate-300);font-size:14.5px;font-weight:500;
+    transition:color .25s var(--ease);position:relative;
+  }
+  .nav-links a:hover{color:var(--white);}
+  .nav-cta{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--white);color:var(--navy-950);
+    padding:11px 20px;border-radius:100px;
+    font-weight:600;font-size:14px;
+    transition:transform .3s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease);
+  }
+  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px rgba(255,255,255,0.35);}
+  .burger{display:none;flex-direction:column;gap:5px;width:24px;}
+  .burger span{height:2px;background:var(--white);border-radius:2px;transition:transform .3s var(--ease), opacity .3s var(--ease);}
+
+  /* Mobile-only call row under the logo — the header's normal phone number
+     link lives inside .nav-cta, which is hidden below 860px along with the
+     rest of the nav, so without this a mobile visitor has no visible way to
+     call until they open the burger menu. Sits inside the (already
+     position:fixed) header, so it never pushes hero content down — the hero
+     keeps its own padding-top, which already has enough headroom for it. */
+  .header-call-row{display:none;}
+  @media(max-width:860px){
+    .header-call-row{display:flex;justify-content:center;margin-top:12px;}
+    .header-call-row a{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+      color:var(--white);font-size:13.5px;font-weight:700;
+      padding:9px 18px;border-radius:100px;
+    }
+    .header-call-row svg{width:15px;height:15px;flex-shrink:0;}
+  }
+
+  .mobile-menu{
+    position:fixed;inset:0;background:var(--navy-950);z-index:999;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+    opacity:0;visibility:hidden;transform:translateY(-12px);
+    transition:opacity .35s var(--ease), transform .35s var(--ease), visibility .35s;
+  }
+  .mobile-menu.open{opacity:1;visibility:visible;transform:translateY(0);}
+  .mobile-menu a{color:var(--white);font-size:22px;font-weight:600;}
+  .mobile-menu .nav-cta{margin-top:12px;}
+
+  /* ===== HERO ===== */
+  .hero{
+    background:radial-gradient(120% 100% at 15% 0%, #142441 0%, var(--navy-950) 55%);
+    color:var(--white);
+    padding:180px 0 140px;
+    position:relative;
+    overflow:clip;
+  }
+  /* Decorative blur circles live in their own clipped layer (rather than
+     directly on .hero) so .hero itself can safely go overflow:visible on
+     mobile (see max-width:900px below) to let the full-bleed photo
+     slideshow escape its column — without these circles spilling out too. */
+  .hero-bg-clip{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+  .hero-bg-clip::before{
+    content:"";position:absolute;top:-20%;right:-10%;width:600px;height:600px;
+    background:radial-gradient(circle, rgba(61,220,214,0.16) 0%, transparent 70%);
+    filter:blur(10px);
+  }
+  .hero-bg-clip::after{
+    content:"";position:absolute;bottom:-30%;left:-10%;width:500px;height:500px;
+    background:radial-gradient(circle, rgba(59,130,246,0.14) 0%, transparent 70%);
+  }
+  .hero-inner{position:relative;z-index:2;max-width:760px;}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(61,220,214,0.1);border:1px solid rgba(61,220,214,0.3);
+    color:var(--cyan-300);font-size:13px;font-weight:600;
+    padding:8px 16px;border-radius:100px;margin-bottom:28px;
+    letter-spacing:0.01em;
+  }
+  .badge span.dot{width:6px;height:6px;border-radius:50%;background:var(--cyan-400);box-shadow:0 0 0 4px rgba(61,220,214,0.2);}
+  h1{
+    font-size:clamp(38px, 5.6vw, 68px);
+    font-weight:700;letter-spacing:-0.03em;line-height:1.06;
+    margin-bottom:22px;
+  }
+  h1 .grad{
+    background:linear-gradient(100deg, var(--cyan-300), var(--blue-500) 60%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lead-sub{
+    font-size:15.5px;color:var(--cyan-300);max-width:560px;margin:-10px 0 16px;font-weight:600;letter-spacing:0.01em;
+  }
+  .hero p.lead{
+    font-size:19px;color:var(--slate-300);max-width:560px;margin-bottom:38px;font-weight:400;
+  }
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:56px;}
+  /* A soft glow bridging the button's lower edge down to the photo
+     slideshow below it, mobile only (that's the only layout where the
+     button sits directly above the slideshow, with nothing but empty
+     gap between them). Sits behind the button (z-index) so it reads as
+     light spilling out from under it rather than sitting on top of it. */
+  @media(max-width:900px){
+    .hero-ctas{position:relative;}
+    .hero-ctas .btn-primary{position:relative;z-index:1;}
+    .hero-ctas::after{
+      content:"";position:absolute;z-index:0;pointer-events:none;
+      left:50%;bottom:-74px;transform:translateX(-50%);
+      width:70%;max-width:280px;height:100px;
+      background:radial-gradient(ellipse at center, rgba(61,220,214,0.6) 0%, rgba(59,130,246,0.32) 45%, transparent 75%);
+      filter:blur(18px);
+    }
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:16px 30px;border-radius:100px;font-weight:600;font-size:15.5px;
+    transition:transform .3s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease), color .3s var(--ease);
+  }
+  .btn-large{padding:19px 38px;font-size:17px;width:100%;justify-content:center;}
+  @media(min-width:640px){.btn-large{width:auto;}}
+  .btn-primary{
+    background:linear-gradient(100deg, var(--cyan-400), var(--blue-500));
+    color:var(--navy-950);
+    box-shadow:0 14px 34px -12px rgba(61,220,214,0.45);
+  }
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 20px 42px -12px rgba(61,220,214,0.6);}
+  .btn-ghost{
+    background:rgba(255,255,255,0.06);color:var(--white);
+    border:1px solid rgba(255,255,255,0.16);
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,0.12);transform:translateY(-3px);}
+  .btn svg{width:16px;height:16px;transition:transform .3s var(--ease);}
+  .btn-primary:hover svg{transform:translateX(3px);}
+
+  .trust-row{display:flex;gap:36px;flex-wrap:wrap;}
+  .trust-item{display:flex;align-items:center;gap:10px;color:var(--slate-400);font-size:13.5px;font-weight:500;}
+  .trust-line-simple{color:var(--slate-400);font-size:13.5px;font-weight:600;letter-spacing:0.01em;margin-bottom:26px;}
+  .trust-item svg{width:18px;height:18px;color:var(--cyan-400);flex-shrink:0;}
+
+  /* floating device mock */
+  .hero-visual{
+    position:absolute;right:-40px;top:130px;width:420px;z-index:1;
+    display:flex;flex-direction:column;gap:16px;
+  }
+  .float-card{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.1);
+    backdrop-filter:blur(20px);
+    border-radius:16px;padding:16px 18px;
+    display:flex;align-items:center;gap:14px;
+    animation:floaty 6s ease-in-out infinite;
+    box-shadow:0 20px 50px -20px rgba(0,0,0,0.5);
+  }
+  .float-card:nth-child(2){animation-delay:1.4s;margin-left:60px;}
+  .float-card:nth-child(3){animation-delay:2.8s;}
+  @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+  .float-icon{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg, var(--cyan-400), var(--blue-500));display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .float-icon svg{width:20px;height:20px;color:var(--navy-950);}
+  .float-text b{display:block;color:var(--white);font-size:14px;}
+  .float-text span{color:var(--slate-400);font-size:12.5px;}
+
+  @media(max-width:1080px){.hero-visual{display:none;}}
+
+  /* ===== SECTION HEADS ===== */
+  .eyebrow{
+    color:var(--blue-500);font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;display:block;
+  }
+  .section-head{max-width:640px;margin-bottom:56px;}
+  .section-head h2{font-size:clamp(28px,3.6vw,42px);font-weight:700;letter-spacing:-0.025em;line-height:1.15;color:var(--navy-950);margin-bottom:16px;}
+  .section-head p{font-size:17px;color:#5b6b85;}
+  .center{text-align:center;margin-left:auto;margin-right:auto;}
+
+  /* ===== VALUE PROPS ===== */
+  .value-section{padding:120px 0 100px;}
+  .value-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .value-card{
+    background:var(--slate-100);border-radius:var(--radius-lg);padding:32px 26px;
+    transition:transform .4s var(--ease), box-shadow .4s var(--ease), background .4s var(--ease);
+  }
+  .value-card:hover{transform:translateY(-6px);background:var(--white);box-shadow:var(--shadow-soft);}
+  .value-icon{
+    width:52px;height:52px;border-radius:13px;
+    background:var(--navy-950);display:flex;align-items:center;justify-content:center;margin-bottom:20px;
+  }
+  .value-icon svg{width:24px;height:24px;color:var(--cyan-400);}
+  .value-card h3{font-size:18px;font-weight:700;margin-bottom:10px;letter-spacing:-0.01em;}
+  .value-card p{font-size:14.5px;color:#5b6b85;}
+  @media(max-width:960px){.value-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.value-grid{grid-template-columns:1fr;}}
+
+  /* ===== SERVICES ===== */
+  .services-section{padding:100px 0;background:var(--navy-950);color:var(--white);}
+  .services-section .section-head p{color:var(--slate-400);}
+  .services-section .eyebrow{color:var(--cyan-400);}
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .service-card{
+    background:var(--navy-900);border:1px solid var(--navy-700);border-radius:var(--radius-lg);
+    padding:30px;transition:border-color .35s var(--ease), transform .35s var(--ease), background .35s var(--ease);
+  }
+  .service-card:hover{border-color:rgba(61,220,214,0.5);transform:translateY(-5px);background:var(--navy-800);}
+  .service-num{font-size:13px;color:var(--cyan-400);font-weight:700;margin-bottom:18px;letter-spacing:0.05em;}
+  .service-card h3{font-size:20px;font-weight:700;margin-bottom:12px;letter-spacing:-0.01em;}
+  .service-card p{font-size:14.5px;color:var(--slate-400);margin-bottom:20px;}
+  .service-card ul li{font-size:13.5px;color:var(--slate-300);display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+  .service-card ul li svg{width:14px;height:14px;color:var(--cyan-400);flex-shrink:0;}
+  @media(max-width:960px){.services-grid{grid-template-columns:1fr;}}
+
+  /* ===== HOW IT WORKS ===== */
+  .steps-section{padding:120px 0;}
+  .steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+  .step{padding:0 20px;position:relative;}
+  .step-num{
+    width:54px;height:54px;border-radius:50%;
+    background:linear-gradient(135deg, var(--navy-900), var(--navy-700));
+    color:var(--cyan-400);display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:18px;margin-bottom:22px;
+    box-shadow:0 10px 24px -10px rgba(10,15,28,0.4);
+  }
+  .step h3{font-size:17px;font-weight:700;margin-bottom:10px;}
+  .step p{font-size:14px;color:#5b6b85;}
+  .step-line{position:absolute;top:27px;left:calc(50% + 27px);width:calc(100% - 54px);height:2px;background:repeating-linear-gradient(90deg, #d5deea 0 8px, transparent 8px 16px);}
+  @media(max-width:960px){.steps-grid{grid-template-columns:repeat(2,1fr);gap:40px 0;}.step-line{display:none;}}
+  @media(max-width:560px){.steps-grid{grid-template-columns:1fr;}}
+
+  /* ===== PRICING ===== */
+  .pricing-section{padding:100px 0;background:var(--slate-100);}
+  .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch;}
+  .price-card{
+    background:var(--white);border-radius:var(--radius-lg);padding:36px 30px;
+    border:1px solid #e3e9f1;display:flex;flex-direction:column;
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  .price-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-soft);}
+  .price-card.featured{
+    background:var(--navy-950);color:var(--white);border:none;
+    box-shadow:var(--shadow-glow);position:relative;transform:scale(1.03);
+  }
+  .price-card.featured:hover{transform:scale(1.03) translateY(-6px);}
+  .price-tag{
+    position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+    background:linear-gradient(100deg, var(--cyan-400), var(--blue-500));
+    color:var(--navy-950);font-size:12px;font-weight:700;padding:6px 16px;border-radius:100px;
+    letter-spacing:0.03em;
+  }
+  .price-card h3{font-size:20px;font-weight:700;margin-bottom:8px;}
+  .price-card .price-sub{font-size:13.5px;color:#5b6b85;margin-bottom:22px;}
+  .price-card.featured .price-sub{color:var(--slate-400);}
+  .price-amount{font-size:42px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;}
+  .price-amount span{font-size:15px;font-weight:500;color:#5b6b85;}
+  .price-card.featured .price-amount span{color:var(--slate-400);}
+  .price-onetime{font-size:14px;font-weight:600;color:#33415c;margin-bottom:14px;}
+  .price-card.featured .price-onetime{color:var(--slate-200,#d7e0ee);}
+  .price-note{font-size:13px;color:#8092ab;margin-bottom:26px;}
+  .price-card ul{margin-bottom:28px;flex:1;}
+  .price-card ul li{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;margin-bottom:12px;color:#33415c;}
+  .price-card.featured ul li{color:var(--slate-200,#d7e0ee);}
+  .price-card ul li svg{width:16px;height:16px;color:var(--blue-500);flex-shrink:0;margin-top:2px;}
+  .price-card.featured ul li svg{color:var(--cyan-400);}
+  .price-card .btn{justify-content:center;width:100%;}
+  .price-card .btn-dark{background:var(--navy-950);color:var(--white);}
+  .price-card .btn-dark:hover{transform:translateY(-3px);box-shadow:0 14px 30px -12px rgba(10,15,28,0.5);}
+  @media(max-width:960px){.pricing-grid{grid-template-columns:1fr;}.price-card.featured{transform:scale(1);}.price-card.featured:hover{transform:translateY(-6px);}}
+
+  /* ===== SERVICE AREA ===== */
+  .area-section{padding:110px 0;}
+  .area-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+  .area-map{
+    background:var(--navy-950);border-radius:var(--radius-lg);
+    aspect-ratio:1/1;position:relative;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .area-map svg{width:78%;height:78%;}
+  .area-pin{position:absolute;width:14px;height:14px;border-radius:50%;background:var(--cyan-400);box-shadow:0 0 0 6px rgba(61,220,214,0.2);}
+  .area-pin::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--cyan-400);opacity:0;animation:pulse-ring 2.4s ease-out infinite;}
+  @keyframes pulse-ring{0%{transform:scale(0.6);opacity:0.8;}100%{transform:scale(2.4);opacity:0;}}
+  .county-list{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin-top:24px;}
+  .county-list li{font-size:14.5px;color:#33415c;display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px dashed #e3e9f1;}
+  .county-list li svg{width:14px;height:14px;color:var(--blue-500);flex-shrink:0;}
+  @media(max-width:900px){.area-wrap{grid-template-columns:1fr;}.area-map{max-width:380px;margin:0 auto;}}
+
+  /* ===== TESTIMONIALS ===== */
+  .testi-section{padding:110px 0;background:var(--navy-950);color:var(--white);}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .testi-card{background:var(--navy-900);border:1px solid var(--navy-700);border-radius:var(--radius-lg);padding:30px;}
+  .testi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+  .google-badge{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--slate-400);}
+  .google-badge svg{width:15px;height:15px;flex-shrink:0;}
+  .stars{display:flex;gap:4px;}
+  .stars svg{width:16px;height:16px;color:var(--amber-400);}
+  .testi-card p{font-size:15px;color:var(--slate-300);margin-bottom:24px;line-height:1.6;}
+  .testi-person{display:flex;align-items:center;gap:12px;}
+  .avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg, var(--cyan-400), var(--blue-500));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--navy-950);}
+  .testi-person b{display:block;font-size:14px;}
+  .testi-person span{font-size:12.5px;color:var(--slate-400);}
+  @media(max-width:960px){.testi-grid{grid-template-columns:1fr;}}
+
+  /* ===== FAQ ===== */
+  .faq-section{padding:110px 0;}
+  .faq-list{max-width:760px;margin:0 auto;}
+  .faq-item{border-bottom:1px solid #e3e9f1;}
+  .faq-q{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:24px 4px;font-size:16.5px;font-weight:600;cursor:pointer;
+  }
+  .faq-q .plus{width:22px;height:22px;flex-shrink:0;position:relative;}
+  .faq-q .plus::before,.faq-q .plus::after{content:"";position:absolute;background:var(--navy-950);top:50%;left:50%;transform:translate(-50%,-50%);transition:transform .3s var(--ease), opacity .3s var(--ease);}
+  .faq-q .plus::before{width:14px;height:2px;}
+  .faq-q .plus::after{width:2px;height:14px;}
+  .faq-item.open .plus::after{transform:translate(-50%,-50%) rotate(90deg);opacity:0;}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .4s var(--ease);}
+  .faq-a p{padding:0 4px 24px;font-size:14.5px;color:#5b6b85;max-width:640px;}
+
+  /* ===== CONTACT / QUOTE ===== */
+  .contact-section{padding:110px 0 130px;background:var(--slate-100);}
+  .contact-wrap{display:grid;grid-template-columns:0.9fr 1.1fr;gap:50px;background:var(--white);border-radius:24px;overflow:hidden;box-shadow:var(--shadow-soft);}
+  .contact-info{background:var(--navy-950);color:var(--white);padding:50px 44px;position:relative;overflow:hidden;}
+  .contact-info::before{content:"";position:absolute;top:-30%;right:-30%;width:300px;height:300px;background:radial-gradient(circle, rgba(61,220,214,0.18), transparent 70%);}
+  .contact-info h2{font-size:28px;font-weight:700;margin-bottom:14px;letter-spacing:-0.02em;position:relative;}
+  .contact-info p{color:var(--slate-400);font-size:14.5px;margin-bottom:34px;position:relative;}
+  .contact-detail{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;position:relative;}
+  .contact-detail .value-icon{margin-bottom:0;width:42px;height:42px;flex-shrink:0;}
+  .contact-detail b{display:block;font-size:14.5px;}
+  .contact-detail span{font-size:13px;color:var(--slate-400);}
+  .contact-form{padding:50px 44px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .field{margin-bottom:18px;}
+  .field label{display:block;font-size:13px;font-weight:600;color:var(--navy-900);margin-bottom:7px;}
+  .field input,.field select,.field textarea{
+    width:100%;padding:13px 15px;border-radius:10px;border:1.5px solid #e3e9f1;
+    font-family:inherit;font-size:14.5px;color:var(--navy-900);background:var(--white);
+    transition:border-color .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{
+    outline:none;border-color:var(--blue-500);box-shadow:0 0 0 4px rgba(59,130,246,0.12);
+  }
+  .field textarea{resize:vertical;min-height:96px;}
+  .submit-row{display:flex;align-items:center;gap:16px;margin-top:8px;flex-wrap:wrap;}
+  .submit-row .btn{border:none;}
+  .form-note{font-size:12.5px;color:#8092ab;}
+  .form-success{
+    display:none;align-items:center;gap:10px;background:#eafff6;border:1px solid #b6f2d8;color:#0d7a4f;
+    padding:14px 18px;border-radius:12px;font-size:14px;font-weight:600;margin-top:18px;
+  }
+  .form-success.show{display:flex;}
+  @media(max-width:900px){.contact-wrap{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}}
+  @media(max-width:560px){.contact-info,.contact-form{padding:36px 26px;}}
+
+  .form-error{display:none;font-size:13.5px;color:#c0362c;background:#fdecea;border:1px solid #f5c2bd;padding:12px 16px;border-radius:10px;margin-top:16px;}
+  .form-error.show{display:block;}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--navy-950);color:var(--slate-400);padding:60px 0 30px;}
+  .footer-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;padding-bottom:40px;border-bottom:1px solid var(--navy-700);}
+  .footer-brand p{font-size:13.5px;max-width:280px;margin-top:14px;}
+  .footer-cols{display:flex;gap:60px;flex-wrap:wrap;}
+  .footer-col h4{color:var(--white);font-size:13.5px;font-weight:700;margin-bottom:16px;letter-spacing:0.02em;}
+  .footer-col li{margin-bottom:10px;font-size:13.5px;}
+  .footer-col a:hover{color:var(--white);}
+  .footer-bottom{padding-top:26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;}
+
+  /* generic section padding fix on small screens */
+  @media(max-width:640px){
+    .value-section,.services-section,.steps-section,.pricing-section,.area-section,.testi-section,.faq-section,.contact-section{padding-top:80px;padding-bottom:80px;}
+    .hero{padding-top:140px;padding-bottom:90px;}
+  }
+
+  @media(max-width:860px){
+    .nav-links,.nav-cta{display:none;}
+    .burger{display:flex;}
+  }
+  .teaser-band{background:var(--navy-950);color:#fff;padding:36px 0;border-top:1px solid #1a2942;border-bottom:1px solid #1a2942;}
+  .teaser-inner{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;}
+  .teaser-text h2{font-size:24px;font-weight:800;letter-spacing:-0.01em;margin:6px 0 6px;}
+  .teaser-text p{font-size:14px;color:var(--slate-300,#b7c3d9);margin:0;}
+  .teaser-inner .btn{flex-shrink:0;}
+  @media (max-width:720px){.teaser-inner{flex-direction:column;align-items:flex-start;}}
+
+  /* ===== v3: conversion-focused hero/form + sticky mobile CTA ===== */
+  .hero{padding:150px 0 90px;}
+  @media(max-width:640px){.hero{padding-top:112px;}}
+  .contact-info .mini-testi{
+    margin-top:30px;padding:16px 18px;background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.12);border-radius:12px;position:relative;
+  }
+  .contact-info .mini-testi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+  .contact-info .mini-testi .stars{color:var(--amber-400);font-size:13px;letter-spacing:2px;}
+  .contact-info .mini-testi .google-badge{font-size:11px;color:var(--slate-400);}
+  .contact-info .mini-testi .google-badge svg{width:13px;height:13px;}
+  .contact-info .mini-testi p{color:var(--slate-300);font-size:13.5px;margin-bottom:8px;font-style:italic;line-height:1.5;}
+  .contact-info .mini-testi .who{color:var(--slate-400);font-size:12px;font-weight:600;font-style:normal;}
+  /* On mobile the testimonial is replaced by the photo slideshow below, so hide it there. */
+  @media(max-width:900px){.contact-info .mini-testi{display:none;}}
+  .hero .contact-wrap{position:relative;z-index:2;}
+  .hero .contact-info{background:transparent;padding:0 20px 0 0;overflow:visible;}
+  .hero .contact-info::before{display:none;}
+  .hero .contact-wrap{background:transparent;box-shadow:none;border-radius:0;gap:44px;overflow:visible;}
+  /* Desktop only: the left column (badge/headline/price box/testimonial) runs
+     taller than the form. Grid columns stretch to match each other's height
+     by default, so the right column (form + slideshow) is stretched to that
+     same height — the slideshow (flex:1, below) absorbs that extra height
+     instead of leaving a gap, so its bottom lines up with the testimonial's
+     bottom on the left. Scoped to >900px since below that .hero .contact-wrap
+     drops to a single column (see the max-width:900px rule below). */
+  @media(min-width:901px){
+    .hero .contact-form-col{display:flex;flex-direction:column;min-height:0;}
+    .hero .contact-form{flex:none;}
+  }
+
+  /* Shared photo-slideshow inner styles — used by both the desktop slideshow
+     (below the form) and the mobile slideshow (replacing the testimonial). */
+  .hero-slideshow-track{position:relative;width:100%;background:#0a0f1c;}
+  .hero-slideshow-track img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    opacity:0;transition:opacity 1s ease;
+  }
+  .hero-slideshow-track img.active{opacity:1;}
+  .hero-slideshow-dots{
+    position:absolute;bottom:12px;left:0;right:0;
+    display:flex;justify-content:center;gap:7px;z-index:2;
+  }
+  .hero-slideshow-dots span{
+    width:6px;height:6px;border-radius:50%;
+    background:rgba(255,255,255,0.4);transition:background .3s ease, transform .3s ease;
+  }
+  .hero-slideshow-dots span.active{background:var(--cyan-400);transform:scale(1.3);}
+
+  /* Desktop-only photo slideshow below the form, in the space the form no
+     longer stretches into — real installs, replacing the old floating
+     status-card mockups. Hidden on mobile/tablet on purpose: below 900px
+     .hero .contact-wrap drops to a single column and this would just add
+     clutter under an already-stacked layout — the mobile slideshow below
+     (.hero-slideshow-mobile) takes over there instead. */
+  .hero-slideshow{display:none;}
+  @media(min-width:901px){
+    .hero-slideshow{
+      display:flex;flex-direction:column;flex:1;min-height:0;
+      position:relative;margin-top:22px;
+      border-radius:16px;overflow:hidden;
+      box-shadow:0 20px 50px -20px rgba(0,0,0,0.5);
+      border:1px solid rgba(255,255,255,0.1);
+      /* Wider than the form above it (form width is untouched) by bleeding
+         into the container's outer padding on the right only — left edge
+         stays aligned with the form's left edge. Height fills the remaining
+         space down to the testimonial's bottom (see flex:1 above). */
+      width:calc(100% + 48px);
+      margin-right:-48px;
+    }
+    .hero-slideshow .hero-slideshow-track{flex:1;min-height:0;}
+  }
+
+  /* Mobile-only photo slideshow, replacing the testimonial in that spot
+     (see @media(max-width:900px){.contact-info .mini-testi} above). Unlike
+     the desktop version (a fixed image that fades to the next one), this is
+     a real horizontally-swipeable carousel — one finger-swipe scrolls to the
+     next/previous photo, snapping into place — with autoplay advancing it
+     the rest of the time. Styled full-bleed (edge to edge, breaking out of
+     the container's side padding) for a more modern, immersive look than a
+     boxed-in card. */
+  .hero-slideshow-mobile{display:none;}
+  @media(max-width:900px){
+    .hero{overflow:visible;}
+    .hero .contact-info{padding-right:0;}
+    .hero-slideshow-mobile{
+      display:block;position:relative;margin-top:34px;
+      /* Break out of the container's 24px side padding using a fixed px
+         value (matching .container's own padding exactly) instead of
+         width:100vw/calc(). vw units measure wrong on plenty of mobile
+         browsers (they can include room for a scrollbar that isn't
+         actually taking up visible space), which overshot the real width
+         here and made the whole page drift/jump on load. Plain px math
+         against a padding value that never changes has nothing to get
+         wrong. */
+      width:calc(100% + 48px);
+      margin-left:-24px;
+    }
+    .hero-slideshow-mobile .hero-slideshow-track{
+      aspect-ratio:4/5;display:flex;overflow-x:auto;
+      scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
+      /* Since this now touches the true screen edge, a swipe that starts
+         right at its boundary can otherwise "leak" into the page itself —
+         the browser reads it as a page-level horizontal gesture and
+         rubber-bands/shifts the whole page sideways. Containing the scroll
+         here (plus overscroll-behavior-x:none on html/body above) keeps
+         the gesture inside the carousel only. */
+      overscroll-behavior-x:contain;
+    }
+    .hero-slideshow-mobile .hero-slideshow-track::-webkit-scrollbar{display:none;}
+    .hero-slideshow-mobile .hero-slideshow-track img{
+      position:static;flex:0 0 100%;width:100%;height:100%;
+      scroll-snap-align:start;opacity:1;transition:none;
+    }
+    /* Bottom gradient so the caption stays readable over any photo. */
+    .hero-slideshow-mobile::after{
+      content:"";position:absolute;left:0;right:0;bottom:0;height:40%;
+      background:linear-gradient(to top, rgba(4,8,16,0.78), transparent);
+      pointer-events:none;
+    }
+    .hero-slideshow-mobile .hero-slideshow-caption{
+      position:absolute;left:20px;bottom:18px;z-index:2;
+      display:flex;align-items:center;gap:8px;
+      color:#fff;font-size:14.5px;font-weight:700;letter-spacing:-0.01em;
+    }
+    .hero-slideshow-mobile .hero-slideshow-counter{
+      position:absolute;right:16px;top:16px;z-index:2;
+      background:rgba(10,15,28,0.5);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+      color:#fff;font-size:12px;font-weight:700;
+      padding:5px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,0.2);
+    }
+  }
+  .hero .contact-form{background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-soft);padding:38px 34px;color:var(--navy-900);}
+  .hero .contact-form h2{font-size:22px;font-weight:700;color:var(--navy-950);margin-bottom:6px;letter-spacing:-0.01em;}
+  .hero .contact-form > p{font-size:13.5px;color:#5b6b85;margin-bottom:22px;}
+  @media(max-width:900px){.hero .contact-wrap{grid-template-columns:1fr;}.hero .contact-info{padding:0;}}
+  @media(max-width:560px){.hero .contact-form{padding:28px 22px;}}
+
+  .price-highlight{
+    background:rgba(61,220,214,0.06);border:1.5px solid rgba(61,220,214,0.35);
+    border-radius:14px;padding:14px 20px;margin:18px 0 24px;
+  }
+  @media(max-width:640px){.price-highlight{margin-top:8px;}}
+  .price-highlight-row{
+    display:flex;align-items:flex-start;gap:8px;font-size:15px;font-weight:700;color:#fff;
+    padding:5px 0;flex-wrap:nowrap;
+  }
+  .price-highlight-row svg{width:18px;height:18px;flex-shrink:0;color:var(--cyan-400);margin-top:3px;}
+  .price-highlight-row > span{flex:1;min-width:0;}
+  .price-highlight-row .amt{color:var(--cyan-400);font-weight:800;}
+  .price-highlight-foot{
+    margin-top:8px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.12);
+    font-size:14px;font-weight:600;color:var(--slate-300);
+  }
+  @media(max-width:480px){.price-highlight-row{font-size:14.5px;}}
+
+  .urgency-line{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(245,185,66,0.12);border:1px solid rgba(245,185,66,0.35);
+    color:var(--amber-400);font-size:13px;font-weight:700;
+    padding:8px 16px;border-radius:100px;margin-bottom:20px;letter-spacing:0.01em;
+  }
+  .urgency-line svg{width:14px;height:14px;flex-shrink:0;}
+
+  /* Sticky mobile call/quote bar */
+  .sticky-mobile-cta{
+    position:fixed;left:0;right:0;bottom:0;z-index:1200;display:none;
+    background:var(--navy-950);padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+    box-shadow:0 -10px 30px -10px rgba(0,0,0,0.55);border-top:1px solid var(--navy-700);
+    transform:translateY(100%);transition:transform .3s var(--ease);
+  }
+  .sticky-mobile-cta.show{transform:translateY(0);}
+  .sticky-mobile-cta-inner{display:flex;gap:10px;}
+  .sticky-mobile-cta a{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 10px;border-radius:100px;font-weight:700;font-size:14px;
+  }
+  .sticky-mobile-cta a svg{width:16px;height:16px;}
+  .sticky-mobile-cta .call-btn{background:rgba(255,255,255,0.08);color:var(--white);border:1px solid rgba(255,255,255,0.18);}
+  .sticky-mobile-cta .quote-btn{background:linear-gradient(100deg, var(--cyan-400), var(--blue-500));color:var(--navy-950);}
+  @media(max-width:720px){.sticky-mobile-cta{display:flex;}body{padding-bottom:64px;}}
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="container">
+    <nav>
+      <a href="#top" class="logo">
+        <span class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L4 5v6c0 5 3.4 8.9 8 10 4.6-1.1 8-5 8-10V5l-8-3z" fill="#0a0f1c"/></svg>
+        </span>
+        <span class="logo-text">
+          <span class="logo-name">SLIM SECURITY</span>
+          <span class="logo-tagline">Home Security Camera Installation</span>
+        </span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#pricing">Pricing</a>
+        <a href="#how">How It Works</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:18px;">
+        <a href="tel:+12012756527" class="nav-cta" style="background:transparent;color:var(--white);padding:0;" data-track-cta="Nav — Call (201) 275-6527">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z"/></svg>
+          (201) 275-6527
+        </a>
+        <a href="#quote-form" class="nav-cta" data-track-cta="Nav — Get a Free Quote">Get a Free Quote</a>
+      </div>
+      <div class="burger" id="burger"><span></span><span></span><span></span></div>
+    </nav>
+    <div class="header-call-row">
+      <a href="tel:+12012756527" data-track-cta="Header — Call Now">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z"/></svg>
+        Call Now: (201) 275-6527
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#pricing">Pricing</a>
+  <a href="#how">How It Works</a>
+  <a href="#testimonials">Reviews</a>
+  <a href="#faq">FAQ</a>
+  <a href="tel:+12012756527" data-track-cta="Mobile nav — Call (201) 275-6527">Call (201) 275-6527</a>
+  <a href="#quote-form" class="nav-cta" data-track-cta="Mobile nav — Get a Free Quote">Get a Free Quote</a>
+</div>
+
+<main>
+<section class="hero" id="top">
+  <div class="hero-bg-clip"></div>
+  <div class="container">
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <h1>Professional Security Camera Installation for <span class="grad">Homes &amp; Businesses</span></h1>
+        <p class="lead-sub">Flexible payment options available, including one-time payment.</p>
+        <p class="lead">For homes, apartments, condos, multi-family buildings &amp; small businesses.</p>
+        <div class="trust-line-simple">NJ &amp; NY &bull; Licensed &amp; Insured &bull; Professional Installation</div>
+        <div class="hero-ctas">
+          <a href="#quote-form" class="btn btn-primary btn-large" data-track-cta="Hero — Get My Free Quote">Get My Free Quote
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <!-- PLACEHOLDER REVIEW — see note above the testimonials section
+             further down; the Google badge should only sit next to a real
+             Google review, so replace this text before going live. -->
+        <div class="mini-testi">
+          <div class="mini-testi-top">
+            <div class="stars">★★★★★</div>
+            <div class="google-badge">
+              <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z"/><path fill="#34A853" d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z"/><path fill="#FBBC05" d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z"/><path fill="#EA4335" d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z"/></svg>
+              Google
+            </div>
+          </div>
+          <p>"Booked a free quote and had four cameras installed within the week. The crew was professional and left everything spotless — you'd never know they'd been in and out all day."</p>
+          <div class="who">James M. — Jersey City, NJ</div>
+        </div>
+        <div class="hero-slideshow-mobile" id="heroSlideshowMobile">
+          <div class="hero-slideshow-track">
+            <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active" fetchpriority="high">
+            <img data-src="/images/work/work-2.jpg" alt="Slim Security PTZ camera installation on brick exterior">
+            <img data-src="/images/work/work-3.jpg" alt="Slim Security installed NVR and monitor wall">
+            <img data-src="/images/work/work-4.jpg" alt="Slim Security dome camera installation">
+            <img data-src="/images/work/work-5.jpg" alt="Slim Security intercom installation">
+            <img data-src="/images/work/work-6.jpg" alt="Slim Security building intercom installation">
+            <img data-src="/images/work/work-7.jpg" alt="Slim Security exterior camera installation">
+            <img data-src="/images/work/work-8.jpg" alt="Slim Security residential camera installation">
+            <img data-src="/images/work/work-9.jpg" alt="Slim Security residential camera installation">
+            <img data-src="/images/work/work-10.jpg" alt="Slim Security PTZ camera installation on brick exterior">
+            <img data-src="/images/work/work-11.jpg" alt="Slim Security ceiling camera installation">
+          </div>
+          <div class="hero-slideshow-caption">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            Recent installation — NJ &amp; NY
+          </div>
+          <div class="hero-slideshow-counter"><span id="heroSlideshowMobileCounter">1</span>/11</div>
+        </div>
+        <!-- This carousel needs a tiny bit of JS to work at all: two "loop"
+             clone photos added to the ends, and the scroll position jumped
+             to skip past the leading clone so photo 1 shows first. That
+             correction runs right here, inline, immediately after this
+             markup — not in the big script block at the bottom of the page.
+             On a slow connection the browser can paint everything above
+             this point before it's even finished receiving the rest of the
+             page, so if this correction waited until the bottom-of-page
+             script, visitors would briefly see the wrong (unshifted) photo
+             and then see it visibly jump into place — a real layout shift,
+             not just a cosmetic nitpick. Running it here means it happens
+             the instant this part of the page is parsed, before there's
+             anything to see yet. The rest of the carousel's behavior
+             (swiping, the counter, autoplay handoff) is still wired up
+             later, in the main script block — this only ever does the
+             one-time structural fix. -->
+        <script>
+        (function () {
+          var root = document.getElementById('heroSlideshowMobile');
+          var track = root && root.querySelector('.hero-slideshow-track');
+          if (!track) return;
+          var realSlides = Array.from(track.querySelectorAll('img'));
+          if (!realSlides.length) return;
+          var startClone = realSlides[realSlides.length - 1].cloneNode(true);
+          var endClone = realSlides[0].cloneNode(true);
+          startClone.classList.remove('active');
+          endClone.classList.remove('active');
+          track.insertBefore(startClone, realSlides[0]);
+          track.appendChild(endClone);
+          var active = track.querySelector('img.active');
+          if (active && active.dataset.src) {
+            active.src = active.dataset.src;
+            active.removeAttribute('data-src');
+          }
+          track.scrollTo({ left: track.clientWidth, behavior: 'instant' });
+          root.dataset.earlyInitDone = 'true';
+        })();
+        </script>
+      </div>
+      <div class="contact-form-col">
+      <div class="contact-form" id="quote-form">
+        <h2>Get your free quote</h2>
+        <p>Tell us a bit about your property — we'll call shortly to confirm your needs and pricing. No obligation.</p>
+        <form id="quoteForm">
+          <div class="field">
+            <label for="fname">Name</label>
+            <input type="text" id="fname" name="fname" placeholder="Jane Doe" required>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
+            </div>
+            <div class="field">
+              <label for="zip">ZIP code</label>
+              <input type="text" id="zip" name="zip" placeholder="07302" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="package">How many cameras?</label>
+            <select id="package" name="package">
+              <option value="Not sure yet" selected>Not sure — recommend one for me</option>
+              <option value="4 cameras">4 cameras</option>
+              <option value="8 cameras">8 cameras</option>
+              <option value="More than 8">More than 8</option>
+            </select>
+          </div>
+          <div class="submit-row">
+            <button type="submit" class="btn btn-primary" id="quoteSubmitBtn" style="width:100%;justify-content:center;" data-track-cta="Quote form — Submit">Get My Free Quote — No Obligation
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <span class="form-note">No spam. We'll call you shortly to confirm details and schedule your install.</span>
+          </div>
+          <div class="form-success" id="formSuccess">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+            Thanks! Your request has been received — we'll be in touch shortly.
+          </div>
+          <div class="form-error" id="formError"></div>
+        </form>
+
+      </div>
+      <div class="hero-slideshow" id="heroSlideshow">
+        <div class="hero-slideshow-track">
+          <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active" fetchpriority="high">
+          <img data-src="/images/work/work-2.jpg" alt="Slim Security PTZ camera installation on brick exterior">
+          <img data-src="/images/work/work-3.jpg" alt="Slim Security installed NVR and monitor wall">
+          <img data-src="/images/work/work-4.jpg" alt="Slim Security dome camera installation">
+          <img data-src="/images/work/work-5.jpg" alt="Slim Security intercom installation">
+          <img data-src="/images/work/work-6.jpg" alt="Slim Security building intercom installation">
+          <img data-src="/images/work/work-7.jpg" alt="Slim Security exterior camera installation">
+          <img data-src="/images/work/work-8.jpg" alt="Slim Security residential camera installation">
+          <img data-src="/images/work/work-9.jpg" alt="Slim Security residential camera installation">
+          <img data-src="/images/work/work-10.jpg" alt="Slim Security PTZ camera installation on brick exterior">
+          <img data-src="/images/work/work-11.jpg" alt="Slim Security ceiling camera installation">
+        </div>
+        <div class="hero-slideshow-dots">
+          <span class="active"></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="value-section" id="value">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Why Slim</span>
+      <h2>Premium protection, honest pricing</h2>
+      <p>We cut out the bloated contracts and franchise markups so you get the same cutting-edge hardware for less.</p>
+    </div>
+    <div class="value-grid reveal-stagger">
+      <div class="value-card">
+        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3ddcd6" stroke-width="2"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg></div>
+        <h3>Cutting-edge tech</h3>
+        <p>4K resolution, night vision, AI motion detection, and smartphone control on every install.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3ddcd6" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <h3>Fraction of the price</h3>
+        <p>No franchise fees, no surprise charges — just fair, affordable payments on pro-grade equipment.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3ddcd6" stroke-width="2"><path d="M3 21v-2a4 4 0 014-4h6a4 4 0 014 4v2"/><circle cx="10" cy="7" r="4"/><path d="M17 7a4 4 0 010 8"/></svg></div>
+        <h3>Local NJ &amp; NY techs</h3>
+        <p>Real technicians who know your neighborhood — not a call center hours away.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#3ddcd6" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <h3>Clean, fast install</h3>
+        <p>Most homes are fully wired and set up in a single visit, with no mess left behind.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing-section" id="pricing">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Pricing</span>
+      <h2>Simple packages, no hidden fees</h2>
+      <p>Every package includes professional installation. Final pricing is confirmed after your free home assessment.</p>
+    </div>
+    <div class="pricing-grid reveal-stagger">
+      <div class="price-card">
+        <h3>Starter</h3>
+        <p class="price-sub">4 Cameras + 24/7 Recording + Professional Home Installation</p>
+        <div class="price-amount"><span>From</span> $49/mo</div>
+        <p class="price-note">Equipment, installation &amp; taxes included. Financing available. One-time payment also available.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>4 &times; 3K–4K cameras</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 Recording included</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Mobile app access</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Night vision &amp; motion alerts</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Professional installation included</li>
+        </ul>
+        <a href="#quote-form" class="btn btn-dark" data-track-cta="Pricing — Starter — Get This Package">Get This Package</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-tag">Most Popular</div>
+        <h3>Essential</h3>
+        <p class="price-sub">8 Cameras + 24/7 Recording + Professional Home Installation</p>
+        <div class="price-amount"><span>From</span> $69/mo</div>
+        <p class="price-note">Equipment, installation &amp; taxes included. Financing available. One-time payment also available.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>8 &times; 3K–4K cameras</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 Recording included</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Mobile app access</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>AI person &amp; vehicle detection</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Night vision</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Professional installation included</li>
+        </ul>
+        <a href="#quote-form" class="btn btn-primary" data-track-cta="Pricing — Essential — Get This Package">Get This Package</a>
+      </div>
+      <div class="price-card">
+        <h3>Complete</h3>
+        <p class="price-sub">8+ Cameras + 24/7 Recording + Alarm + Professional Home Installation</p>
+        <div class="price-amount" style="font-size:26px;">Custom Quote</div>
+        <p class="price-note">Pricing depends on home size &amp; equipment</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>4K cameras, 8+ included</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 Recording included</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Alarm system included</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 professional monitoring</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Full smart home integration</li>
+        </ul>
+        <a href="#quote-form" class="btn btn-dark" data-track-cta="Pricing — Complete — Get a Quote">Get a Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="steps-section" id="how">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">How it works</span>
+      <h2>From quote to fully installed in days, not weeks</h2>
+    </div>
+    <div class="steps-grid reveal-stagger">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Free consultation</h3>
+        <p>Tell us about your property and what you want covered — we'll recommend the right setup.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Custom system design</h3>
+        <p>We map camera placement for full coverage and send you transparent, itemized pricing.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Professional install</h3>
+        <p>Our local technicians install and test everything, usually in a single visit.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>You're covered</h3>
+        <p>Monitor your home from your phone, with our support team just a call away.</p>
+      </div>
+      <div class="step-line"></div>
+    </div>
+  </div>
+</section>
+
+<section class="testi-section" id="testimonials">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Customer stories</span>
+      <h2>Trusted by homeowners across NJ &amp; NY</h2>
+    </div>
+    <div class="testi-grid reveal-stagger">
+      <!-- PLACEHOLDER REVIEWS — not real customer reviews. Replace the three
+           cards below (text, names, towns) with actual reviews pulled from
+           the business's Google profile before this page goes live. The
+           Google "G" badge should only ever sit next to a review that is
+           genuinely posted on Google — don't leave it on placeholder text. -->
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="stars">★★★★★</div>
+          <div class="google-badge">
+            <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z"/><path fill="#34A853" d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z"/><path fill="#FBBC05" d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z"/><path fill="#EA4335" d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z"/></svg>
+            Google
+          </div>
+        </div>
+        <p>"Booked a free quote and had four cameras installed within the week. The crew was professional and left everything spotless — you'd never know they'd been in and out all day."</p>
+        <div class="testi-person">
+          <div class="avatar">JM</div>
+          <div><b>James M.</b><span>Jersey City, NJ</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="stars">★★★★★</div>
+          <div class="google-badge">
+            <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z"/><path fill="#34A853" d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z"/><path fill="#FBBC05" d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z"/><path fill="#EA4335" d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z"/></svg>
+            Google
+          </div>
+        </div>
+        <p>"The app is so easy to use and the install crew was professional and quick. Highly recommend Slim CCTV Security to any neighbor."</p>
+        <div class="testi-person">
+          <div class="avatar">RP</div>
+          <div><b>Rina P.</b><span>Queens, NY</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="stars">★★★★★</div>
+          <div class="google-badge">
+            <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z"/><path fill="#34A853" d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z"/><path fill="#FBBC05" d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z"/><path fill="#EA4335" d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z"/></svg>
+            Google
+          </div>
+        </div>
+        <p>"Professional from start to finish — showed up on time, walked me through the whole setup, and left the place spotless. You'd never know they were even here."</p>
+        <div class="testi-person">
+          <div class="avatar">DK</div>
+          <div><b>David K.</b><span>Yonkers, NY</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions homeowners ask us most</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item open">
+        <div class="faq-q">How is Slim CCTV Security cheaper than big-name providers?<span class="plus"></span></div>
+        <div class="faq-a"><p>We keep overhead low by working directly with local technicians and sourcing the same commercial-grade equipment big brands use — without franchise fees or long-term contracts baked into the price.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do I need to sign a long-term contract?<span class="plus"></span></div>
+        <div class="faq-a"><p>No. You simply pay a fixed monthly amount until your system is paid off — then it's $0/month, forever. No long-term contract, and no cancellation fees.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How long does installation take?<span class="plus"></span></div>
+        <div class="faq-a"><p>Most homes are completed in a single visit, typically 2-4 hours depending on the number of cameras and your home's wiring.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What areas do you currently serve?<span class="plus"></span></div>
+        <div class="faq-a"><p>We serve homeowners throughout New Jersey and New York, including the counties listed above. Contact us to confirm coverage in your town.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I monitor my cameras remotely?<span class="plus"></span></div>
+        <div class="faq-a"><p>Yes — every system includes free mobile app access so you can view live footage, get motion alerts, and review recordings from anywhere.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="teaser-band" id="final-cta">
+  <div class="container">
+    <div class="teaser-inner">
+      <div class="teaser-text">
+        <h2>Ready to see your home in a whole new light?</h2>
+        <p>Free, no-obligation quote — we'll call shortly to confirm your needs and pricing.</p>
+      </div>
+      <a href="#quote-form" class="btn btn-primary" data-track-cta="Final CTA — Get My Free Quote">Get My Free Quote
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#top" class="logo">
+          <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 5v6c0 5 3.4 8.9 8 10 4.6-1.1 8-5 8-10V5l-8-3z" fill="#0a0f1c"/></svg></span>
+          Slim CCTV Security
+        </a>
+        <p>Cutting-edge cameras and security equipment for New Jersey and New York homes, at a fraction of the price.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#how">How It Works</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:+12012756527" data-track-cta="Footer — Call (201) 275-6527">(201) 275-6527</a></li>
+            <li><a href="tel:+19143389068" data-track-cta="Footer — Call (914) 338-9068">(914) 338-9068</a></li>
+            <li>quotes@slimsecurity.com</li>
+            <li>New Jersey &amp; New York</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Slim CCTV Security. All rights reserved.</span>
+      <span>Licensed &amp; insured security installer &middot; NJ &amp; NY</span>
+    </div>
+  </div>
+</footer>
+<div class="sticky-mobile-cta" id="stickyMobileCta">
+  <div class="sticky-mobile-cta-inner">
+    <a href="tel:+12012756527" class="call-btn" data-track-cta="Sticky bar — Call Now">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z"/></svg>
+      Call Now
+    </a>
+    <a href="#quote-form" class="quote-btn" data-track-cta="Sticky bar — Get Free Quote">Get Free Quote</a>
+  </div>
+</div>
+
+<script>
+  // Header scroll state
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile menu
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  document.querySelectorAll('.mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+
+  // Hero photo slideshow — one instance replaces the old floating status
+  // cards on desktop (below the form), another replaces the testimonial on
+  // mobile. Only the one actually visible at this breakpoint has its images
+  // populated from data-src, so the hidden one never downloads anything.
+  //
+  // Of the photos that ARE visible at this breakpoint, all of them are still
+  // inserted into the DOM at the same time as before (an earlier version of
+  // this deferred the other 10 photos until after page load, but shifting
+  // *when* they got inserted turned out to cause real, if erratic, layout
+  // shift — not worth it). Instead, only the priority is different: the
+  // first photo (the LCP element) keeps its fetchpriority="high" from the
+  // HTML, and every other photo gets fetchpriority="low" applied here, so
+  // the browser's own network stack still fetches the one that matters
+  // first without any change to page layout timing.
+  (function () {
+    function populateOne(img, priority) {
+      if (img && img.dataset.src) {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+        if (priority) img.setAttribute('fetchpriority', priority);
+      }
+    }
+
+    function populateImages(root) {
+      const slides = root.querySelectorAll('.hero-slideshow-track img');
+      slides.forEach((img) => {
+        populateOne(img, img.classList.contains('active') ? null : 'low');
+      });
+      return slides;
+    }
+
+    // Desktop: fixed image, fades to the next one — no interaction needed.
+    function initDesktopSlideshow(root) {
+      const slides = populateImages(root);
+      const dots = root.querySelectorAll('.hero-slideshow-dots span');
+      if (!slides.length) return;
+
+      let current = 0;
+      setInterval(() => {
+        slides[current].classList.remove('active');
+        dots[current] && dots[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+        dots[current] && dots[current].classList.add('active');
+      }, 4000);
+    }
+
+    // Mobile: a purely manual swipeable carousel (horizontal scroll-snap) —
+    // no autoplay, the visitor moves through the photos only by swiping.
+    // It also loops infinitely in both directions: swiping past photo 8
+    // continues on to photo 1 (and swiping the other way past photo 1
+    // continues on to photo 8), rather than just stopping dead at the end.
+    //
+    // Native scroll-snap has no built-in concept of "wrap around", so this
+    // uses the standard trick for it: a clone of the last photo is placed
+    // before the first real one, and a clone of the first photo after the
+    // last real one. The visitor can then swipe seamlessly onto a clone;
+    // once the swipe settles there, the track silently (no animation, so
+    // it's invisible — the clone looks identical to the real photo it's
+    // sitting next to) jumps to the matching real photo at the other end.
+    //
+    // The clones themselves and the initial scroll jump are already done
+    // by a small inline script right after this carousel's own HTML (see
+    // that markup further up) — done there instead of here so it happens
+    // the instant that part of the page is parsed, rather than whenever
+    // this bottom-of-page script gets around to running. This function
+    // only wires up the interactive behavior on top of that already-fixed
+    // structure; it re-does the structural setup itself only as a fallback,
+    // in case that inline script didn't get a chance to run for some
+    // reason.
+    function initMobileSlideshow(root) {
+      const track = root.querySelector('.hero-slideshow-track');
+      const counter = root.querySelector('.hero-slideshow-counter span');
+      if (!track) return;
+
+      if (!root.dataset.earlyInitDone) {
+        const realSlides = Array.from(track.querySelectorAll('img'));
+        const startClone = realSlides[realSlides.length - 1].cloneNode(true);
+        const endClone = realSlides[0].cloneNode(true);
+        startClone.classList.remove('active');
+        endClone.classList.remove('active');
+        track.insertBefore(startClone, realSlides[0]);
+        track.appendChild(endClone);
+        const active = track.querySelector('img.active');
+        if (active && active.dataset.src) {
+          active.src = active.dataset.src;
+          active.removeAttribute('data-src');
+        }
+        track.scrollTo({ left: track.clientWidth, behavior: 'instant' });
+      }
+
+      const total = track.querySelectorAll('img').length - 2;
+      if (total <= 0) return;
+      populateImages(root); // gives every slide (including the clones) its real src
+
+      // Index space now runs 0..total+1: 0 is the start clone, 1..total
+      // are the real photos, total+1 is the end clone.
+      let current = 1;
+
+      function setCounter() {
+        if (counter) counter.textContent = current;
+      }
+      setCounter();
+
+      let scrollEndTimer = null;
+      track.addEventListener('scroll', () => {
+        clearTimeout(scrollEndTimer);
+        scrollEndTimer = setTimeout(() => {
+          current = Math.round(track.scrollLeft / track.clientWidth);
+          if (current === 0) {
+            current = total;
+            track.scrollTo({ left: current * track.clientWidth, behavior: 'instant' });
+          } else if (current === total + 1) {
+            current = 1;
+            track.scrollTo({ left: current * track.clientWidth, behavior: 'instant' });
+          }
+          setCounter();
+        }, 120);
+      });
+    }
+
+    const isDesktop = window.innerWidth >= 901; // matches the CSS breakpoint above
+    if (isDesktop) {
+      const el = document.getElementById('heroSlideshow');
+      if (el) initDesktopSlideshow(el);
+    } else {
+      const el = document.getElementById('heroSlideshowMobile');
+      if (el) initMobileSlideshow(el);
+    }
+  })();
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    if (item.classList.contains('open')) {
+      a.style.maxHeight = a.scrollHeight + 'px';
+    }
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(other => {
+        other.classList.remove('open');
+        other.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ===== Quote form =====
+  const form = document.getElementById('quoteForm');
+  const success = document.getElementById('formSuccess');
+  const formError = document.getElementById('formError');
+  const submitBtn = document.getElementById('quoteSubmitBtn');
+  const packageSelect = document.getElementById('package');
+
+  // gtag_report_conversion() itself is defined in <head>, right after the
+  // Google tag, per Google Ads' instructions — called below right when a
+  // quote request is successfully saved (this form submits via JS and never
+  // navigates to a separate "thank you" page, so no redirect url is passed).
+
+  function showError(msg) {
+    formError.textContent = msg;
+    formError.classList.add('show');
+  }
+  function clearError() {
+    formError.classList.remove('show');
+    formError.textContent = '';
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearError();
+
+    const pkg = packageSelect.value;
+    const fullName = document.getElementById('fname').value.trim();
+    const nameParts = fullName.split(/\s+/);
+    const payload = {
+      firstName: nameParts[0] || fullName,
+      lastName: nameParts.slice(1).join(' ') || nameParts[0] || fullName,
+      phone: document.getElementById('phone').value.trim(),
+      zip: document.getElementById('zip').value.trim(),
+      package: pkg,
+      notes: null,
+    };
+
+    submitBtn.disabled = true;
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: payload.firstName,
+          lastName: payload.lastName,
+          phone: payload.phone,
+          zip: payload.zip,
+          interestedPackage: pkg,
+          notes: payload.notes,
+          sessionId: window.__ssVisitorId || null,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Could not send your request — please try again.');
+
+      gtag_report_conversion();
+      window.dispatchEvent(new Event('ss:lead-submitted'));
+      success.classList.add('show');
+      form.reset();
+      success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } catch (err) {
+      showError(err.message || 'Something went wrong — please try again.');
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+
+<script>
+  // ===== Visitor engagement tracking (time on page + section views) =====
+  // Self-hosted — sends periodic + on-exit beacons to your own server
+  // (/api/track), no third-party analytics account needed. View the results
+  // at /admin/visits.
+  (function () {
+    // One id per visitor, shared across every tab on this browser — not
+    // per-tab — with a 30-minute inactivity window (same convention as
+    // Google Analytics' "session"). Switching between multiple tabs of the
+    // site, or coming back within 30 minutes, reuses the same id instead of
+    // counting as a new visit; only a genuinely new visitor, or someone
+    // returning after being away 30+ minutes, gets a fresh one.
+    const SESSION_TIMEOUT_MS = 30 * 60 * 1000;
+    function newId() {
+      return 'v_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+    }
+    // Works out a clean "source" label for /admin/visits — gclid/msclkid/
+    // fbclid/utm_source first (these are the reliable signals: Google Ads'
+    // auto-tagging appends ?gclid=... to the landing URL on every ad click,
+    // with no setup needed on our end), falling back to document.referrer
+    // only when none of those are present. Plain document.referrer alone
+    // isn't enough on its own — plenty of ad clicks (especially on mobile,
+    // or opened from an app) arrive with an empty referrer, which used to
+    // get logged as "Direct" even though the visitor came from a paid ad.
+    function computeSource() {
+      try {
+        const qs = new URLSearchParams(location.search);
+        if (qs.get('gclid')) return 'Google Ads';
+        if (qs.get('gbraid') || qs.get('wbraid')) return 'Google Ads';
+        if (qs.get('msclkid')) return 'Microsoft Ads (Bing)';
+        if (qs.get('fbclid')) return 'Facebook / Instagram Ads';
+        const utmSource = qs.get('utm_source');
+        if (utmSource) {
+          const medium = qs.get('utm_medium');
+          return medium ? (utmSource + ' / ' + medium) : utmSource;
+        }
+        const ref = document.referrer;
+        if (ref) {
+          const host = new URL(ref).hostname.replace(/^www\./, '');
+          if (/(^|\.)google\./.test(host)) return 'Google (organic)';
+          if (/(^|\.)bing\./.test(host)) return 'Bing (organic)';
+          if (/(^|\.)(facebook|instagram)\./.test(host)) return 'Facebook / Instagram';
+          if (/(^|\.)yahoo\./.test(host)) return 'Yahoo (organic)';
+          return host;
+        }
+      } catch (e) { /* ignore */ }
+      return 'Direct';
+    }
+    let sessionId, source;
+    try {
+      const stored = JSON.parse(localStorage.getItem('ss_visitor_session') || 'null');
+      const fresh = stored && stored.id && (Date.now() - stored.lastActive) < SESSION_TIMEOUT_MS;
+      sessionId = fresh ? stored.id : newId();
+      // First-touch source: kept from the stored session (same convention as
+      // sessionId itself) so it doesn't get overwritten by "Direct" if the
+      // visitor clicks around the site and the query params aren't on the
+      // URL anymore.
+      source = (fresh && stored.source) ? stored.source : computeSource();
+      localStorage.setItem('ss_visitor_session', JSON.stringify({ id: sessionId, lastActive: Date.now(), source }));
+    } catch (e) {
+      // Private browsing / storage blocked — fall back to a per-load id.
+      sessionId = newId();
+      source = computeSource();
+    }
+    // Exposed so the lead/quote form can tag its submission with this same
+    // id — that's how /admin/visits matches a visit row back to the actual
+    // name/phone/zip someone typed in.
+    window.__ssVisitorId = sessionId;
+    function touchSession() {
+      try {
+        localStorage.setItem('ss_visitor_session', JSON.stringify({ id: sessionId, lastActive: Date.now(), source }));
+      } catch (e) { /* ignore */ }
+    }
+
+    const sectionSeconds = {}; // { sectionId: accumulatedSeconds }
+    const visibleSince = {};   // { sectionId: timestamp last became visible }
+    let pausedSectionIds = []; // sections that were "visible" when the tab was backgrounded
+    const ctaClicks = {};      // { ctaLabel: clickCount }
+    let totalSeconds = 0;
+    let activeSince = document.visibilityState === 'visible' ? Date.now() : null;
+    let converted = false;
+
+    // Track clicks on every button/link tagged with data-track-cta (the
+    // header/hero/pricing "Get a Quote" / "Get This Package" buttons, etc.).
+    // Delegated on document so it still works if the page changes later.
+    document.addEventListener('click', (e) => {
+      const el = e.target.closest('[data-track-cta]');
+      if (!el) return;
+      const label = el.getAttribute('data-track-cta');
+      ctaClicks[label] = (ctaClicks[label] || 0) + 1;
+      send(false); // report immediately — CTA clicks are worth seeing in real time
+    });
+
+    function flushActiveTime() {
+      if (activeSince != null) {
+        totalSeconds += (Date.now() - activeSince) / 1000;
+        activeSince = document.visibilityState === 'visible' ? Date.now() : null;
+      }
+    }
+
+    // While the tab is backgrounded, a section can stay "intersecting" for
+    // as long as the tab sits hidden (no scroll happens to change that) —
+    // without pausing, that whole background stretch would get counted as
+    // dwell time on whatever section was on screen when they tabbed away.
+    // These freeze the running timers on hide and pick them back up on show,
+    // the same way flushActiveTime() pauses totalSeconds.
+    function pauseSectionTimers() {
+      const now = Date.now();
+      pausedSectionIds = Object.keys(visibleSince);
+      for (const id of pausedSectionIds) {
+        sectionSeconds[id] = (sectionSeconds[id] || 0) + (now - visibleSince[id]) / 1000;
+        delete visibleSince[id];
+      }
+    }
+    function resumeSectionTimers() {
+      const now = Date.now();
+      for (const id of pausedSectionIds) visibleSince[id] = now;
+      pausedSectionIds = [];
+    }
+
+    // Track which sections are on screen using IntersectionObserver — far
+    // cheaper than a scroll listener and accurate for "did they actually see
+    // this part of the page".
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver((entries) => {
+      const now = Date.now();
+      entries.forEach((entry) => {
+        const id = entry.target.id;
+        if (entry.isIntersecting) {
+          visibleSince[id] = now;
+        } else if (visibleSince[id]) {
+          sectionSeconds[id] = (sectionSeconds[id] || 0) + (now - visibleSince[id]) / 1000;
+          delete visibleSince[id];
+        }
+      });
+    }, { threshold: 0 });
+    sections.forEach((s) => observer.observe(s));
+
+    function currentSectionSnapshot() {
+      const now = Date.now();
+      const snapshot = { ...sectionSeconds };
+      for (const id in visibleSince) {
+        snapshot[id] = (snapshot[id] || 0) + (now - visibleSince[id]) / 1000;
+      }
+      Object.keys(snapshot).forEach((k) => { snapshot[k] = Math.round(snapshot[k]); });
+      return snapshot;
+    }
+
+    function send(final) {
+      flushActiveTime();
+      touchSession();
+      const payload = {
+        sessionId,
+        referrer: document.referrer || null,
+        source,
+        landingPath: location.pathname,
+        userAgent: navigator.userAgent,
+        screenW: window.screen ? window.screen.width : null,
+        screenH: window.screen ? window.screen.height : null,
+        totalSeconds: Math.round(totalSeconds),
+        sections: currentSectionSnapshot(),
+        clicks: ctaClicks,
+        converted,
+      };
+      const body = JSON.stringify(payload);
+      try {
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon('/api/track', new Blob([body], { type: 'application/json' }));
+        } else {
+          fetch('/api/track', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, keepalive: true });
+        }
+      } catch (e) { /* tracking should never break the page */ }
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      flushActiveTime();
+      if (document.visibilityState === 'hidden') {
+        pauseSectionTimers();
+        send(false);
+      } else {
+        resumeSectionTimers();
+      }
+    });
+    window.addEventListener('pagehide', () => send(true));
+
+    // Safety-net heartbeat in case the visitor never triggers the events
+    // above (some mobile browsers are inconsistent about it).
+    setInterval(() => send(false), 15000);
+
+    // Mark this session as converted the moment a lead/booking succeeds, so
+    // it shows up tied to the same visit in /admin/visits.
+    window.addEventListener('ss:lead-submitted', () => { converted = true; send(false); });
+  })();
+</script>
+
+<script>
+  // Sticky mobile call/quote bar — shows the instant the photo slideshow's
+  // bottom edge scrolls into view (i.e. the whole photo has appeared on
+  // screen), hides again once it scrolls back out below the screen as the
+  // visitor scrolls back up.
+  //
+  // Driven by a per-frame check (requestAnimationFrame) rather than a
+  // 'scroll' event listener or IntersectionObserver: the trigger line here
+  // is the moment rect.bottom crosses window.innerHeight, a point in the
+  // *middle* of the photo's visibility (it's already partly on screen
+  // before this and stays fully on screen after) — a plain 'scroll'
+  // listener can miss/lag that instant on a fast flick since the browser
+  // may deliver scroll events at a lower rate while the page is still
+  // moving, and IntersectionObserver only reports enter/exit of the
+  // element as a whole, not an arbitrary crossing point partway through.
+  // Checking every animation frame instead means it can't be missed
+  // regardless of scroll speed, and the check itself is cheap enough to
+  // run continuously.
+  (function () {
+    const bar = document.getElementById('stickyMobileCta');
+    const hero = document.getElementById('top');
+    const slideshow = document.getElementById('heroSlideshowMobile');
+    const trigger = slideshow || hero;
+    if (!bar || !trigger) return;
+
+    function loop() {
+      const rect = trigger.getBoundingClientRect();
+      bar.classList.toggle('show', rect.bottom <= window.innerHeight);
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  })();
+</script>
+
+</body>
+</html>
