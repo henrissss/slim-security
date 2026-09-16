@@ -736,6 +736,194 @@ function gtag_report_conversion(url) {
   .sticky-mobile-cta .call-btn{background:rgba(255,255,255,0.08);color:var(--white);border:1px solid rgba(255,255,255,0.18);}
   .sticky-mobile-cta .quote-btn{background:linear-gradient(100deg, var(--cyan-400), var(--blue-500));color:var(--navy-950);}
   @media(max-width:720px){.sticky-mobile-cta{display:flex;}body{padding-bottom:64px;}}
+
+  /* ===== v5 mobile conversion pass ===== */
+  .mobile-proof-label{display:none;}
+  @media(max-width:900px){
+    .mobile-proof-label{
+      display:block;margin-top:20px;color:var(--slate-300);
+      font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+    }
+  }
+  .hero-trust-chips{
+    display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;
+  }
+  .hero-trust-chips span{
+    display:inline-flex;align-items:center;
+    padding:7px 11px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.06);
+    color:var(--slate-300);font-size:12px;font-weight:700;
+  }
+
+  @media(max-width:720px){
+    header{padding:14px 0 10px;}
+    header.scrolled{padding:9px 0;}
+    .header-call-row{margin-top:8px;}
+    .header-call-row a{padding:7px 14px;font-size:12.5px;}
+
+    .hero{padding-top:104px;padding-bottom:36px;}
+    .hero h1{font-size:36px;line-height:1.03;margin-bottom:16px;}
+    .hero p.lead-sub{font-size:14px;line-height:1.45;margin:0 0 12px;}
+    .hero p.lead{font-size:16px;line-height:1.5;margin-bottom:18px;}
+    .hero-trust-chips{gap:7px;margin-bottom:18px;}
+    .hero-trust-chips span{font-size:11.5px;padding:6px 9px;}
+    .hero-ctas{margin-bottom:22px;}
+    .hero-ctas::after{display:none;}
+    .hero-ctas .btn-large{padding:16px 22px;font-size:16px;}
+
+    /* Put the form immediately after the hero message. */
+    .hero .contact-wrap{gap:22px;}
+    .hero .contact-form{
+      border-radius:18px;
+      padding:24px 18px;
+      box-shadow:0 14px 38px -18px rgba(0,0,0,.45);
+    }
+    .hero .contact-form h2{font-size:24px;margin-bottom:5px;}
+    .hero .contact-form > p{font-size:13px;line-height:1.45;margin-bottom:18px;}
+    .field{margin-bottom:13px;}
+    .field label{margin-bottom:5px;}
+    .field input,.field select{padding:12px 13px;font-size:15px;}
+    .submit-row .btn{padding:15px 18px;font-size:15px;}
+    .form-note{font-size:11.5px;line-height:1.4;}
+
+    /* Installation proof becomes a compact swipe card after the form. */
+    .hero-slideshow-mobile{
+      width:100%;
+      margin:20px 0 0;
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 16px 36px -20px rgba(0,0,0,.55);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .hero-slideshow-mobile .hero-slideshow-track{aspect-ratio:16/10;}
+    .hero-slideshow-mobile .hero-slideshow-caption{
+      left:14px;bottom:12px;font-size:12.5px;
+    }
+    .hero-slideshow-mobile .hero-slideshow-counter{
+      right:12px;top:12px;font-size:11px;padding:4px 9px;
+    }
+
+    /* Reduce giant section-by-section phone scrolling. */
+    .value-section,.services-section,.steps-section,.pricing-section,
+    .area-section,.testi-section,.faq-section,.contact-section,.areas-section{
+      padding-top:58px;padding-bottom:58px;
+    }
+    .section-head{margin-bottom:28px;}
+    .section-head h2{font-size:31px;margin-bottom:12px;}
+    .section-head p{font-size:15.5px;}
+
+    .value-grid{gap:12px;}
+    .value-card{padding:22px 20px;}
+    .value-icon{width:44px;height:44px;margin-bottom:14px;}
+    .value-card h3{margin-bottom:6px;}
+
+    .areas-grid{gap:18px;}
+    .areas-col li{padding:6px 0;font-size:14px;}
+
+    .pricing-grid{gap:14px;}
+    .price-card{padding:26px 20px;}
+    .price-amount{font-size:38px;}
+    .price-onetime{margin-bottom:6px;font-size:13px;}
+    .price-note{margin-bottom:18px;}
+    .price-card ul{margin-bottom:18px;}
+    .price-card ul li{margin-bottom:9px;}
+
+    .steps-grid{gap:26px 0;}
+    .step{padding:0 6px;}
+    .step-num{width:46px;height:46px;margin-bottom:14px;}
+
+    /* Smaller sticky CTA so it doesn't consume a fifth of the screen. */
+    .sticky-mobile-cta{
+      padding:7px 10px calc(7px + env(safe-area-inset-bottom));
+    }
+    .sticky-mobile-cta-inner{gap:7px;}
+    .sticky-mobile-cta a{
+      padding:10px 8px;font-size:13px;min-height:42px;
+    }
+    .sticky-mobile-cta a svg{width:14px;height:14px;}
+    body{padding-bottom:56px;}
+  }
+
+
+  /* v5.1: Mobile fallback — never hide content behind scroll-reveal JS.
+     This prevents blank white sections in iOS/local previews if the
+     IntersectionObserver animation does not fire. */
+  @media(max-width:900px){
+    .reveal,
+    .reveal-stagger,
+    .reveal-stagger > *{
+      opacity:1 !important;
+      transform:none !important;
+      transition:none !important;
+    }
+  }
+
+
+  /* ===== v5.5 quote-focused replacement for package pricing ===== */
+  .quote-focus-section{background:var(--slate-100);}
+  .quote-reasons{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+    margin-bottom:28px;
+  }
+  .quote-reason{
+    background:#fff;border:1px solid #e3e9f1;border-radius:18px;
+    padding:24px;display:flex;gap:14px;align-items:flex-start;
+  }
+  .quote-reason-icon{
+    width:38px;height:38px;border-radius:50%;flex:0 0 38px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--navy-950);color:var(--cyan-400);
+    font-weight:800;font-size:15px;
+  }
+  .quote-reason h3{font-size:17px;margin-bottom:6px;color:var(--navy-950);}
+  .quote-reason p{font-size:14px;color:#5b6b85;line-height:1.55;}
+
+  .quote-focus-card{
+    background:var(--navy-950);color:#fff;border-radius:24px;
+    padding:38px;display:grid;grid-template-columns:1.25fr .75fr;
+    gap:34px;align-items:center;
+    box-shadow:var(--shadow-soft);
+  }
+  .quote-focus-kicker{
+    display:inline-block;color:var(--cyan-400);font-size:12px;font-weight:800;
+    letter-spacing:.08em;margin-bottom:10px;
+  }
+  .quote-focus-copy h3{
+    font-size:30px;line-height:1.12;letter-spacing:-.02em;margin-bottom:12px;
+  }
+  .quote-focus-copy p{
+    color:var(--slate-300);font-size:15px;max-width:650px;margin-bottom:18px;
+  }
+  .quote-focus-trust{display:flex;flex-wrap:wrap;gap:8px 16px;}
+  .quote-focus-trust span{font-size:13px;color:var(--slate-300);font-weight:600;}
+  .quote-focus-action{display:flex;flex-direction:column;gap:12px;align-items:stretch;}
+  .quote-focus-action .btn{width:100%;}
+  .quote-call-link{
+    text-align:center;color:var(--slate-300);font-size:13px;font-weight:600;
+    text-decoration:underline;text-underline-offset:3px;
+  }
+
+  @media(max-width:900px){
+    .quote-reasons{grid-template-columns:1fr;gap:10px;}
+    .quote-reason{padding:18px;}
+    .quote-focus-card{grid-template-columns:1fr;padding:26px 20px;gap:22px;}
+    .quote-focus-copy h3{font-size:25px;}
+  }
+
+  @media(max-width:560px){
+    .quote-focus-section .section-head{margin-bottom:24px;}
+    .quote-focus-section .section-head h2{font-size:30px;}
+    .quote-focus-section .section-head p{font-size:15px;}
+    .quote-reason{border-radius:15px;}
+    .quote-reason-icon{width:34px;height:34px;flex-basis:34px;}
+    .quote-reason h3{font-size:16px;}
+    .quote-reason p{font-size:13.5px;}
+    .quote-focus-card{border-radius:18px;}
+    .quote-focus-copy h3{font-size:24px;}
+    .quote-focus-trust{display:grid;gap:7px;}
+  }
+
 </style>
 </head>
 <body>
@@ -792,9 +980,9 @@ function gtag_report_conversion(url) {
     <div class="contact-wrap">
       <div class="contact-info">
         <h1>Professional Security Camera Installation for <span class="grad">Homes &amp; Businesses</span></h1>
-        <p class="lead-sub">Flexible payment options available, including one-time payment.</p>
-        <p class="lead">For homes, apartments, condos, multi-family buildings &amp; small businesses — local installers serving NJ &amp; NY.</p>
-        <div class="trust-line-simple">NJ &amp; NY &bull; Licensed &amp; Insured CCTV Installers &bull; Local Techs</div>
+        <p class="lead-sub">Professional wired systems with 24/7 recording. No monthly monitoring fee required.</p>
+        <p class="lead">Local security-camera installation for homes &amp; small businesses across NJ &amp; NY.</p>
+        <div class="trust-line-simple hero-trust-chips"><span>Local NJ &amp; NY</span><span>Professional wired systems</span><span>No contracts required</span></div>
         <div class="hero-ctas">
           <a href="#quote-form" class="btn btn-primary btn-large" data-track-cta="Hero — Get My Free Quote">Get My Free Quote
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -811,7 +999,51 @@ function gtag_report_conversion(url) {
           <p>"Quick, professional installation and everything was explained clearly. Very happy with the camera setup."</p>
           <div class="who">Jason M. — Queens, NY</div>
         </div>
-        <div class="hero-slideshow-mobile" id="heroSlideshowMobile">
+      </div>
+      <div class="contact-form-col">
+      <div class="contact-form" id="quote-form">
+        <h2>Get your free quote</h2>
+        <p>Tell us a bit about your property — we'll call to discuss your project and provide pricing. No obligation.</p>
+        <form id="quoteForm">
+          <div class="field">
+            <label for="fname">Name</label>
+            <input type="text" id="fname" name="fname" placeholder="Jane Doe" required>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
+            </div>
+            <div class="field">
+              <label for="zip">ZIP code</label>
+              <input type="text" id="zip" name="zip" placeholder="07302" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="package">How many cameras?</label>
+            <select id="package" name="package">
+              <option value="Not sure yet" selected>Not sure — recommend one for me</option>
+              <option value="4 cameras">4 cameras</option>
+              <option value="8 cameras">8 cameras</option>
+              <option value="More than 8">More than 8</option>
+            </select>
+          </div>
+          <div class="submit-row">
+            <button type="submit" class="btn btn-primary" id="quoteSubmitBtn" style="width:100%;justify-content:center;" data-track-cta="Quote form — Submit">Get My Free Quote — No Obligation
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <span class="form-note">No spam. We'll call to discuss your project and provide pricing. No obligation.</span>
+          </div>
+          <div class="form-success" id="formSuccess">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
+            Thanks! Your request has been received — we'll be in touch shortly.
+          </div>
+          <div class="form-error" id="formError"></div>
+        </form>
+
+      </div>
+      <div class="mobile-proof-label">Recent local installations</div>
+      <div class="hero-slideshow-mobile" id="heroSlideshowMobile">
           <div class="hero-slideshow-track">
             <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active" fetchpriority="high">
             <img data-src="/images/work/work-2.jpg" alt="Slim Security PTZ camera installation on brick exterior">
@@ -882,49 +1114,7 @@ function gtag_report_conversion(url) {
           root.dataset.earlyInitDone = 'true';
         })();
         </script>
-      </div>
-      <div class="contact-form-col">
-      <div class="contact-form" id="quote-form">
-        <h2>Get your free quote</h2>
-        <p>Tell us a bit about your property — we'll call shortly to confirm your needs and pricing. No obligation.</p>
-        <form id="quoteForm">
-          <div class="field">
-            <label for="fname">Name</label>
-            <input type="text" id="fname" name="fname" placeholder="Jane Doe" required>
-          </div>
-          <div class="form-row">
-            <div class="field">
-              <label for="phone">Phone</label>
-              <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
-            </div>
-            <div class="field">
-              <label for="zip">ZIP code</label>
-              <input type="text" id="zip" name="zip" placeholder="07302" required>
-            </div>
-          </div>
-          <div class="field">
-            <label for="package">How many cameras?</label>
-            <select id="package" name="package">
-              <option value="Not sure yet" selected>Not sure — recommend one for me</option>
-              <option value="4 cameras">4 cameras</option>
-              <option value="8 cameras">8 cameras</option>
-              <option value="More than 8">More than 8</option>
-            </select>
-          </div>
-          <div class="submit-row">
-            <button type="submit" class="btn btn-primary" id="quoteSubmitBtn" style="width:100%;justify-content:center;" data-track-cta="Quote form — Submit">Get My Free Quote — No Obligation
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </button>
-            <span class="form-note">No spam. We'll call you shortly to confirm details and schedule your install.</span>
-          </div>
-          <div class="form-success" id="formSuccess">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>
-            Thanks! Your request has been received — we'll be in touch shortly.
-          </div>
-          <div class="form-error" id="formError"></div>
-        </form>
 
-      </div>
       <div class="hero-slideshow" id="heroSlideshow">
         <div class="hero-slideshow-track">
           <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active" fetchpriority="high">
@@ -1015,57 +1205,58 @@ function gtag_report_conversion(url) {
   </div>
 </section>
 
-<section class="pricing-section" id="pricing">
+
+<section class="pricing-section quote-focus-section" id="pricing">
   <div class="container">
-    <div class="section-head center reveal">
-      <span class="eyebrow">Pricing</span>
-      <h2>Simple packages, no hidden fees</h2>
-      <p>Every package includes professional installation. Final pricing is confirmed after your free home assessment.</p>
+    <div class="section-head center">
+      <span class="eyebrow">GET AN EXACT PRICE</span>
+      <h2>Your property is different. Your quote should be too.</h2>
+      <p>Camera count, cable runs, mounting locations and access all affect the final price. Tell us what you need and we'll recommend the right setup.</p>
     </div>
-    <div class="pricing-grid reveal-stagger">
-      <div class="price-card">
-        <h3>Starter</h3>
-        <p class="price-sub">4 Cameras + 24/7 Recording + Professional Installation Included</p>
-        <div class="price-amount"><span>From</span> $49/mo</div>
-        <p class="price-note">Equipment, installation &amp; taxes included. Financing available. One-time payment also available.</p>
-        <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>4 &times; 3K–4K cameras</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 Recording included</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Mobile app access</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Night vision &amp; motion alerts</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Professional installation included</li>
-        </ul>
-        <a href="#quote-form" class="btn btn-dark" data-track-cta="Pricing — Starter — Get This Package">Get This Package</a>
+
+    <div class="quote-reasons">
+      <div class="quote-reason">
+        <div class="quote-reason-icon">1</div>
+        <div>
+          <h3>Tell us about your property</h3>
+          <p>Just your ZIP code, phone number and roughly how many cameras you need.</p>
+        </div>
       </div>
-      <div class="price-card featured">
-        <div class="price-tag">Most Popular</div>
-        <h3>Essential</h3>
-        <p class="price-sub">8 Cameras + 24/7 Recording + Professional Installation Included</p>
-        <div class="price-amount"><span>From</span> $69/mo</div>
-        <p class="price-note">Equipment, installation &amp; taxes included. Financing available. One-time payment also available.</p>
-        <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>8 &times; 3K–4K cameras</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 Recording included</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Mobile app access</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>AI person &amp; vehicle detection</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Night vision</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Professional installation included</li>
-        </ul>
-        <a href="#quote-form" class="btn btn-primary" data-track-cta="Pricing — Essential — Get This Package">Get This Package</a>
+      <div class="quote-reason">
+        <div class="quote-reason-icon">2</div>
+        <div>
+          <h3>Get a system recommendation</h3>
+          <p>We'll help determine camera placement, recording needs and the right equipment.</p>
+        </div>
       </div>
-      <div class="price-card">
-        <h3>Complete</h3>
-        <p class="price-sub">8+ Cameras + 24/7 Recording + Alarm + Professional Installation Included</p>
-        <div class="price-amount" style="font-size:26px;">Custom Quote</div>
-        <p class="price-note">Pricing depends on home size &amp; equipment</p>
-        <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>4K cameras, 8+ included</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 Recording included</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Alarm system included</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>24/7 professional monitoring</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Full smart home integration</li>
-        </ul>
-        <a href="#quote-form" class="btn btn-dark" data-track-cta="Pricing — Complete — Get a Quote">Get a Quote</a>
+      <div class="quote-reason">
+        <div class="quote-reason-icon">3</div>
+        <div>
+          <h3>Know the price before installation</h3>
+          <p>No obligation. We confirm the scope and pricing with you before any work begins.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-focus-card">
+      <div class="quote-focus-copy">
+        <span class="quote-focus-kicker">FREE • NO OBLIGATION</span>
+        <h3>See what a camera system would cost for your property</h3>
+        <p>Most quotes start with a quick call so we can understand your layout and what you want covered.</p>
+        <div class="quote-focus-trust">
+          <span>✓ Professional wired systems</span>
+          <span>✓ 24/7 recording options</span>
+          <span>✓ Local NJ &amp; NY installation</span>
+        </div>
+      </div>
+      <div class="quote-focus-action">
+        <a href="#quote-form" class="btn btn-primary btn-large" data-track-cta="Pricing replacement — Get My Free Quote">
+          Get My Free Quote
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="tel:+12012756527" class="quote-call-link" data-track-cta="Pricing replacement — Call Now">
+          Prefer to talk? Call (201) 275-6527
+        </a>
       </div>
     </div>
   </div>
