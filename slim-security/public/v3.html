@@ -924,6 +924,96 @@ function gtag_report_conversion(url) {
     .quote-focus-trust{display:grid;gap:7px;}
   }
 
+
+  /* ===== v5.6 photo lightbox ===== */
+  .hero-slideshow-mobile img,
+  .hero-slideshow img{
+    cursor:zoom-in;
+  }
+
+  .photo-lightbox{
+    position:fixed;inset:0;z-index:5000;
+    display:none;align-items:center;justify-content:center;
+    background:rgba(2,6,14,.94);
+    padding:24px;
+  }
+  .photo-lightbox.open{display:flex;}
+  .photo-lightbox-inner{
+    position:relative;width:min(1100px,100%);height:min(86vh,820px);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .photo-lightbox-img{
+    max-width:100%;max-height:100%;
+    width:auto;height:auto;object-fit:contain;
+    border-radius:14px;
+    box-shadow:0 24px 70px rgba(0,0,0,.5);
+    touch-action:pinch-zoom;
+  }
+  .photo-lightbox-close,
+  .photo-lightbox-prev,
+  .photo-lightbox-next{
+    position:absolute;z-index:2;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(10,15,28,.68);
+    color:#fff;
+    -webkit-backdrop-filter:blur(8px);
+    backdrop-filter:blur(8px);
+    box-shadow:0 10px 28px rgba(0,0,0,.25);
+  }
+  .photo-lightbox-close{
+    top:0;right:0;width:44px;height:44px;border-radius:50%;
+    font-size:26px;line-height:1;
+  }
+  .photo-lightbox-prev,
+  .photo-lightbox-next{
+    top:50%;transform:translateY(-50%);
+    width:46px;height:58px;border-radius:14px;
+    font-size:30px;
+  }
+  .photo-lightbox-prev{left:0;}
+  .photo-lightbox-next{right:0;}
+  .photo-lightbox-count{
+    position:absolute;left:50%;bottom:4px;transform:translateX(-50%);
+    color:#fff;background:rgba(10,15,28,.66);
+    border:1px solid rgba(255,255,255,.16);
+    padding:6px 11px;border-radius:999px;
+    font-size:12px;font-weight:700;
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  }
+  .photo-expand-hint{
+    position:absolute;left:14px;top:14px;z-index:3;
+    display:inline-flex;align-items:center;gap:6px;
+    padding:5px 9px;border-radius:999px;
+    background:rgba(10,15,28,.58);
+    color:#fff;font-size:11px;font-weight:700;
+    border:1px solid rgba(255,255,255,.15);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    pointer-events:none;
+  }
+  @media(min-width:901px){
+    .photo-expand-hint{
+      display:inline-flex;
+      left:16px;
+      top:16px;
+      font-size:11px;
+      opacity:.88;
+    }
+    .hero-slideshow:hover .photo-expand-hint{opacity:1;}
+  }
+  @media(max-width:720px){
+    .photo-lightbox{padding:10px;}
+    .photo-lightbox-inner{height:88vh;}
+    .photo-lightbox-img{border-radius:10px;}
+    .photo-lightbox-close{top:6px;right:6px;}
+    .photo-lightbox-prev,
+    .photo-lightbox-next{
+      width:40px;height:52px;border-radius:12px;
+    }
+    .photo-lightbox-prev{left:4px;}
+    .photo-lightbox-next{right:4px;}
+  }
+
 </style>
 </head>
 <body>
@@ -1044,6 +1134,7 @@ function gtag_report_conversion(url) {
       </div>
       <div class="mobile-proof-label">Recent local installations</div>
       <div class="hero-slideshow-mobile" id="heroSlideshowMobile">
+        <div class="photo-expand-hint">↗ Tap to expand</div>
           <div class="hero-slideshow-track">
             <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active" fetchpriority="high">
             <img data-src="/images/work/work-2.jpg" alt="Slim Security PTZ camera installation on brick exterior">
@@ -1116,6 +1207,7 @@ function gtag_report_conversion(url) {
         </script>
 
       <div class="hero-slideshow" id="heroSlideshow">
+        <div class="photo-expand-hint">↗ Click to expand</div>
         <div class="hero-slideshow-track">
           <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active" fetchpriority="high">
           <img data-src="/images/work/work-2.jpg" alt="Slim Security PTZ camera installation on brick exterior">
@@ -1955,6 +2047,109 @@ function gtag_report_conversion(url) {
     }
     requestAnimationFrame(loop);
   })();
+</script>
+
+
+<div class="photo-lightbox" id="photoLightbox" aria-hidden="true">
+  <div class="photo-lightbox-inner">
+    <button class="photo-lightbox-close" id="photoLightboxClose" aria-label="Close photo viewer">×</button>
+    <button class="photo-lightbox-prev" id="photoLightboxPrev" aria-label="Previous photo">‹</button>
+    <img class="photo-lightbox-img" id="photoLightboxImg" src="" alt="">
+    <button class="photo-lightbox-next" id="photoLightboxNext" aria-label="Next photo">›</button>
+    <div class="photo-lightbox-count" id="photoLightboxCount"></div>
+  </div>
+</div>
+
+
+<script>
+(function(){
+  const selectors = [
+    '#heroSlideshowMobile img',
+    '#heroSlideshow img'
+  ];
+  const imgs = Array.from(document.querySelectorAll(selectors.join(',')));
+  const lb = document.getElementById('photoLightbox');
+  const lbImg = document.getElementById('photoLightboxImg');
+  const lbClose = document.getElementById('photoLightboxClose');
+  const lbPrev = document.getElementById('photoLightboxPrev');
+  const lbNext = document.getElementById('photoLightboxNext');
+  const lbCount = document.getElementById('photoLightboxCount');
+  let index = 0;
+  let touchStartX = null;
+
+  if(!imgs.length || !lb) return;
+
+  function getSrc(img){
+    return img.currentSrc || img.getAttribute('src') || img.getAttribute('data-src') || '';
+  }
+
+  function render(){
+    const img = imgs[index];
+    const src = getSrc(img);
+    if (!src && img.getAttribute('data-src')) {
+      img.setAttribute('src', img.getAttribute('data-src'));
+    }
+    lbImg.src = getSrc(img) || img.getAttribute('data-src') || '';
+    lbImg.alt = img.alt || 'Security camera installation photo';
+    lbCount.textContent = (index + 1) + ' / ' + imgs.length;
+  }
+
+  function openAt(i){
+    index = i;
+    render();
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  }
+
+  function close(){
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+  }
+
+  function prev(){
+    index = (index - 1 + imgs.length) % imgs.length;
+    render();
+  }
+
+  function next(){
+    index = (index + 1) % imgs.length;
+    render();
+  }
+
+  imgs.forEach((img,i)=>{
+    img.addEventListener('click', ()=>openAt(i));
+  });
+
+  lbClose.addEventListener('click', close);
+  lbPrev.addEventListener('click', prev);
+  lbNext.addEventListener('click', next);
+
+  lb.addEventListener('click', (e)=>{
+    if(e.target === lb) close();
+  });
+
+  document.addEventListener('keydown', (e)=>{
+    if(!lb.classList.contains('open')) return;
+    if(e.key === 'Escape') close();
+    if(e.key === 'ArrowLeft') prev();
+    if(e.key === 'ArrowRight') next();
+  });
+
+  lb.addEventListener('touchstart', (e)=>{
+    touchStartX = e.changedTouches[0].clientX;
+  }, {passive:true});
+
+  lb.addEventListener('touchend', (e)=>{
+    if(touchStartX === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(dx) > 50){
+      dx > 0 ? prev() : next();
+    }
+    touchStartX = null;
+  }, {passive:true});
+})();
 </script>
 
 </body>
