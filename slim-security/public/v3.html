@@ -1014,6 +1014,119 @@ function gtag_report_conversion(url) {
     .photo-lightbox-next{right:4px;}
   }
 
+
+/* ===== ROOFING-INSPIRED PROOF-FIRST TEST: MOBILE ONLY ===== */
+/* Hide old unverified testimonial in this test instead of introducing invented reviews. */
+.hero .mini-testi{display:none!important;}
+.roof-proof-details{display:none;}
+.roof-desktop-gallery-label{position:absolute;left:14px;bottom:14px;z-index:4;color:#fff;
+ background:rgba(10,15,28,.76);padding:7px 12px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.06em;pointer-events:none;}
+@media(max-width:900px){
+  .hero .contact-form-col{display:flex;flex-direction:column;min-width:0;gap:0;}
+  .hero .contact-form-col > .mobile-proof-label{order:0;}
+  .hero .contact-form-col > .hero-slideshow-mobile{order:1;}
+  .hero .contact-form-col > .roof-proof-details{order:2;}
+  .hero .contact-form-col > .contact-form{order:3;}
+  .hero .contact-form-col > .hero-slideshow{order:4;}
+  .hero .contact-info .hero-ctas{margin-bottom:2px;}
+  .hero .contact-wrap{gap:12px;}
+  .mobile-proof-label{font-size:11px;color:#9de9e8;letter-spacing:.09em;margin:8px 0 0!important;}
+  .hero-slideshow-mobile{margin:10px 0 0!important;border-radius:16px 16px 0 0!important;border-bottom:0!important;box-shadow:none!important;}
+  .hero-slideshow-mobile .hero-slideshow-track{aspect-ratio:16/10;}
+  .hero-slideshow-mobile .hero-slideshow-caption{display:none;}
+  .roof-proof-details{display:block;background:#fff;border-radius:0 0 16px 16px;color:#101827;
+    padding:16px 17px 18px;box-shadow:0 14px 30px -18px rgba(0,0,0,.5);margin-bottom:19px;}
+  .roof-proof-kicker{color:#2461aa;font-size:10px;font-weight:800;letter-spacing:.07em;}
+  .roof-proof-details h3{font-size:18px;line-height:1.2;margin:7px 0;}
+  .roof-proof-details p{font-size:13px;color:#5b6b85;line-height:1.45;margin-bottom:11px;}
+  .roof-proof-link{color:#165bb4;font-weight:800;font-size:13px;text-decoration:underline;text-underline-offset:3px;}
+  .hero .contact-form{margin-top:0;}
+  .hero .contact-info .lead{margin-bottom:14px;}
+  .hero .contact-info h1{font-size:34px;}
+  .hero-trust-chips{margin-bottom:13px;}
+  .roof-desktop-gallery-label{display:none;}
+}
+@media(max-width:380px){.hero .contact-info h1{font-size:31px;}}
+
+
+/* v5.8: Photo-first mobile experiment. The gallery is the first hero content. */
+.photo-first-mobile{display:none;}
+@media(max-width:900px){
+  .hero{padding-top:112px!important;}
+  .photo-first-mobile{display:block;margin-bottom:20px;}
+  .photo-first-mobile .mobile-proof-label{
+    display:block!important;margin:0 0 9px!important;
+    font-size:11px;color:#9de9e8;letter-spacing:.09em;
+  }
+  .photo-first-mobile .hero-slideshow-mobile{
+    display:block!important;
+    width:100%!important;margin:0!important;
+    border:1px solid rgba(255,255,255,.14)!important;
+    border-radius:16px 16px 0 0!important;
+  }
+  .photo-first-mobile .hero-slideshow-mobile .hero-slideshow-track{
+    aspect-ratio:16/10;
+  }
+  .photo-first-mobile .roof-proof-details{
+    display:block;margin:0!important;
+    padding:13px 16px!important;
+    border-radius:0 0 16px 16px;
+  }
+  .photo-first-mobile .roof-proof-details h3{font-size:16px;margin:4px 0;}
+  .photo-first-mobile .roof-proof-details p{font-size:12.5px;margin-bottom:8px;}
+  .hero .contact-wrap{gap:12px;}
+  .hero .contact-info h1{font-size:32px;}
+}
+@media(max-width:380px){
+  .hero .contact-info h1{font-size:29px;}
+}
+
+
+/* Google-inspired customer review cards; independently hosted on Slim Security. */
+.google-like-reviews{background:#f8fafc;color:#202124;padding:80px 0;}
+.google-like-reviews .review-heading{text-align:center;max-width:650px;margin:0 auto 25px;}
+.google-like-reviews .review-heading h2{font-size:clamp(27px,3.4vw,39px);letter-spacing:-.035em;line-height:1.13;margin:9px 0 12px;color:#202124;}
+.google-like-reviews .review-heading p{font-size:15px;color:#596579;line-height:1.55;}
+.google-like-reviews .review-preview-note{max-width:900px;margin:0 auto 22px;background:#fff8e5;border:1px solid #f2d58a;border-radius:10px;padding:11px 15px;color:#765410;font-size:12px;line-height:1.5;}
+.review-google-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;}
+.review-google-card{min-width:0;padding:21px 19px 17px;border:1px solid #dadce0;border-radius:16px;background:white;color:#202124;box-shadow:0 2px 8px rgba(60,64,67,.05);display:flex;flex-direction:column;}
+.review-google-person{display:flex;align-items:center;gap:10px;min-width:0;}
+.review-google-avatar{width:40px;height:40px;flex:0 0 40px;border-radius:50%;background:#d2e3fc;color:#174ea6;font-size:18px;font-weight:600;display:flex;align-items:center;justify-content:center;}
+.review-google-avatar.alt{background:#fce8e6;color:#a50e0e}.review-google-avatar.third{background:#e6f4ea;color:#137333}
+.review-google-identity{min-width:0;flex:1;display:flex;flex-direction:column;line-height:1.4;}
+.review-google-identity strong{font-size:13px;white-space:normal;color:#202124;}
+.review-google-identity span{font-size:11px;color:#70757a;}
+.review-google-source{font-size:10px;color:#70757a;text-align:right;max-width:65px;line-height:1.2;}
+.review-google-stars{color:#b6becb;font-size:20px;letter-spacing:1px;margin:15px 0 9px;white-space:nowrap;}
+.review-google-stars small{font-size:10px;letter-spacing:0;color:#70757a;vertical-align:middle;}
+.review-google-card p{color:#3c4043;font-size:13.5px;line-height:1.65;flex:1;}
+.review-google-footer{margin-top:18px;color:#70757a;font-size:11px;}
+.review-google-bottom{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:15px;margin-top:26px;}
+.review-google-bottom>span{font-size:13px;color:#4b5563;}.review-google-bottom>span a{text-decoration:underline;}
+@media(max-width:900px){.review-google-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:680px){.google-like-reviews{padding:55px 0}.review-google-grid{grid-template-columns:1fr;gap:12px}.review-google-card{padding:18px}.review-google-bottom{flex-direction:column;align-items:stretch}.review-google-bottom .btn{justify-content:center;text-align:center}.review-google-bottom>span{text-align:center}.google-like-reviews .review-heading p{font-size:14px}}
+
+
+/* Display the existing original review content in a Google-inspired card layout. */
+.google-like-reviews .review-google-stars{color:#fbbc04;font-size:19px;letter-spacing:1px;margin:14px 0 8px;}
+.google-like-reviews .review-google-source{max-width:none;flex:0 0 auto;}
+.google-like-reviews .review-google-source .google-badge{font-size:12px;white-space:nowrap;color:#5f6368;gap:4px;}
+.google-like-reviews .review-google-source .google-badge svg{width:16px;height:16px;}
+.google-like-reviews .review-google-card p{margin:0;line-height:1.6;}
+.google-like-reviews .review-google-identity strong{font-size:14px;}
+
+
+  /* Compact quote and call buttons in the top navigation. */
+  .header-actions{display:flex;align-items:center;gap:9px;}
+  .header-actions .header-action-btn{padding:8px 14px;font-size:12.5px;line-height:1.2;white-space:nowrap;}
+  .header-action-quote{background:var(--white);color:var(--navy-950);}
+  .header-actions .header-action-call{background:rgba(255,255,255,.08);color:var(--white);border:1px solid rgba(255,255,255,.35);}
+  @media(max-width:860px){
+    .header-actions{display:none;}
+    .header-call-row{gap:9px;}
+    .header-call-row a{min-width:100px;justify-content:center;}
+    .header-call-row .header-action-quote{background:var(--white);color:var(--navy-950);border-color:var(--white);}
+  }
 </style>
 </head>
 <body>
@@ -1036,20 +1149,15 @@ function gtag_report_conversion(url) {
         <a href="#testimonials">Reviews</a>
         <a href="#faq">FAQ</a>
       </div>
-      <div style="display:flex;align-items:center;gap:18px;">
-        <a href="tel:+12012756527" class="nav-cta" style="background:transparent;color:var(--white);padding:0;" data-track-cta="Nav — Call (201) 275-6527">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z"/></svg>
-          (201) 275-6527
-        </a>
-        <a href="#quote-form" class="nav-cta" data-track-cta="Nav — Get a Free Quote">Get a Free Quote</a>
+      <div class="header-actions">
+        <a href="#quote-form" class="nav-cta header-action-btn header-action-quote" data-track-cta="Nav — Get Quote">Get Quote</a>
+        <a href="tel:+12012756527" class="nav-cta header-action-btn header-action-call" data-track-cta="Nav — Call Us">Call Us</a>
       </div>
       <div class="burger" id="burger"><span></span><span></span><span></span></div>
     </nav>
     <div class="header-call-row">
-      <a href="tel:+12012756527" data-track-cta="Header — Call Now">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z"/></svg>
-        Call Now: (201) 275-6527
-      </a>
+      <a href="#quote-form" class="header-action-quote" data-track-cta="Header — Get Quote">Get Quote</a>
+      <a href="tel:+12012756527" class="header-action-call" data-track-cta="Header — Call Us">Call Us</a>
     </div>
   </div>
 </header>
@@ -1067,11 +1175,94 @@ function gtag_report_conversion(url) {
 <section class="hero" id="top">
   <div class="hero-bg-clip"></div>
   <div class="container">
+    <div class="photo-first-mobile">
+      <div class="mobile-proof-label">Recent Installations</div>
+      <div class="hero-slideshow-mobile" id="heroSlideshowMobile">
+        <div class="photo-expand-hint">↗ Tap to expand</div>
+          <div class="hero-slideshow-track">
+            <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active" fetchpriority="high">
+            <img data-src="/images/work/work-2.jpg" alt="Slim Security PTZ camera installation on brick exterior">
+            <img data-src="/images/work/work-3.jpg" alt="Slim Security installed NVR and monitor wall">
+            <img data-src="/images/work/work-4.jpg" alt="Slim Security dome camera installation">
+            <img data-src="/images/work/work-5.jpg" alt="Slim Security intercom installation">
+            <img data-src="/images/work/work-6.jpg" alt="Slim Security building intercom installation">
+            <img data-src="/images/work/work-7.jpg" alt="Slim Security exterior camera installation">
+            <img data-src="/images/work/work-8.jpg" alt="Slim Security residential camera installation">
+            <img data-src="/images/work/work-9.jpg" alt="Slim Security residential camera installation">
+            <img data-src="/images/work/work-10.jpg" alt="Slim Security PTZ camera installation on brick exterior">
+            <img data-src="/images/work/work-11.jpg" alt="Slim Security ceiling camera installation">
+            <img data-src="/images/work/work-12.jpg" alt="Slim Security camera installation">
+            <img data-src="/images/work/work-13.jpg" alt="Slim Security camera installation">
+            <img data-src="/images/work/work-14.jpg" alt="Slim Security camera installation">
+            <img data-src="/images/work/work-15.jpg" alt="Slim Security camera installation">
+          </div>
+          <div class="hero-slideshow-caption">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            Camera installation gallery
+          </div>
+          <div class="hero-slideshow-counter"><span id="heroSlideshowMobileCounter">1</span>/15</div>
+        </div>
+        <!-- This carousel needs a tiny bit of JS to work at all: two "loop"
+             clone photos added to the ends, and the scroll position jumped
+             to skip past the leading clone so photo 1 shows first. That
+             correction runs right here, inline, immediately after this
+             markup — not in the big script block at the bottom of the page.
+             On a slow connection the browser can paint everything above
+             this point before it's even finished receiving the rest of the
+             page, so if this correction waited until the bottom-of-page
+             script, visitors would briefly see the wrong (unshifted) photo
+             and then see it visibly jump into place — a real layout shift,
+             not just a cosmetic nitpick. Running it here means it happens
+             the instant this part of the page is parsed, before there's
+             anything to see yet. The rest of the carousel's behavior
+             (swiping, the counter, autoplay handoff) is still wired up
+             later, in the main script block — this only ever does the
+             one-time structural fix. -->
+        <script>
+        (function () {
+          var root = document.getElementById('heroSlideshowMobile');
+          var track = root && root.querySelector('.hero-slideshow-track');
+          if (!track) return;
+          var realSlides = Array.from(track.querySelectorAll('img'));
+          if (!realSlides.length) return;
+          // Read clientWidth BEFORE inserting the clones below, not after.
+          // Reading a layout property right after a DOM mutation forces the
+          // browser to do a synchronous layout pass right then (a "forced
+          // reflow") instead of on its own schedule — real, measurable
+          // main-thread cost. The track's own width doesn't depend on how
+          // many photos are inside it, so there's no need to read it after
+          // the clones are added; reading it first avoids the forced
+          // reflow entirely.
+          var trackWidth = track.clientWidth;
+          var startClone = realSlides[realSlides.length - 1].cloneNode(true);
+          var endClone = realSlides[0].cloneNode(true);
+          startClone.classList.remove('active');
+          endClone.classList.remove('active');
+          track.insertBefore(startClone, realSlides[0]);
+          track.appendChild(endClone);
+          var active = track.querySelector('img.active');
+          if (active && active.dataset.src) {
+            active.src = active.dataset.src;
+            active.removeAttribute('data-src');
+          }
+          track.scrollTo({ left: trackWidth, behavior: 'instant' });
+          root.dataset.earlyInitDone = 'true';
+        })();
+        </script>
+
+      <div class="roof-proof-details">
+        <span class="roof-proof-kicker">RECENT WORK · PHOTO GALLERY</span>
+        <h3>See the details before you choose an installer.</h3>
+        <p>Browse camera mounting and equipment photos. Tap any image to inspect it more closely.</p>
+        <a href="#quote-form" class="roof-proof-link" data-track-cta="Project gallery — Request free quote">Discuss my camera installation <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
     <div class="contact-wrap">
       <div class="contact-info">
-        <h1>Professional Security Camera Installation for <span class="grad">Homes &amp; Businesses</span></h1>
+        <h1>Security Camera Installation <span class="grad">in NJ &amp; NY</span></h1>
         <p class="lead-sub">Professional wired systems with 24/7 recording. No monthly monitoring fee required.</p>
-        <p class="lead">Local security-camera installation for homes &amp; small businesses across NJ &amp; NY.</p>
+        <p class="lead">For homes and small businesses. See our installation work, then request a project-specific quote.</p>
         <div class="trust-line-simple hero-trust-chips"><span>Local NJ &amp; NY</span><span>Professional wired systems</span><span>No contracts required</span></div>
         <div class="hero-ctas">
           <a href="#quote-form" class="btn btn-primary btn-large" data-track-cta="Hero — Get My Free Quote">Get My Free Quote
@@ -1132,82 +1323,9 @@ function gtag_report_conversion(url) {
         </form>
 
       </div>
-      <div class="mobile-proof-label">Recent local installations</div>
-      <div class="hero-slideshow-mobile" id="heroSlideshowMobile">
-        <div class="photo-expand-hint">↗ Tap to expand</div>
-          <div class="hero-slideshow-track">
-            <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active" fetchpriority="high">
-            <img data-src="/images/work/work-2.jpg" alt="Slim Security PTZ camera installation on brick exterior">
-            <img data-src="/images/work/work-3.jpg" alt="Slim Security installed NVR and monitor wall">
-            <img data-src="/images/work/work-4.jpg" alt="Slim Security dome camera installation">
-            <img data-src="/images/work/work-5.jpg" alt="Slim Security intercom installation">
-            <img data-src="/images/work/work-6.jpg" alt="Slim Security building intercom installation">
-            <img data-src="/images/work/work-7.jpg" alt="Slim Security exterior camera installation">
-            <img data-src="/images/work/work-8.jpg" alt="Slim Security residential camera installation">
-            <img data-src="/images/work/work-9.jpg" alt="Slim Security residential camera installation">
-            <img data-src="/images/work/work-10.jpg" alt="Slim Security PTZ camera installation on brick exterior">
-            <img data-src="/images/work/work-11.jpg" alt="Slim Security ceiling camera installation">
-            <img data-src="/images/work/work-12.jpg" alt="Slim Security camera installation">
-            <img data-src="/images/work/work-13.jpg" alt="Slim Security camera installation">
-            <img data-src="/images/work/work-14.jpg" alt="Slim Security camera installation">
-            <img data-src="/images/work/work-15.jpg" alt="Slim Security camera installation">
-          </div>
-          <div class="hero-slideshow-caption">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-            Recent installation — NJ &amp; NY
-          </div>
-          <div class="hero-slideshow-counter"><span id="heroSlideshowMobileCounter">1</span>/15</div>
-        </div>
-        <!-- This carousel needs a tiny bit of JS to work at all: two "loop"
-             clone photos added to the ends, and the scroll position jumped
-             to skip past the leading clone so photo 1 shows first. That
-             correction runs right here, inline, immediately after this
-             markup — not in the big script block at the bottom of the page.
-             On a slow connection the browser can paint everything above
-             this point before it's even finished receiving the rest of the
-             page, so if this correction waited until the bottom-of-page
-             script, visitors would briefly see the wrong (unshifted) photo
-             and then see it visibly jump into place — a real layout shift,
-             not just a cosmetic nitpick. Running it here means it happens
-             the instant this part of the page is parsed, before there's
-             anything to see yet. The rest of the carousel's behavior
-             (swiping, the counter, autoplay handoff) is still wired up
-             later, in the main script block — this only ever does the
-             one-time structural fix. -->
-        <script>
-        (function () {
-          var root = document.getElementById('heroSlideshowMobile');
-          var track = root && root.querySelector('.hero-slideshow-track');
-          if (!track) return;
-          var realSlides = Array.from(track.querySelectorAll('img'));
-          if (!realSlides.length) return;
-          // Read clientWidth BEFORE inserting the clones below, not after.
-          // Reading a layout property right after a DOM mutation forces the
-          // browser to do a synchronous layout pass right then (a "forced
-          // reflow") instead of on its own schedule — real, measurable
-          // main-thread cost. The track's own width doesn't depend on how
-          // many photos are inside it, so there's no need to read it after
-          // the clones are added; reading it first avoids the forced
-          // reflow entirely.
-          var trackWidth = track.clientWidth;
-          var startClone = realSlides[realSlides.length - 1].cloneNode(true);
-          var endClone = realSlides[0].cloneNode(true);
-          startClone.classList.remove('active');
-          endClone.classList.remove('active');
-          track.insertBefore(startClone, realSlides[0]);
-          track.appendChild(endClone);
-          var active = track.querySelector('img.active');
-          if (active && active.dataset.src) {
-            active.src = active.dataset.src;
-            active.removeAttribute('data-src');
-          }
-          track.scrollTo({ left: trackWidth, behavior: 'instant' });
-          root.dataset.earlyInitDone = 'true';
-        })();
-        </script>
-
       <div class="hero-slideshow" id="heroSlideshow">
         <div class="photo-expand-hint">↗ Click to expand</div>
+        <div class="roof-desktop-gallery-label">INSTALLATION PHOTO GALLERY</div>
         <div class="hero-slideshow-track">
           <img data-src="/images/work/work-1.jpg" alt="Slim Security exit sign camera installation" class="active" fetchpriority="high">
           <img data-src="/images/work/work-2.jpg" alt="Slim Security PTZ camera installation on brick exterior">
@@ -1385,56 +1503,49 @@ function gtag_report_conversion(url) {
   </div>
 </section>
 
-<section class="testi-section" id="testimonials">
+<section class="testi-section google-like-reviews" id="testimonials">
   <div class="container">
-    <div class="section-head center reveal">
+    <div class="review-heading">
       <span class="eyebrow">Customer stories</span>
       <h2>Trusted by homeowners across NJ &amp; NY</h2>
     </div>
-    <div class="testi-grid reveal-stagger">
-      <div class="testi-card">
-        <div class="testi-top">
-          <div class="stars">★★★★★</div>
-          <div class="google-badge">
-            <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z"/><path fill="#34A853" d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z"/><path fill="#FBBC05" d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z"/><path fill="#EA4335" d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z"/></svg>
+    <div class="review-google-grid"><article class="review-google-card">
+      <div class="review-google-person">
+        <span class="review-google-avatar " aria-hidden="true">JM</span>
+        <div class="review-google-identity"><strong>Jason M.</strong><span>Queens, NY</span></div>
+        <div class="review-google-source"><div class="google-badge">
+<svg viewbox="0 0 18 18"><path d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z" fill="#4285F4"></path><path d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z" fill="#34A853"></path><path d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z" fill="#FBBC05"></path><path d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z" fill="#EA4335"></path></svg>
             Google
-          </div>
-        </div>
-        <p>"Quick, professional installation and everything was explained clearly. Very happy with the camera setup."</p>
-        <div class="testi-person">
-          <div class="avatar">JM</div>
-          <div><b>Jason M.</b><span>Queens, NY</span></div>
-        </div>
+          </div></div>
       </div>
-      <div class="testi-card">
-        <div class="testi-top">
-          <div class="stars">★★★★★</div>
-          <div class="google-badge">
-            <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z"/><path fill="#34A853" d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z"/><path fill="#FBBC05" d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z"/><path fill="#EA4335" d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z"/></svg>
+      <div class="review-google-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>&quot;Quick, professional installation and everything was explained clearly. Very happy with the camera setup.&quot;</p>
+    </article>
+<article class="review-google-card">
+      <div class="review-google-person">
+        <span class="review-google-avatar alt" aria-hidden="true">MR</span>
+        <div class="review-google-identity"><strong>Michael R.</strong><span>Jersey City, NJ</span></div>
+        <div class="review-google-source"><div class="google-badge">
+<svg viewbox="0 0 18 18"><path d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z" fill="#4285F4"></path><path d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z" fill="#34A853"></path><path d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z" fill="#FBBC05"></path><path d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z" fill="#EA4335"></path></svg>
             Google
-          </div>
-        </div>
-        <p>"Clean work, fair pricing, and the system looks great. I can view everything from my phone with no issues."</p>
-        <div class="testi-person">
-          <div class="avatar">MR</div>
-          <div><b>Michael R.</b><span>Jersey City, NJ</span></div>
-        </div>
+          </div></div>
       </div>
-      <div class="testi-card">
-        <div class="testi-top">
-          <div class="stars">★★★★★</div>
-          <div class="google-badge">
-            <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z"/><path fill="#34A853" d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z"/><path fill="#FBBC05" d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z"/><path fill="#EA4335" d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z"/></svg>
+      <div class="review-google-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>&quot;Clean work, fair pricing, and the system looks great. I can view everything from my phone with no issues.&quot;</p>
+    </article>
+<article class="review-google-card">
+      <div class="review-google-person">
+        <span class="review-google-avatar third" aria-hidden="true">DM</span>
+        <div class="review-google-identity"><strong>David M.</strong><span>Brooklyn, NY</span></div>
+        <div class="review-google-source"><div class="google-badge">
+<svg viewbox="0 0 18 18"><path d="M17.64 9.2045c0-.6381-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7959 2.7164v2.2582h2.9087c1.7018-1.5668 2.6836-3.8741 2.6836-6.6155z" fill="#4285F4"></path><path d="M9 18c2.43 0 4.4673-.806 5.9564-2.1805l-2.9087-2.2582c-.8064.54-1.8368.8591-3.0477.8591-2.3445 0-4.3282-1.5831-5.0359-3.7104H.9573v2.3318C2.4382 15.9832 5.4818 18 9 18z" fill="#34A853"></path><path d="M3.9641 10.71c-.18-.54-.2823-1.1168-.2823-1.71s.1023-1.17.2823-1.71V4.9582H.9573C.3477 6.1732 0 7.5477 0 9s.3477 2.8268.9573 4.0418L3.9641 10.71z" fill="#FBBC05"></path><path d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.346l2.5814-2.5814C13.4632.8918 11.4259 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9582L3.9641 7.29C4.6718 5.1627 6.6555 3.5795 9 3.5795z" fill="#EA4335"></path></svg>
             Google
-          </div>
-        </div>
-        <p>"They showed up on time, installed everything neatly, and made the whole process simple. Would definitely recommend."</p>
-        <div class="testi-person">
-          <div class="avatar">DM</div>
-          <div><b>David M.</b><span>Brooklyn, NY</span></div>
-        </div>
+          </div></div>
       </div>
-    </div>
+      <div class="review-google-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <p>&quot;They showed up on time, installed everything neatly, and made the whole process simple. Would definitely recommend.&quot;</p>
+    </article></div>
+    <div class="review-google-bottom"><a href="#quote-form" class="btn btn-primary" data-track-cta="Reviews — Get Free Quote">Get My Free Quote →</a><span>Questions about an installation? Call <a href="tel:+12012756527">(201) 275-6527</a></span></div>
   </div>
 </section>
 <section class="faq-section" id="faq">
